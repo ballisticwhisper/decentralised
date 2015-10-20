@@ -1,13 +1,12 @@
+#include <stdio.h>
+#include <string>
 #include <iostream>
 
 int main()
 {
 	printf("Gotta start sumwhere");
-	
-	while (1)
-	{
-
-	};
+	std::string input = "";
+	getline(std::cin, input);
 
 	return 0;
 }
