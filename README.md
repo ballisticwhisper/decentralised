@@ -8,13 +8,15 @@ A 3D environment in a decentralised P2P blockchain.
 
 ##### Install Git
 
-sudo apt-get install git
+* sudo apt-get install git
 
 ##### Clone repository
 
-git clone https://github.com/ballisticwhisper/decentralised.git dc
+* git clone https://github.com/ballisticwhisper/decentralised.git dc
+* git submodule init
+* git submodule update
 
 ##### Install CMake
 
-sudo apt-get install cmake
+* sudo apt-get install cmake
 
