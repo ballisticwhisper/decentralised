@@ -1,2 +1,15 @@
+#include <sstream>
+#include <string>
+
+using namespace std;
+
 #define Decentralised_VERSION_MAJOR @Decentralised_VERSION_MAJOR@
 #define Decentralised_VERSION_MINOR @Decentralised_VERSION_MINOR@
+
+template <typename T>
+string to_string(T val)
+{
+    stringstream stream;
+    stream << val;
+    return stream.str();
+}

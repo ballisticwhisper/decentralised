@@ -6,9 +6,9 @@
 int main()
 {
 	printf(std::string("Version ")
-		.append(std::to_string(Decentralised_VERSION_MAJOR))
+		.append(to_string(Decentralised_VERSION_MAJOR))
 		.append(".")
-		.append(std::to_string(Decentralised_VERSION_MINOR))
+		.append(to_string(Decentralised_VERSION_MINOR))
 		.append("\n").c_str());
 
 	printf("Gotta start sumwhere\n");
