@@ -1,8 +1,13 @@
 # Decentralised
 A 3D environment in a decentralised P2P blockchain.
 
+http://decentralised-project.org
+
 ### Build on Windows
 
+##### Install CMake
+
+https://cmake.org/download/
 
 ### Build on Linux
 
