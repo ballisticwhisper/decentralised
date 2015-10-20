@@ -1,0 +1,3 @@
+[submodule "dependencies/snappy"]
+	path = dependencies/snappy
+	url = https://github.com/ballisticwhisper/snappy
