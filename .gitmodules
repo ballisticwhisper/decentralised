@@ -1,3 +1,6 @@
 [submodule "dependencies/snappy"]
 	path = dependencies/snappy
 	url = https://github.com/ballisticwhisper/snappy
+[submodule "dependencies/irrlicht"]
+	path = dependencies/irrlicht
+	url = https://ballisticwhisper@github.com/ballisticwhisper/irrlicht.git
