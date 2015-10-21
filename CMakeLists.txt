@@ -10,7 +10,7 @@ configure_file (
   "${PROJECT_BINARY_DIR}/dc-config.h"
   )
 include_directories("${PROJECT_BINARY_DIR}")
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/libs)
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/../libs)
 
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 message ("cxx Flags: " ${CMAKE_CXX_FLAGS})
