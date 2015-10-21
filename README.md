@@ -31,6 +31,8 @@ cd build
 cmake .. -G "Visual Studio 12"
 ```
 
+Open Decentralised.sln in /build folder, and build.
+
 ----
 
 ### Build on Linux
@@ -49,10 +51,11 @@ git submodule init
 git submodule update
 ```
 
-##### Install CMake
+##### Install CMake and OpenGL
 
 ```
 sudo apt-get install cmake
+sudo apt-get install freeglut3 freeglut3-dev freeglut3-dbg
 ```
 
 ##### Setup the build folder, and build
