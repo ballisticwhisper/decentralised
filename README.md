@@ -55,3 +55,13 @@ git submodule update
 sudo apt-get install cmake
 ```
 
+##### Setup the build folder, and build
+
+Open a terminal and cd to the root folder ...
+
+```
+mkdir build
+cd build
+cmake .. -G "CodeBlocks - Unix Makefiles"
+make
+```
