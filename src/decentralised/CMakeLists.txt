@@ -4,8 +4,7 @@ set  (ADVANCED_FUNCTION_SOURCES
 source_group("" FILES ${ADVANCED_FUNCTION_SOURCES})
 
 include_directories (include)
+link_directories("/libs")
 
 add_executable (decentralised main.cpp)
-
-install (TARGETS decentralised
-         RUNTIME DESTINATION ${PROJECT_BINARY_DIR}/bin)
+target_link_libraries (decentralised irrlicht_static)

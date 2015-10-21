@@ -9,7 +9,9 @@ configure_file (
   "${PROJECT_SOURCE_DIR}/dc-config.h.in"
   "${PROJECT_BINARY_DIR}/dc-config.h"
   )
-include_directories("${PROJECT_BINARY_DIR}")
+include_directories("${PROJECT_BINARY_DIR}"
+		    "${PROJECT_BINARY_DIR}/../dependencies/irrlicht/include")
+
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/../libs)
 
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
