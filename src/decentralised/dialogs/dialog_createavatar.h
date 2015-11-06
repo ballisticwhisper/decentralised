@@ -1,0 +1,49 @@
+#ifndef __C_CREATE_AVATAR_DIALOG_H_INCLUDED__
+#define __C_CREATE_AVATAR_DIALOG_H_INCLUDED__
+
+#include <map>
+#include "irrlicht.h"
+#include "context_gui.h"
+#include "IGUIGraphicWindow.h"
+
+using namespace irr;
+using namespace irr::core;
+using namespace video;
+using namespace gui;
+
+namespace decentralised
+{
+	namespace dialogs
+	{
+		class dialog_createavatar
+		{
+		public:
+			~dialog_createavatar();
+
+			static dialog_createavatar* AddDialog(context::context_gui &elems, IGUIEnvironment* env, std::map<std::wstring, std::wstring> &lang)
+			{
+				return new dialog_createavatar(elems, env, lang);
+			}
+
+			void RemoveDialog();
+
+			bool IsOpen() {
+				if (window_)
+					return window_->isVisible();
+
+				return false;
+			}
+
+		private:
+			dialog_createavatar(context::context_gui &elems, IGUIEnvironment* env, std::map<std::wstring, std::wstring> &lang);
+
+			void initElements();
+
+			IGUIEnvironment* env_;
+			IGUIGraphicWindow* window_;
+			std::map<std::wstring, std::wstring> &lang_;
+			context::context_gui &elems_;
+		};
+	}
+}
+#endif

@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<decentralised>
+    <setting name="WindowWidth" value="800" />
+    <setting name="WindowHeight" value="600" />
+    <setting name="Skin" value="Firestorm" />
+    <setting name="Language" value="en" />
+    <setting name="IncomingPort" value="16134" />
+</decentralised>

@@ -19,4 +19,5 @@ message ("cxx Flags: " ${CMAKE_CXX_FLAGS})
 
 add_subdirectory(dependencies/snappy)
 add_subdirectory(dependencies/irrlicht)
+add_subdirectory(src/irrlichtextensions)
 add_subdirectory(src/decentralised)

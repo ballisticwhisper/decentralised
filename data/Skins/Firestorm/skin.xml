@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<skin>
+
+  <setting name="General_StandardFont" value="arial-10.xml" />
+  <setting name="General_BoldFont" value="arial-bold-14.xml" />
+  <setting name="General_BackgroundImage" value="background.jpg" />
+
+  <setting name="LoginBar_Height" value="79" />
+  <setting name="LoginBar_BackgroundColor" value="32,32,32" />
+  <setting name="LoginBar_HasBorder" value="1" />
+  <setting name="LoginBar_BorderImage" value="loginbar-border.png" />
+
+  <setting name="Button_BackImageLeft" value="btn-left.png" />
+  <setting name="Button_BackImageMiddle" value="btn-middle.png" />
+  <setting name="Button_BackImageRight" value="btn-right.png" />
+  <setting name="Button_PressedImageLeft" value="btn-left-pressed.png" />
+  <setting name="Button_PressedImageMiddle" value="btn-middle-pressed.png" />
+  <setting name="Button_PressedImageRight" value="btn-right-pressed.png" />
+
+  <setting name="Window_TitleBarImageLeft" value="win-title-left.png" />
+  <setting name="Window_TitleBarImageMiddle" value="win-title-middle.png" />
+  <setting name="Window_TitleBarImageRight" value="win-title-right.png" />
+  <setting name="Window_ImageLeft" value="win-left.png" />
+  <setting name="Window_ImageRight" value="win-right.png" />
+  <setting name="Window_BottomImageLeft" value="win-bottom-left.png" />
+  <setting name="Window_BottomImageMiddle" value="win-bottom-middle.png" />
+  <setting name="Window_BottomImageRight" value="win-bottom-right.png" />
+  <setting name="Window_BackgroundColor" value="32,32,32" />
+
+  <setting name="Console_SystemTextColor" value="255,255,255" />
+  <setting name="Console_CornerTopLeft" value="console-left-top.png" />
+  <setting name="Console_CornerTopRight" value="console-right-top.png" />
+  <setting name="Console_CornerBottomLeft" value="console-left-bottom.png" />
+  <setting name="Console_CornerBottomRight" value="console-right-bottom.png" />
+
+  <setting name="MenuBar_BackgroundColor" value="31,31,31" />
+  <setting name="MenuBar_TextColor" value="255,255,255" />
+  <setting name="MenuBar_HighlightColor" value="88,71,63" />
+  <setting name="MenuBar_MenuBackgroundColor" value="43,43,43" />
+  <setting name="MenuBar_SeperatorColor" value="136,136,136" />
+  <setting name="MenuBar_MenuHighlightColor" value="95,79,71" />
+</skin>
