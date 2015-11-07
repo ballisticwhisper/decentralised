@@ -9,4 +9,4 @@
 	url = https://github.com/ballisticwhisper/libbitcoin
 [submodule "dependencies/boost"]
 	path = dependencies/boost
-	url = https://github.com/ballisticwhisper/boost
+	url = https://github.com/ballisticwhisper/boost.git
