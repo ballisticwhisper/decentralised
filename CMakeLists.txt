@@ -19,5 +19,7 @@ message ("cxx Flags: " ${CMAKE_CXX_FLAGS})
 
 add_subdirectory(dependencies/snappy)
 add_subdirectory(dependencies/irrlicht)
+add_subdirectory(dependencies/libbitcoin)
 add_subdirectory(src/irrlichtextensions)
 add_subdirectory(src/decentralised)
+# INCLUDE_EXTERNAL_MSPROJECT(libbitcoin "../dependencies/libbitcoin/builds/msvc/vs2013/libbitcoin/libbitcoin.vcxproj")

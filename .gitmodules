@@ -4,3 +4,6 @@
 [submodule "dependencies/irrlicht"]
 	path = dependencies/irrlicht
 	url = https://ballisticwhisper@github.com/ballisticwhisper/irrlicht.git
+[submodule "dependencies/libbitcoin"]
+	path = dependencies/libbitcoin
+	url = https://github.com/ballisticwhisper/libbitcoin
