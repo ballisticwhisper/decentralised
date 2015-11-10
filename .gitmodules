@@ -10,3 +10,7 @@
 [submodule "dependencies/boost/boost"]
 	path = dependencies/boost/boost
 	url = https://github.com/ballisticwhisper/boost
+[submodule "dependencies/secp256k1"]
+	path = dependencies/secp256k1
+	url = https://github.com/ballisticwhisper/secp256k1
+	branch = msvc-version2
