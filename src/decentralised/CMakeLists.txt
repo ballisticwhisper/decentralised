@@ -49,12 +49,12 @@ include_directories (managers dialogs context ${IRRLICHT_INC_DIR} ${IRRLICHT_SRC
 link_directories("/libs" ${BOOST_LIB_DIR} )
 
 add_executable (decentralised ${ADVANCED_FUNCTION_SOURCES} ${MANAGER_FILES} ${DIALOG_FILES} ${CONTEXT_HEADERS})
-target_link_libraries ( decentralised irrlicht_static irrlichtextensions libbitcoin )
+target_link_libraries ( decentralised irrlicht_static irrlichtextensions libbitcoin "${CMAKE_SOURCE_DIR}/libs/secp256k1.lib" )
 
 add_custom_command(TARGET decentralised POST_BUILD
                    COMMAND ${CMAKE_COMMAND} -E copy_directory
                        ${CMAKE_SOURCE_DIR}/data $<TARGET_FILE_DIR:decentralised>/data)
 
 IF( WIN32 )
-	ADD_DEFINITIONS( -DBC_STATIC -D_SCL_SECURE_NO_WARNINGS -D_WIN32_WINNT=0x0501 )
+	ADD_DEFINITIONS( -DBC_STATIC -D_SCL_SECURE_NO_WARNINGS -D_WIN32_WINNT=0x0501 -D_WINSOCK_DEPRECATED_NO_WARNINGS )
 ENDIF(  )

@@ -12,3 +12,7 @@
 	path = dependencies/boost
 	url = https://ballisticwhisper@github.com/ballisticwhisper/boost
 	branch = release
+[submodule "dependencies/libbitcoin"]
+	path = dependencies/libbitcoin
+	url = https://ballisticwhisper@github.com/ballisticwhisper/libbitcoin
+	branch = version2

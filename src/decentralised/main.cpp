@@ -8,6 +8,7 @@
 #include <irrlicht.h>
 #include "manager_gui.h"
 #include "manager_filesystem.h"
+#include "manager_network.h"
 
 using namespace irr;
 using namespace irr::core;
@@ -62,6 +63,9 @@ int main()
 	manager_gui* guiManager = new manager_gui(device, lang, skin, config);
 	guiManager->Initialize();
 
+	manager_network* networkManager = new manager_network();
+	networkManager->initialize();
+
 	IVideoDriver* driver = device->getVideoDriver();
 
 	while (device->run() && driver)
@@ -75,6 +79,7 @@ int main()
 		}
 
 	delete guiManager;
+	delete networkManager;
 	delete fileManager;
 
 	return 0;

@@ -1,4 +1,6 @@
 cmake_minimum_required (VERSION 2.6)
+set(CMAKE_GENERATOR_TOOLSET "CTP_Nov2013" CACHE STRING "Platform Toolset" FORCE) 
+
 project (Decentralised)
 
 # The version number.
@@ -24,3 +26,4 @@ add_subdirectory(dependencies/libbitcoin)
 add_subdirectory(src/irrlichtextensions)
 add_subdirectory(src/decentralised)
 INCLUDE_EXTERNAL_MSPROJECT(secp256k1 "../dependencies/secp256k1/builds/msvc/vs2013/secp256k1/secp256k1.vcxproj")
+

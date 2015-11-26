@@ -14,7 +14,8 @@ namespace decentralised
 
 		void manager_network::initialize()
 		{
-
+			block_type blk = genesis_block();
+			printf(encode_hex(hash_block_header(blk.header)).c_str());
 		}
 	}
 }
