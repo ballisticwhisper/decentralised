@@ -4,10 +4,6 @@
 [submodule "dependencies/irrlicht"]
 	path = dependencies/irrlicht
 	url = https://ballisticwhisper@github.com/ballisticwhisper/irrlicht.git
-[submodule "dependencies/secp256k1"]
-	path = dependencies/secp256k1
-	url = https://github.com/ballisticwhisper/secp256k1
-	branch = msvc-version2
 [submodule "dependencies/boost"]
 	path = dependencies/boost
 	url = https://ballisticwhisper@github.com/ballisticwhisper/boost
