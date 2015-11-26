@@ -7,9 +7,10 @@ http://decentralised-project.org
 
 ### Build on Windows
 
-##### Install Visual Studio 2013
+##### Install Visual Studio 2013 and Nov CTP Compiler Update
 
 http://go.microsoft.com/fwlink/?LinkId=517284
+http://www.microsoft.com/en-us/download/details.aspx?id=41151
 
 ##### Install SourceTree and clone repository
 
@@ -20,6 +21,15 @@ https://www.sourcetreeapp.com/
 https://cmake.org/download/
 
 Make sure cmake is in your PATH, and reboot after installation.
+
+##### Build boost
+
+Open a console and cd to the dependencies/boost folder
+
+```
+bootstrap
+.\b2
+```
 
 ##### Create Visual Studio solution
 
@@ -33,9 +43,13 @@ cmake .. -G "Visual Studio 12"
 
 Open Decentralised.sln in /build folder, and build.
 
+Open Libbitcoin project properties, and change compiler to Nov CTP.
+
+Build
+
 ----
 
-### Build on Linux
+### Build on Linux (to be updated)
 
 ##### Install Git
 
