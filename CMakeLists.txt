@@ -21,9 +21,7 @@ message ("cxx Flags: " ${CMAKE_CXX_FLAGS})
 
 add_subdirectory(dependencies/snappy)
 add_subdirectory(dependencies/irrlicht)
-# add_subdirectory(dependencies/secp256k1)
+add_subdirectory(dependencies/secp256k1)
 add_subdirectory(dependencies/libbitcoin)
 add_subdirectory(src/irrlichtextensions)
 add_subdirectory(src/decentralised)
-INCLUDE_EXTERNAL_MSPROJECT(secp256k1 "../dependencies/secp256k1/builds/msvc/vs2013/secp256k1/secp256k1.vcxproj")
-

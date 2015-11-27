@@ -12,3 +12,7 @@
 	path = dependencies/libbitcoin
 	url = https://ballisticwhisper@github.com/ballisticwhisper/libbitcoin
 	branch = version2
+[submodule "dependencies/secp256k1"]
+	path = dependencies/secp256k1
+	url = https://github.com/ballisticwhisper/secp256k1
+	branch = master
