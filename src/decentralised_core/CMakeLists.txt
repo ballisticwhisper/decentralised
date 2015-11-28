@@ -2,10 +2,10 @@ set(EXECUTABLE_OUTPUT_PATH "${CMAKE_SOURCE_DIR}/build")
 
 
 set  (SOURCES      
-      "src/decentralised_client.cpp" )
+      "${CMAKE_SOURCE_DIR}/src/decentralised_core/src/decentralised_client.cpp" )
 
 set  (HEADERS      
-      "src/decentralised_client.h")
+      "${CMAKE_SOURCE_DIR}/src/decentralised_core/src/decentralised_client.h")
 
 SET( LIBBITCOIN_INC_DIR "${CMAKE_SOURCE_DIR}/dependencies/libbitcoin/include" )
 SET( BOOST_INC_DIR "${CMAKE_SOURCE_DIR}/dependencies/boost" )
@@ -13,6 +13,7 @@ SET( BOOST_LIB_DIR "${CMAKE_SOURCE_DIR}/dependencies/boost/stage/lib" )
 SET( SECP256K1_INC_DIR "${CMAKE_SOURCE_DIR}/dependencies/secp256k1/include" )
 
 source_group( src FILES ${SOURCES} ${HEADERS} )
+source_group( src\\blockchain FILES ${BLOCKCHAIN_FILES} )
 
 include_directories (src ${LIBBITCOIN_INC_DIR} ${BOOST_INC_DIR} ${SECP256K1_INC_DIR} )
 
