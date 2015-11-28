@@ -1,5 +1,4 @@
-cmake_minimum_required (VERSION 2.6)
-set(CMAKE_GENERATOR_TOOLSET "CTP_Nov2013" CACHE STRING "Platform Toolset" FORCE) 
+cmake_minimum_required (VERSION 3.4)
 
 project (Decentralised)
 
@@ -24,4 +23,5 @@ add_subdirectory(dependencies/irrlicht)
 add_subdirectory(dependencies/secp256k1)
 add_subdirectory(dependencies/libbitcoin)
 add_subdirectory(src/irrlichtextensions)
+add_subdirectory(src/decentralised_core)
 add_subdirectory(src/decentralised)

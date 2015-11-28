@@ -18,7 +18,7 @@ http://www.microsoft.com/en-us/download/details.aspx?id=41151
 https://www.sourcetreeapp.com/
 Also make sure submodules are downloaded in /dependencies
 
-##### Install CMake
+##### Install CMake 3.4+
 
 https://cmake.org/download/
 
@@ -44,6 +44,16 @@ cmake .. -G "Visual Studio 12"
 ```
 
 Open Decentralised.sln in /build folder.
+
+Can't find a way to make CMake set Platform Toolset for individual projects.
+Ref: https://cmake.org/Bug/view.php?id=13961#c32409
+
+So you need to set the following projects in Visual Studio to use CTP_Nov2013 toolset.
+
+* decentralised
+* decentralised_core
+* libbitcoin
+* secp256k1
 
 Build
 

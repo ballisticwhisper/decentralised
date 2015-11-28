@@ -3,6 +3,7 @@
 
 #include <irrlicht.h>
 #include "dc-config.h"
+#include "decentralised_client.h"
 #include <bitcoin/bitcoin.hpp>
 #include <vector>
 #include <map>
@@ -16,6 +17,7 @@ using namespace io;
 using namespace gui;
 
 using namespace libbitcoin;
+using namespace decentralised::core;
 
 namespace decentralised
 {
@@ -30,8 +32,7 @@ namespace decentralised
 			void initialize();
 
 		private:
-			threadpool disk_pool;
-			threadpool net_pool;
+			decentralised_client* client;
 		};
 	}
 }
