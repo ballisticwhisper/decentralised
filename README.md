@@ -1,6 +1,8 @@
 # Decentralised
 A 3D environment in a decentralised P2P blockchain.
 
+[![Build Status](https://travis-ci.org/ballisticwhisper/decentralised.svg)](https://travis-ci.org/ballisticwhisper/decentralised)
+
 http://decentralised-project.org
 
 ----
