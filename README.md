@@ -44,22 +44,16 @@ Open a console and cd to the root folder ...
 ```
 mkdir build
 cd build
-python ../configure-windows.py
+python ../configure.py
 ```
 
 Open Decentralised.sln in /build folder.
 
-Can't find a way to make CMake set Platform Toolset for individual projects.
-Ref: https://cmake.org/Bug/view.php?id=13961#c32409
+Set 'decentralised' as the start up project.
 
-So you need to set the following projects in Visual Studio to use CTP_Nov2013 toolset.
+Set the debug working directory on 'decentralised' to ../../Debug
 
-* decentralised
-* decentralised_core
-* libbitcoin
-* secp256k1
-
-Build
+Build & Execute
 
 ----
 
