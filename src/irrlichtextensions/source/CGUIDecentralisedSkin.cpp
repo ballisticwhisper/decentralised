@@ -1,9 +1,10 @@
 #include "CGUIDecentralisedSkin.h"
 
-CGUIDecentralisedSkin::CGUIDecentralisedSkin(IVideoDriver* driver, std::map<std::wstring, std::wstring> &skin)
+CGUIDecentralisedSkin::CGUIDecentralisedSkin(IVideoDriver* driver, std::map<std::wstring, std::wstring> &skin, std::wstring skinPath)
 	: CGUISkin(EGUI_SKIN_TYPE::EGST_WINDOWS_CLASSIC, driver), skin_(skin)
 {
 	driver_ = driver;
+	skinPath_ = skinPath;
 }
 
 CGUIDecentralisedSkin::~CGUIDecentralisedSkin()
@@ -32,6 +33,13 @@ void CGUIDecentralisedSkin::draw3DToolBar(IGUIElement* element,
 SColor CGUIDecentralisedSkin::getColorFromSkin(std::wstring name) const
 {
 	return toColor(skin_[name]);
+}
+
+ITexture* CGUIDecentralisedSkin::getTextureFromSkin(std::wstring name) const
+{
+	std::wstring fullPath(skinPath_);
+	fullPath.append(skin_[name]);
+	return driver_->getTexture(fullPath.c_str());
 }
 
 SColor CGUIDecentralisedSkin::getColor(EGUI_DEFAULT_COLOR color) const

@@ -30,18 +30,20 @@ namespace decentralised
 
 		void manager_gui::Initialize()
 		{
-			IGUISkin* skin = new CGUIDecentralisedSkin(dev->getVideoDriver(), skin_);
-			env->setSkin(skin);
-			skin->drop();
-
 			stringw skinPath = "data/Skins/";
 			skinPath.append(config_[L"Skin"].c_str());
 			skinPath.append("/");
 
+			CGUIDecentralisedSkin* skin = new CGUIDecentralisedSkin(dev->getVideoDriver(), skin_, skinPath.c_str());
+			env->setSkin(skin);
+			skin->drop();
+
 			stringw standardFontPath = skinPath.c_str();
 			standardFontPath.append(skin_[L"General_StandardFont"].c_str());
+			
 
 			IGUIFont* font = env->getFont(standardFontPath);
+			font->setKerningWidth(0);
 			if (font)
 				skin->setFont(font);
 
@@ -120,17 +122,13 @@ namespace decentralised
 
 			video::ITexture* toolbarBorder = NULL;
 
-			if (skin_[L"LoginBar_HasBorder"] == L"1")
-			{
-				stringw toolbarBorderPath = skinPath.c_str();
-				toolbarBorderPath.append(skin_[L"LoginBar_BorderImage"].c_str());
-				toolbarBorder = driver->getTexture(toolbarBorderPath);
-			}
 
 			dimension2d<u32> screenSize = dev->getVideoDriver()->getScreenSize();
-			elems.BottomBar = env->addToolBar(env->getRootGUIElement(), e_gui_elements::LoginToolbar); // , EGUI_ALIGNMENT::EGUIA_LOWERRIGHT, 79, toolbarBorder
+
+			elems.BottomBar = new CGUIDecentralisedToolBar(env, root, e_gui_elements::LoginToolbar, core::rect<s32>(0, 0, 10, 10));
 			elems.BottomBar->setAlignment(EGUI_ALIGNMENT::EGUIA_UPPERLEFT, EGUI_ALIGNMENT::EGUIA_SCALE, EGUI_ALIGNMENT::EGUIA_LOWERRIGHT, EGUI_ALIGNMENT::EGUIA_LOWERRIGHT);
 			elems.BottomBar->setRelativePosition(rect<s32>(0, screenSize.Height - 79, screenSize.Width, screenSize.Height));
+			elems.BottomBar->drop();
 
 			s32 y = 8;
 
@@ -163,17 +161,14 @@ namespace decentralised
 
 			y += 18;
 
-			elems.AvatarCombo = env->addComboBox(rect<s32>(10, y, 185, y + 25),
-				elems.BottomBar,
-				e_gui_elements::LoginToolbarAvatarCombo);
+			elems.AvatarCombo = new CGUIDecentralisedDropdown(env, elems.BottomBar, e_gui_elements::LoginToolbarAvatarCombo, rect<s32>(10, y, 185, y + 25));
 			elems.AvatarCombo->setEnabled(false);
-			elems.AvatarCombo->setText(lang_[L"LoginBar_NoAvatarsText"].c_str());
+			((CGUIDecentralisedDropdown*)elems.AvatarCombo)->setText(lang_[L"LoginBar_NoAvatarsText"].c_str());
+			elems.AvatarCombo->drop();
 
-			elems.PasswordBox = env->addEditBox(L"",
-				rect<s32>(190, y, 318, y + 25),
-				true,
-				elems.BottomBar,
-				e_gui_elements::LoginToolbarPasswordBox);
+			elems.PasswordBox = new CGUIDecentralisedTextbox(L"", true, env, elems.BottomBar, e_gui_elements::LoginToolbarPasswordBox, rect<s32>(190, y, 318, y + 25));
+			elems.PasswordBox->drop();
+
 			elems.PasswordBox->setEnabled(false);
 			elems.PasswordBox->setPasswordBox(true, L'\x25cf');
 

@@ -7,8 +7,8 @@
 
   <setting name="LoginBar_Height" value="79" />
   <setting name="LoginBar_BackgroundColor" value="32,32,32" />
-  <setting name="LoginBar_HasBorder" value="1" />
-  <setting name="LoginBar_BorderImage" value="loginbar-border.png" />
+  <setting name="LoginBar_BorderTopColor" value="34,34,34" />
+  <setting name="LoginBar_BorderShadowColor" value="43,43,43" />
 
   <setting name="Button_BackImageLeft" value="btn-left.png" />
   <setting name="Button_BackImageMiddle" value="btn-middle.png" />
@@ -32,6 +32,17 @@
   <setting name="Console_CornerTopRight" value="console-right-top.png" />
   <setting name="Console_CornerBottomLeft" value="console-left-bottom.png" />
   <setting name="Console_CornerBottomRight" value="console-right-bottom.png" />
+
+  <setting name="Textbox_BackgroundColor" value="192,192,192" />
+  <setting name="Textbox_InnerShadowColor" value="172,172,172" />
+  <setting name="Textbox_TopBorderColor" value="16,16,16" />
+  <setting name="Textbox_BottomBorderColor" value="27,27,27" />
+  <setting name="Textbox_LowerShadowColor" value="53,53,53" />
+
+  <setting name="Dropdown_ButtonNormal" value="btn-dropdown-normal.png" />
+  <setting name="Dropdown_ButtonHover" value="btn-dropdown-normal.png" />
+  <setting name="Dropdown_ButtonPressed" value="btn-dropdown-normal.png" />
+  <setting name="Dropdown_TextDisabledColor" value="80,80,80" />
 
   <setting name="MenuBar_BackgroundColor" value="31,31,31" />
   <setting name="MenuBar_TextColor" value="255,255,255" />

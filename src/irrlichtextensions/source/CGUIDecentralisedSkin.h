@@ -3,6 +3,7 @@
 
 #include <map>
 #include <vector>
+#include <string>
 #include "irrlicht.h"
 #include "CGUISkin.h"
 using namespace irr;
@@ -13,7 +14,7 @@ using namespace video;
 class CGUIDecentralisedSkin : public irr::gui::CGUISkin
 {
 public:
-	CGUIDecentralisedSkin(IVideoDriver* driver, std::map<std::wstring, std::wstring> &skin);
+	CGUIDecentralisedSkin(IVideoDriver* driver, std::map<std::wstring, std::wstring> &skin, std::wstring skinPath);
 	~CGUIDecentralisedSkin();
 
 	virtual void draw3DToolBar(IGUIElement* element,
@@ -22,12 +23,14 @@ public:
 
 	virtual SColor getColor(EGUI_DEFAULT_COLOR color) const;
 	virtual SColor getColorFromSkin(std::wstring name) const;
+	virtual ITexture* getTextureFromSkin(std::wstring name) const;
 
 private:
 	SColor toColor(std::wstring csv) const;
 
 	IVideoDriver* driver_;
 	std::map<std::wstring, std::wstring> &skin_;
+	std::wstring skinPath_;
 };
 
 #endif

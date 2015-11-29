@@ -31,6 +31,17 @@ set  (CONTEXT_HEADERS
       "context/context_dialogs.h"
       "context/context_gui.h")
 
+set  (EH_HEADERS      
+      "event_handlers/core_event_handler.h"
+      "event_handlers/irrlicht_event_handler.h" )
+
+set  (EH_SOURCES      
+      "event_handlers/core_event_handler.cpp"
+      "event_handlers/irrlicht_event_handler.cpp" )
+
+set  (EH_FILES      
+      ${EH_SOURCES} ${EH_HEADERS})
+
 SET( IRRLICHT_INC_DIR "${CMAKE_SOURCE_DIR}/dependencies/irrlicht/include" )
 SET( IRRLICHT_SRC_DIR "${CMAKE_SOURCE_DIR}/dependencies/irrlicht/source/Irrlicht" )
 SET( IRRLICHTEXT_INC_DIR "${CMAKE_SOURCE_DIR}/src/irrlichtextensions/include" )
@@ -41,15 +52,16 @@ SET( BOOST_LIB_DIR "${CMAKE_SOURCE_DIR}/dependencies/boost/stage/lib" )
 SET( SECP256K1_INC_DIR "${CMAKE_SOURCE_DIR}/dependencies/secp256k1/include" )
 SET( CORE_INC_DIR "${CMAKE_SOURCE_DIR}/src/decentralised_core/src" )
 
-source_group("" FILES ${ADVANCED_FUNCTION_SOURCES})
-source_group( managers FILES ${MANAGER_FILES})
-source_group( dialogs FILES ${DIALOG_FILES})
-source_group( context FILES ${CONTEXT_HEADERS})
+source_group( "" FILES ${ADVANCED_FUNCTION_SOURCES} )
+source_group( managers FILES ${MANAGER_FILES} )
+source_group( dialogs FILES ${DIALOG_FILES} )
+source_group( context FILES ${CONTEXT_HEADERS} )
+source_group( event_handlers FILES ${EH_FILES} )
 
 include_directories (managers dialogs context ${IRRLICHT_INC_DIR} ${IRRLICHT_SRC_DIR} ${IRRLICHTEXT_INC_DIR} ${IRRLICHTEXT_SRC_DIR} ${LIBBITCOIN_INC_DIR} ${BOOST_INC_DIR} ${SECP256K1_INC_DIR} ${CORE_INC_DIR} )
 link_directories("/libs" ${BOOST_LIB_DIR} )
 
-add_executable (decentralised ${ADVANCED_FUNCTION_SOURCES} ${MANAGER_FILES} ${DIALOG_FILES} ${CONTEXT_HEADERS})
+add_executable (decentralised ${ADVANCED_FUNCTION_SOURCES} ${MANAGER_FILES} ${DIALOG_FILES} ${CONTEXT_HEADERS} ${EH_FILES} )
 target_link_libraries ( decentralised irrlicht_static irrlichtextensions secp256k1 libbitcoin decentralised_core )
 
 add_custom_command(TARGET decentralised POST_BUILD

@@ -1,4 +1,4 @@
-#define APP_TITLE L"Decentralised Beta"
+#define APP_TITLE L"@Decentralised_APP_NAME@"
 #define APP_DATA_DIR L"data/"
 
 #define Decentralised_VERSION_MAJOR @Decentralised_VERSION_MAJOR@

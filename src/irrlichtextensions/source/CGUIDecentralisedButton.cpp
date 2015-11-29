@@ -423,7 +423,7 @@ namespace irr
 				if (font)
 					font->draw(Text.c_str(), rect,
 					skin->getColor(isEnabled() ? EGDC_BUTTON_TEXT : EGDC_GRAY_TEXT),
-					true, true, &AbsoluteClippingRect);
+					true, true, &rect);
 			}
 
 			IGUIElement::draw();
