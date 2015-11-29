@@ -26,3 +26,6 @@ add_subdirectory(dependencies/libbitcoin-blockchain)
 add_subdirectory(src/irrlichtextensions)
 add_subdirectory(src/decentralised_core)
 add_subdirectory(src/decentralised)
+
+set( python "python" )
+set( conf "dc-configure.py" )

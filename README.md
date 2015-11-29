@@ -20,9 +20,11 @@ http://www.microsoft.com/en-us/download/details.aspx?id=41151
 https://www.sourcetreeapp.com/
 Also make sure submodules are downloaded in /dependencies
 
-##### Install CMake 3.4+
+##### Install CMake 3.4+ and Python
 
 https://cmake.org/download/
+
+https://www.python.org/
 
 Make sure cmake is in your PATH, and reboot after installation.
 
@@ -42,7 +44,7 @@ Open a console and cd to the root folder ...
 ```
 mkdir build
 cd build
-cmake .. -G "Visual Studio 12"
+python ../configure-windows.py
 ```
 
 Open Decentralised.sln in /build folder.
