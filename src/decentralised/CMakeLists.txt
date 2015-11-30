@@ -29,7 +29,8 @@ set  (DIALOG_FILES
 
 set  (CONTEXT_HEADERS      
       "context/context_dialogs.h"
-      "context/context_gui.h")
+      "context/context_gui.h"
+      "context/context_application.h" )
 
 set  (EH_HEADERS      
       "event_handlers/core_event_handler.h"
@@ -58,7 +59,7 @@ source_group( dialogs FILES ${DIALOG_FILES} )
 source_group( context FILES ${CONTEXT_HEADERS} )
 source_group( event_handlers FILES ${EH_FILES} )
 
-include_directories (managers dialogs context ${IRRLICHT_INC_DIR} ${IRRLICHT_SRC_DIR} ${IRRLICHTEXT_INC_DIR} ${IRRLICHTEXT_SRC_DIR} ${LIBBITCOIN_INC_DIR} ${BOOST_INC_DIR} ${SECP256K1_INC_DIR} ${CORE_INC_DIR} )
+include_directories (managers dialogs context event_handlers ${IRRLICHTEXT_INC_DIR} ${IRRLICHT_INC_DIR} ${IRRLICHT_SRC_DIR} ${IRRLICHTEXT_INC_DIR} ${IRRLICHTEXT_SRC_DIR} ${LIBBITCOIN_INC_DIR} ${BOOST_INC_DIR} ${SECP256K1_INC_DIR} ${CORE_INC_DIR} )
 link_directories("/libs" ${BOOST_LIB_DIR} )
 
 add_executable (decentralised ${ADVANCED_FUNCTION_SOURCES} ${MANAGER_FILES} ${DIALOG_FILES} ${CONTEXT_HEADERS} ${EH_FILES} )

@@ -4,8 +4,8 @@
 #include <map>
 #include "irrlicht.h"
 #include "context_gui.h"
-#include "IGUIGraphicWindow.h"
-#include "CGUIGraphicWindow.h"
+#include "IGUIDecentralisedWindow.h"
+#include "CGUIDecentralisedWindow.h"
 
 using namespace irr;
 using namespace irr::core;
@@ -42,7 +42,7 @@ namespace decentralised
 			void initElements();
 
 			IGUIEnvironment* env_;
-			IGUIGraphicWindow* window_;
+			IGUIDecentralisedWindow* window_;
 			std::map<std::wstring, std::wstring> &lang_;
 			context::context_gui &elems_;
 		};

@@ -9,7 +9,7 @@
 #ifdef _IRR_COMPILE_WITH_GUI_
 #include "IGUIEnvironment.h"
 
-#include "IGUIGraphicWindow.h"
+#include "IGUIDecentralisedWindow.h"
 
 namespace irr
 {
@@ -17,18 +17,18 @@ namespace gui
 {
 	class IGUIButton;
 
-	class CGUIGraphicWindow : public IGUIGraphicWindow
+	class CGUIDecentralisedWindow : public IGUIDecentralisedWindow
 	{
 	public:
 
 		//! constructor
-		CGUIGraphicWindow(IGUIEnvironment* environment, IGUIElement* parent, s32 id, core::rect<s32> rectangle,
+		CGUIDecentralisedWindow(IGUIEnvironment* environment, IGUIElement* parent, s32 id, core::rect<s32> rectangle,
 			irr::video::ITexture* titleLeft, irr::video::ITexture* titleMiddle, irr::video::ITexture* titleRight,
 			irr::video::ITexture* winLeft, irr::video::ITexture* winRight,
 			irr::video::ITexture* bottomLeft, irr::video::ITexture* bottomMiddle, irr::video::ITexture* bottomRight);
 
 		//! destructor
-		virtual ~CGUIGraphicWindow();
+		virtual ~CGUIDecentralisedWindow();
 
 		//! called if an event happened.
 		virtual bool OnEvent(const SEvent& event);

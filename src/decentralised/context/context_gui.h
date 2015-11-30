@@ -5,6 +5,7 @@
 #include "IGUIConsoleOverlay.h"
 #include "CGUIDecentralisedButton.h"
 #include "CGUIDecentralisedContextMenu.h"
+#include "CGUIDecentralisedTextbox.h"
 
 using namespace irr;
 using namespace gui;
@@ -32,13 +33,13 @@ namespace decentralised
 			CGUIDecentralisedButton* CreateAvButton;
 
 			IGUIStaticText* CreateAvFirstNameLabel;
-			IGUIEditBox* CreateAvFirstNameTextBox;
+			CGUIDecentralisedTextbox* CreateAvFirstNameTextBox;
 			IGUIStaticText* CreateAvLastNameLabel;
-			IGUIEditBox* CreateAvLastNameTextBox;
+			CGUIDecentralisedTextbox* CreateAvLastNameTextBox;
 			IGUIStaticText* CreateAvPasswordLabel;
-			IGUIEditBox* CreateAvPasswordBox;
+			CGUIDecentralisedTextbox* CreateAvPasswordBox;
 			IGUIStaticText* CreateAvConfirmLabel;
-			IGUIEditBox* CreateAvConfirmPasswordBox;
+			CGUIDecentralisedTextbox* CreateAvConfirmPasswordBox;
 			IGUIStaticText* CreateAvWarningLabel;
 			CGUIDecentralisedButton* CreateAvCreateButton;
 

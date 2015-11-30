@@ -9,6 +9,8 @@
 #include "manager_gui.h"
 #include "manager_filesystem.h"
 #include "manager_network.h"
+#include "context_application.h"
+#include "irrlicht_event_handler.h"
 
 using namespace irr;
 using namespace irr::core;
@@ -17,6 +19,7 @@ using namespace video;
 using namespace io;
 using namespace gui;
 using namespace decentralised::managers;
+using namespace decentralised::context;
 
 #ifdef _IRR_WINDOWS_
 #ifndef _DEBUG
@@ -41,15 +44,17 @@ int main()
 #endif
 
 	manager_filesystem* fileManager = new manager_filesystem();
-	std::map<std::wstring, std::wstring> config = fileManager->loadConfig();
-	std::map<std::wstring, std::wstring> skin = fileManager->loadSkin(config[L"Skin"]);
-	std::map<std::wstring, std::wstring> lang = fileManager->loadLanguage(config[L"Language"]);
+	context_application context;
 
-	IrrlichtDevice * device = createDevice(driverType, irr::core::dimension2d<u32>(800, 600));
-	if (device == 0)
+	context.config = fileManager->loadConfig();
+	context.skin = fileManager->loadSkin(context.config[L"Skin"]);
+	context.language = fileManager->loadLanguage(context.config[L"Language"]);
+
+	context.device = createDevice(driverType, irr::core::dimension2d<u32>(800, 600));
+	if (context.device == 0)
 		return 1;
 
-	device->setResizable(true);
+	context.device->setResizable(true);
 
 	std::wstring title = std::wstring(APP_TITLE)
 		.append(L" ")
@@ -58,28 +63,33 @@ int main()
 		.append(to_wstring(Decentralised_VERSION_MINOR))
 		.append(L"\n").c_str();
 
-	device->setWindowCaption(title.c_str());
+	context.device->setWindowCaption(title.c_str());
 
-	manager_gui* guiManager = new manager_gui(device, lang, skin, config);
-	guiManager->Initialize();
+	context.gui_manager = new manager_gui(context.device, context.language, context.skin, context.config);
+	context.gui_manager->Initialize();
 
-	manager_network* networkManager = new manager_network();
-	networkManager->initialize();
+	IVideoDriver* driver = context.device->getVideoDriver();
 
-	IVideoDriver* driver = device->getVideoDriver();
+	context.gui_manager->AddConsoleLine(SColor(255,255,255,255), APP_TITLE);
 
-	while (device->run() && driver)
-		if (!device->isWindowMinimized() || device->isWindowActive())
+	context.network_manager = new manager_network();
+	context.network_manager->initialize();
+
+	irrlicht_event_handler receiver(context);
+	context.device->setEventReceiver(&receiver);
+
+	while (context.device->run() && driver)
+		if (!context.device->isWindowMinimized() || context.device->isWindowActive())
 		{
 			driver->beginScene(true, true, SColor(0, 0, 0, 0));
 
-			guiManager->DrawAll();
+			context.gui_manager->DrawAll();
 
 			driver->endScene();
 		}
 
-	delete guiManager;
-	delete networkManager;
+	delete context.gui_manager;
+	delete context.network_manager;
 	delete fileManager;
 
 	return 0;

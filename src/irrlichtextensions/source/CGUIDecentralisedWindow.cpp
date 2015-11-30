@@ -1,8 +1,4 @@
-// Copyright (C) 2002-2012 Nikolaus Gebhardt
-// This file is part of the "Irrlicht Engine".
-// For conditions of distribution and use, see copyright notice in irrlicht.h
-
-#include "CGUIGraphicWindow.h"
+#include "CGUIDecentralisedWindow.h"
 #ifdef _IRR_COMPILE_WITH_GUI_
 
 #include "IGUISkin.h"
@@ -18,11 +14,11 @@ namespace irr
 	{
 
 		//! constructor
-		CGUIGraphicWindow::CGUIGraphicWindow(IGUIEnvironment* environment, IGUIElement* parent, s32 id, core::rect<s32> rectangle,
+		CGUIDecentralisedWindow::CGUIDecentralisedWindow(IGUIEnvironment* environment, IGUIElement* parent, s32 id, core::rect<s32> rectangle,
 			irr::video::ITexture* titleLeft, irr::video::ITexture* titleMiddle, irr::video::ITexture* titleRight,
 			irr::video::ITexture* winLeft, irr::video::ITexture* winRight, 
 			irr::video::ITexture* bottomLeft, irr::video::ITexture* bottomMiddle, irr::video::ITexture* bottomRight)
-			: IGUIGraphicWindow(environment, parent, id, rectangle, 
+			: IGUIDecentralisedWindow(environment, parent, id, rectangle,
 				titleLeft, titleMiddle, titleRight,
 				winLeft, winRight,
 				bottomLeft, bottomMiddle, bottomRight), Dragging(false), IsDraggable(true), DrawBackground(true), DrawTitlebar(true), IsActive(false)
@@ -92,7 +88,7 @@ namespace irr
 
 
 		//! destructor
-		CGUIGraphicWindow::~CGUIGraphicWindow()
+		CGUIDecentralisedWindow::~CGUIDecentralisedWindow()
 		{
 			if (MinButton)
 				MinButton->drop();
@@ -104,7 +100,7 @@ namespace irr
 				CloseButton->drop();
 		}
 
-		void CGUIGraphicWindow::refreshSprites()
+		void CGUIDecentralisedWindow::refreshSprites()
 		{
 			if (!Environment)
 				return;
@@ -135,7 +131,7 @@ namespace irr
 		}
 
 		//! called if an event happened.
-		bool CGUIGraphicWindow::OnEvent(const SEvent& event)
+		bool CGUIDecentralisedWindow::OnEvent(const SEvent& event)
 		{
 			if (isEnabled())
 			{
@@ -236,14 +232,14 @@ namespace irr
 
 
 		//! Updates the absolute position.
-		void CGUIGraphicWindow::updateAbsolutePosition()
+		void CGUIDecentralisedWindow::updateAbsolutePosition()
 		{
 			IGUIElement::updateAbsolutePosition();
 		}
 
 
 		//! draws the element and its children
-		void CGUIGraphicWindow::draw()
+		void CGUIDecentralisedWindow::draw()
 		{
 			if (IsVisible)
 			{
@@ -421,35 +417,35 @@ namespace irr
 
 
 		//! Returns pointer to the close button
-		IGUIButton* CGUIGraphicWindow::getCloseButton() const
+		IGUIButton* CGUIDecentralisedWindow::getCloseButton() const
 		{
 			return CloseButton;
 		}
 
 
 		//! Returns pointer to the minimize button
-		IGUIButton* CGUIGraphicWindow::getMinimizeButton() const
+		IGUIButton* CGUIDecentralisedWindow::getMinimizeButton() const
 		{
 			return MinButton;
 		}
 
 
 		//! Returns pointer to the maximize button
-		IGUIButton* CGUIGraphicWindow::getMaximizeButton() const
+		IGUIButton* CGUIDecentralisedWindow::getMaximizeButton() const
 		{
 			return RestoreButton;
 		}
 
 
 		//! Returns true if the window is draggable, false if not
-		bool CGUIGraphicWindow::isDraggable() const
+		bool CGUIDecentralisedWindow::isDraggable() const
 		{
 			return IsDraggable;
 		}
 
 
 		//! Sets whether the window is draggable
-		void CGUIGraphicWindow::setDraggable(bool draggable)
+		void CGUIDecentralisedWindow::setDraggable(bool draggable)
 		{
 			IsDraggable = draggable;
 
@@ -459,33 +455,33 @@ namespace irr
 
 
 		//! Set if the window background will be drawn
-		void CGUIGraphicWindow::setDrawBackground(bool draw)
+		void CGUIDecentralisedWindow::setDrawBackground(bool draw)
 		{
 			DrawBackground = draw;
 		}
 
 
 		//! Get if the window background will be drawn
-		bool CGUIGraphicWindow::getDrawBackground() const
+		bool CGUIDecentralisedWindow::getDrawBackground() const
 		{
 			return DrawBackground;
 		}
 
 
 		//! Set if the window titlebar will be drawn
-		void CGUIGraphicWindow::setDrawTitlebar(bool draw)
+		void CGUIDecentralisedWindow::setDrawTitlebar(bool draw)
 		{
 			DrawTitlebar = draw;
 		}
 
 
 		//! Get if the window titlebar will be drawn
-		bool CGUIGraphicWindow::getDrawTitlebar() const
+		bool CGUIDecentralisedWindow::getDrawTitlebar() const
 		{
 			return DrawTitlebar;
 		}
 
-		void CGUIGraphicWindow::updateClientRect()
+		void CGUIDecentralisedWindow::updateClientRect()
 		{
 			if (!DrawBackground)
 			{
@@ -501,16 +497,16 @@ namespace irr
 
 
 		//! Returns the rectangle of the drawable area (without border, without titlebar and without scrollbars)
-		core::rect<s32> CGUIGraphicWindow::getClientRect() const
+		core::rect<s32> CGUIDecentralisedWindow::getClientRect() const
 		{
 			return ClientRect;
 		}
 
 
 		//! Writes attributes of the element.
-		void CGUIGraphicWindow::serializeAttributes(io::IAttributes* out, io::SAttributeReadWriteOptions* options = 0) const
+		void CGUIDecentralisedWindow::serializeAttributes(io::IAttributes* out, io::SAttributeReadWriteOptions* options = 0) const
 		{
-			CGUIGraphicWindow::serializeAttributes(out, options);
+			CGUIDecentralisedWindow::serializeAttributes(out, options);
 
 			out->addBool("IsDraggable", IsDraggable);
 			out->addBool("DrawBackground", DrawBackground);
@@ -529,9 +525,9 @@ namespace irr
 
 
 		//! Reads attributes of the element
-		void CGUIGraphicWindow::deserializeAttributes(io::IAttributes* in, io::SAttributeReadWriteOptions* options = 0)
+		void CGUIDecentralisedWindow::deserializeAttributes(io::IAttributes* in, io::SAttributeReadWriteOptions* options = 0)
 		{
-			CGUIGraphicWindow::deserializeAttributes(in, options);
+			CGUIDecentralisedWindow::deserializeAttributes(in, options);
 
 			Dragging = false;
 			IsActive = false;

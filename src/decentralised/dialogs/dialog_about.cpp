@@ -22,7 +22,7 @@ namespace decentralised
 		{
 			stringw title = stringw(lang_[L"About_WindowTitle"].c_str()).replace("{0}", APP_TITLE);
 
-			window_ = new CGUIGraphicWindow(env_,
+			window_ = new CGUIDecentralisedWindow(env_,
 				0,
 				e_gui_elements::WindowAbout,
 				rect<s32>(80, 40, 420, 290),

@@ -20,20 +20,21 @@ namespace decentralised
 
 		void dialog_createavatar::initElements()
 		{
-			//window_ = env_->addVoodooWindow(rect<s32>(80, 40, 360, 330),
-			//	false,
-			//	lang_[L"CreateAvatar_WindowTitle"].c_str(),
-			//	0,
-			//	e_gui_elements::WindowCreateAvatar,
-			//	elems_.TxWindowTitleLeft,
-			//	elems_.TxWindowTitleMiddle,
-			//	elems_.TxWindowTitleRight,
-			//	elems_.TxWindowLeft,
-			//	elems_.TxWindowRight,
-			//	elems_.TxWindowBottomLeft,
-			//	elems_.TxWindowBottomMiddle,
-			//	elems_.TxWindowBottomRight);
-			//env_->setFocus(window_);
+			window_ = new CGUIDecentralisedWindow(env_,
+				env_->getRootGUIElement(),
+				e_gui_elements::WindowCreateAvatar,
+				rect<s32>(80, 40, 360, 330),
+				elems_.TxWindowTitleLeft,
+				elems_.TxWindowTitleMiddle,
+				elems_.TxWindowTitleRight,
+				elems_.TxWindowLeft,
+				elems_.TxWindowRight,
+				elems_.TxWindowBottomLeft,
+				elems_.TxWindowBottomMiddle,
+				elems_.TxWindowBottomRight);
+			window_->setVisible(true);
+			env_->setFocus(window_);
+			window_->drop();
 
 			s32 posy = 40;
 
@@ -51,13 +52,15 @@ namespace decentralised
 
 			posy += 22;
 
-			elems_.CreateAvFirstNameTextBox = env_->addEditBox(L"", rect<s32>(20, posy, 135, posy + 22), true, window_, e_gui_elements::CreateAvFirstnameBox);
+			elems_.CreateAvFirstNameTextBox = new CGUIDecentralisedTextbox(L"", true, env_, window_, e_gui_elements::CreateAvFirstnameBox, rect<s32>(20, posy, 135, posy + 22));
 			elems_.CreateAvFirstNameTextBox->setEnabled(true);
 			elems_.CreateAvFirstNameTextBox->setOverrideColor(SColor(255, 0, 0, 0));
+			elems_.CreateAvFirstNameTextBox->drop();
 
-			elems_.CreateAvLastNameTextBox = env_->addEditBox(L"", rect<s32>(140, posy, 255, posy + 22), true, window_, e_gui_elements::CreateAvLastnameBox);
+			elems_.CreateAvLastNameTextBox = new CGUIDecentralisedTextbox(L"", true, env_, window_, e_gui_elements::CreateAvLastnameBox, rect<s32>(140, posy, 255, posy + 22));
 			elems_.CreateAvLastNameTextBox->setEnabled(true);
 			elems_.CreateAvLastNameTextBox->setOverrideColor(SColor(255, 0, 0, 0));
+			elems_.CreateAvLastNameTextBox->drop();
 
 			posy += 32;
 
@@ -69,10 +72,11 @@ namespace decentralised
 
 			posy += 22;
 
-			elems_.CreateAvPasswordBox = env_->addEditBox(L"", rect<s32>(20, posy, 255, posy + 22), true, window_, e_gui_elements::CreateAvPasswordBox);
+			elems_.CreateAvPasswordBox = new CGUIDecentralisedTextbox(L"", true, env_, window_, e_gui_elements::CreateAvPasswordBox, rect<s32>(20, posy, 255, posy + 22));
 			elems_.CreateAvPasswordBox->setEnabled(true);
 			elems_.CreateAvPasswordBox->setOverrideColor(SColor(255, 0, 0, 0));
 			elems_.CreateAvPasswordBox->setPasswordBox(true, L'\x25cf');
+			elems_.CreateAvPasswordBox->drop();
 
 			posy += 32;
 
@@ -84,10 +88,11 @@ namespace decentralised
 
 			posy += 22;
 
-			elems_.CreateAvConfirmPasswordBox = env_->addEditBox(L"", rect<s32>(20, posy, 255, posy + 22), true, window_, e_gui_elements::CreateAvConfirmBox);
+			elems_.CreateAvConfirmPasswordBox = new CGUIDecentralisedTextbox(L"", true, env_, window_, e_gui_elements::CreateAvConfirmBox, rect<s32>(20, posy, 255, posy + 22));
 			elems_.CreateAvConfirmPasswordBox->setEnabled(true);
 			elems_.CreateAvConfirmPasswordBox->setOverrideColor(SColor(255, 0, 0, 0));
 			elems_.CreateAvConfirmPasswordBox->setPasswordBox(true, L'\x25cf');
+			elems_.CreateAvConfirmPasswordBox->drop();
 
 			posy += 32;
 

@@ -3,7 +3,7 @@
 
 #include <irrlicht.h>
 #include "CGUIDecentralisedButton.h"
-#include "IGUIGraphicWindow.h"
+#include "IGUIDecentralisedWindow.h"
 #include "IGUIConsoleOverlay.h"
 #include "CGUIConsoleOverlay.h"
 #include "CGUIDecentralisedSkin.h"

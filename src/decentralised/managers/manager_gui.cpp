@@ -166,7 +166,7 @@ namespace decentralised
 			((CGUIDecentralisedDropdown*)elems.AvatarCombo)->setText(lang_[L"LoginBar_NoAvatarsText"].c_str());
 			elems.AvatarCombo->drop();
 
-			elems.PasswordBox = new CGUIDecentralisedTextbox(L"", true, env, elems.BottomBar, e_gui_elements::LoginToolbarPasswordBox, rect<s32>(190, y, 318, y + 25));
+			elems.PasswordBox = new CGUIDecentralisedTextbox(L"", true, env, elems.BottomBar, e_gui_elements::LoginToolbarPasswordBox, rect<s32>(190, y, 318, y + 25));			
 			elems.PasswordBox->drop();
 
 			elems.PasswordBox->setEnabled(false);
@@ -178,18 +178,7 @@ namespace decentralised
 			elems.LoginButton->setEnabled(false);
 			elems.LoginButton->drop();
 
-			//elems.LoginButton = env->addVoodooButton(rect<s32>(325, y, 380, y + 25),
-			//	elems.BottomBar,
-			//	e_gui_elements::LoginToolbarLoginButton,
-			//	lang_[L"LoginBar_LoginButtonText"].c_str(),
-			//	elems.TxButtonLeft,
-			//	elems.TxButtonMiddle,
-			//	elems.TxButtonRight,
-			//	elems.TxButtonPressedLeft,
-			//	elems.TxButtonPressedMiddle,
-			//	elems.TxButtonPressedRight);
-
-			elems.CreateAvButton = new CGUIDecentralisedButton(env, elems.BottomBar, e_gui_elements::LoginToolbarLoginButton, rect<s32>(winSize.LowerRightCorner.X - 110, y, winSize.LowerRightCorner.X - 10, y + 25));
+			elems.CreateAvButton = new CGUIDecentralisedButton(env, elems.BottomBar, e_gui_elements::LoginToolbarCreateAvatarButton, rect<s32>(winSize.LowerRightCorner.X - 110, y, winSize.LowerRightCorner.X - 10, y + 25));
 			elems.CreateAvButton->setImages(elems.TxButtonLeft, elems.TxButtonMiddle, elems.TxButtonRight, elems.TxButtonPressedLeft, elems.TxButtonPressedMiddle, elems.TxButtonPressedRight);
 			elems.CreateAvButton->setText(lang_[L"LoginBar_CreateAvatarButtonText"].c_str());
 			elems.CreateAvButton->setEnabled(true);
@@ -198,21 +187,6 @@ namespace decentralised
 			elems.CreateAvButton->setAlignment(EGUI_ALIGNMENT::EGUIA_LOWERRIGHT, EGUI_ALIGNMENT::EGUIA_LOWERRIGHT,
 				EGUI_ALIGNMENT::EGUIA_LOWERRIGHT, EGUI_ALIGNMENT::EGUIA_LOWERRIGHT);
 			elems.CreateAvButton->drop();
-
-			//elems.CreateAvButton = env->addVoodooButton(rect<s32>(winSize.LowerRightCorner.X - 110, y, winSize.LowerRightCorner.X - 10, y + 25),
-			//	elems.BottomBar,
-			//	e_gui_elements::LoginToolbarCreateAvatarButton,
-			//	lang_[L"LoginBar_CreateAvatarButtonText"].c_str(),
-			//	elems.TxButtonLeft,
-			//	elems.TxButtonMiddle,
-			//	elems.TxButtonRight,
-			//	elems.TxButtonPressedLeft,
-			//	elems.TxButtonPressedMiddle,
-			//	elems.TxButtonPressedRight);
-			//elems.CreateAvButton->setIsPushButton(true);
-			//elems.CreateAvButton->setAutoExpand(false);
-			//elems.CreateAvButton->setAlignment(EGUI_ALIGNMENT::EGUIA_LOWERRIGHT, EGUI_ALIGNMENT::EGUIA_LOWERRIGHT,
-			//	EGUI_ALIGNMENT::EGUIA_LOWERRIGHT, EGUI_ALIGNMENT::EGUIA_LOWERRIGHT);
 		}
 
 		void manager_gui::ToggleWindowCreateAvatar()
