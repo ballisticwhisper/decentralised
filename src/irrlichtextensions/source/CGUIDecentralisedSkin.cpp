@@ -1,7 +1,7 @@
 #include "CGUIDecentralisedSkin.h"
 
 CGUIDecentralisedSkin::CGUIDecentralisedSkin(IVideoDriver* driver, std::map<std::wstring, std::wstring> &skin, std::wstring skinPath)
-	: CGUISkin(EGUI_SKIN_TYPE::EGST_WINDOWS_CLASSIC, driver), skin_(skin)
+	: CGUISkin(EGUI_SKIN_TYPE::EGST_WINDOWS_METALLIC, driver), skin_(skin)
 {
 	driver_ = driver;
 	skinPath_ = skinPath;

@@ -44,12 +44,12 @@ namespace irr
 			ListButton = new CGUIDecentralisedButton(Environment, this, -1, r);
 			((CGUIDecentralisedButton*)ListButton)->setImages(NULL, ButtonNormal);
 
-			if (skin && skin->getSpriteBank())
-			{
-				ListButton->setSpriteBank(skin->getSpriteBank());
-				ListButton->setSprite(EGBS_BUTTON_UP, skin->getIcon(EGDI_CURSOR_DOWN), skin->getColor(EGDC_WINDOW_SYMBOL));
-				ListButton->setSprite(EGBS_BUTTON_DOWN, skin->getIcon(EGDI_CURSOR_DOWN), skin->getColor(EGDC_WINDOW_SYMBOL));
-			}
+			//if (skin && skin->getSpriteBank())
+			//{
+			//	ListButton->setSpriteBank(skin->getSpriteBank());
+			//	ListButton->setSprite(EGBS_BUTTON_UP, skin->getIcon(EGDI_CURSOR_DOWN), skin->getColor(EGDC_WINDOW_SYMBOL));
+			//	ListButton->setSprite(EGBS_BUTTON_DOWN, skin->getIcon(EGDI_CURSOR_DOWN), skin->getColor(EGDC_WINDOW_SYMBOL));
+			//}
 			ListButton->setAlignment(EGUIA_LOWERRIGHT, EGUIA_LOWERRIGHT, EGUIA_UPPERLEFT, EGUIA_LOWERRIGHT);
 			ListButton->setSubElement(true);
 			ListButton->setTabStop(false);
@@ -408,8 +408,8 @@ namespace irr
 				SelectedText->setDrawBackground(false);
 				SelectedText->setOverrideColor(skin->getColorFromSkin(L"Dropdown_TextDisabledColor"));
 			}
-			ListButton->setSprite(EGBS_BUTTON_UP, skin->getIcon(EGDI_CURSOR_DOWN), skin->getColor(isEnabled() ? EGDC_WINDOW_SYMBOL : EGDC_GRAY_WINDOW_SYMBOL));
-			ListButton->setSprite(EGBS_BUTTON_DOWN, skin->getIcon(EGDI_CURSOR_DOWN), skin->getColor(isEnabled() ? EGDC_WINDOW_SYMBOL : EGDC_GRAY_WINDOW_SYMBOL));
+			//ListButton->setSprite(EGBS_BUTTON_UP, skin->getIcon(EGDI_CURSOR_DOWN), skin->getColor(isEnabled() ? EGDC_WINDOW_SYMBOL : EGDC_GRAY_WINDOW_SYMBOL));
+			//ListButton->setSprite(EGBS_BUTTON_DOWN, skin->getIcon(EGDI_CURSOR_DOWN), skin->getColor(isEnabled() ? EGDC_WINDOW_SYMBOL : EGDC_GRAY_WINDOW_SYMBOL));
 
 
 			core::rect<s32> frameRect(AbsoluteRect);

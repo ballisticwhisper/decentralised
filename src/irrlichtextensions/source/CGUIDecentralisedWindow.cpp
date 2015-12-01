@@ -51,8 +51,9 @@ namespace irr
 			}
 			s32 posx = RelativeRect.getWidth() - buttonw - 15;
 
-			CloseButton = Environment->addButton(core::rect<s32>(posx, 13, posx + buttonw, 13 + buttonw), this, -1,
-				L"", skin ? skin->getDefaultText(EGDT_WINDOW_CLOSE) : L"Close");
+			CloseButton = new CGUIDecentralisedButton(Environment, this, -1, core::rect<s32>(posx, 13, posx + buttonw, 13 + buttonw));
+			//CloseButton = Environment->addButton(core::rect<s32>(posx, 13, posx + buttonw, 13 + buttonw), this, -1,
+			//	L"", skin ? skin->getDefaultText(EGDT_WINDOW_CLOSE) : L"Close");
 			CloseButton->setSubElement(true);
 			CloseButton->setTabStop(false);
 			CloseButton->setAlignment(EGUIA_LOWERRIGHT, EGUIA_LOWERRIGHT, EGUIA_UPPERLEFT, EGUIA_UPPERLEFT);
@@ -117,7 +118,7 @@ namespace irr
 			if (sprites)
 			{
 				CloseButton->setSpriteBank(sprites);
-				CloseButton->setSprite(EGBS_BUTTON_UP, skin->getIcon(EGDI_WINDOW_CLOSE), CurrentIconColor);
+				CloseButton->setSprite(EGBS_BUTTON_UP, skin->getIcon(EGDI_WINDOW_CLOSE), video::SColor(255,191,191,191));
 				CloseButton->setSprite(EGBS_BUTTON_DOWN, skin->getIcon(EGDI_WINDOW_CLOSE), CurrentIconColor);
 
 				RestoreButton->setSpriteBank(sprites);

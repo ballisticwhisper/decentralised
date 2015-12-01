@@ -35,6 +35,19 @@ namespace decentralised
 			skinPath.append("/");
 
 			CGUIDecentralisedSkin* skin = new CGUIDecentralisedSkin(dev->getVideoDriver(), skin_, skinPath.c_str());
+			IGUIFont* builtinfont = env->getBuiltInFont();
+			IGUIFontBitmap* bitfont = 0;
+			if (builtinfont && builtinfont->getType() == EGFT_BITMAP)
+				bitfont = (IGUIFontBitmap*)builtinfont;
+
+			IGUISpriteBank* bank = 0;
+			skin->setFont(builtinfont);
+
+			if (bitfont)
+				bank = bitfont->getSpriteBank();
+
+			skin->setSpriteBank(bank);
+
 			env->setSkin(skin);
 			skin->drop();
 

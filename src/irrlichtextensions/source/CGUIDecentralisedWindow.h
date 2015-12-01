@@ -10,6 +10,7 @@
 #include "IGUIEnvironment.h"
 
 #include "IGUIDecentralisedWindow.h"
+#include "CGUIDecentralisedButton.h"
 
 namespace irr
 {
