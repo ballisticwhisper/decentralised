@@ -5,9 +5,13 @@
 #include "context_application.h"
 #include "context_gui.h"
 
+#ifdef _IRR_WINDOWS_
+#include <shellapi.h>
+#pragma comment(lib,"shell32.lib")
+#endif
+
 using namespace irr;
 using namespace decentralised::context;
-
 
 class irrlicht_event_handler : public IEventReceiver
 {

@@ -20,6 +20,8 @@ namespace decentralised
 
 		void dialog_createavatar::initElements()
 		{
+			stringw title = stringw(lang_[L"CreateAvatar_WindowTitle"].c_str());
+
 			window_ = new CGUIDecentralisedWindow(env_,
 				env_->getRootGUIElement(),
 				e_gui_elements::WindowCreateAvatar,
@@ -33,6 +35,7 @@ namespace decentralised
 				elems_.TxWindowBottomMiddle,
 				elems_.TxWindowBottomRight);
 			window_->setVisible(true);
+			window_->setText(title.c_str());
 			env_->setFocus(window_);
 			window_->drop();
 

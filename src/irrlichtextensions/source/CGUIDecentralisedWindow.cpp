@@ -388,12 +388,6 @@ namespace irr
 						bodyRect,
 						0);
 
-					
-
-					//rect = skin->draw3DWindowBackground(this, false, //DrawTitlebar,
-					//	skin->getColor(IsActive ? EGDC_ACTIVE_BORDER : EGDC_INACTIVE_BORDER),
-					//	AbsoluteRect, &AbsoluteClippingRect);
-
 					if (DrawTitlebar && Text.size())
 					{
 						rect = AbsoluteRect;
@@ -406,7 +400,7 @@ namespace irr
 						if (font)
 						{
 							font->draw(Text.c_str(), rect,
-								skin->getColor(EGDC_ACTIVE_CAPTION),
+								video::SColor(255, 192, 192, 192),
 								false, true, &AbsoluteClippingRect);
 						}
 					}

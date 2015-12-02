@@ -23,7 +23,7 @@ namespace decentralised
 			stringw title = stringw(lang_[L"About_WindowTitle"].c_str()).replace("{0}", APP_TITLE);
 
 			window_ = new CGUIDecentralisedWindow(env_,
-				0,
+				env_->getRootGUIElement(),
 				e_gui_elements::WindowAbout,
 				rect<s32>(80, 40, 420, 290),
 				elems_.TxWindowTitleLeft,
@@ -34,6 +34,7 @@ namespace decentralised
 				elems_.TxWindowBottomLeft,
 				elems_.TxWindowBottomMiddle,
 				elems_.TxWindowBottomRight);
+			window_->setText(title.c_str());
 			env_->setFocus(window_);
 			window_->drop();
 
@@ -46,11 +47,10 @@ namespace decentralised
 
 			posy += 22;
 
-			//IGUIButton* linkBtn = env_->addButton(rect<s32>(20, posy, 198, posy + 22), 
-			//	window_,
-			//	e_gui_elements::AboutLink,
-			//	L"http://decentralised-project.org");
+			IGUIButton* linkBtn = new CGUIDecentralisedButton(env_, window_, e_gui_elements::AboutLink, rect<s32>(20, posy, 198, posy + 22));
+			linkBtn->setText(L"http://decentralised-project.org");
 			//linkBtn->setOverrideTextColor(SColor(255, 101, 174, 235));
+			linkBtn->drop();
 
 			posy += 34;
 

@@ -22,10 +22,10 @@
   <setting name="CreateAvatar_ErrorNameExists" value="The avatar name already exists." />
 
   <setting name="About_WindowTitle" value="About {0}" />
-  <setting name="About_LeadIntro" value="{0} is open source and developed by Voodoo coders." />
+  <setting name="About_LeadIntro" value="{0} is open source and developed by the community." />
   <setting name="About_Credit1" value="Irrlicht 3D engine by Nikolaus Gebhardt" />
-  <setting name="About_Credit2" value="LevelDB by Jeffrey Dean &amp; Sanjay Ghemawat" />
-  <setting name="About_Credit3" value="Bitcoin by Satoshi Nakamoto" />
+  <setting name="About_Credit2" value="libbitcoin by Amir Taaki, Eric Voskuil and others" />
+  <setting name="About_Credit3" value="" />
 
   <setting name="NetworkMessages_ListeningOn" value="Listening for incoming connections on port {0}" />
   <setting name="NetworkMessages_Discovering" value="Connecting to the network ..." />
