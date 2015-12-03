@@ -12,6 +12,12 @@ namespace irr
 {
 	namespace gui
 	{
+		enum e_button_text_align {
+			Left = 0,
+			Center,
+			Right
+		};
+
 		class CGUIDecentralisedButton : public IGUIButton
 		{
 		public:
@@ -28,6 +34,10 @@ namespace irr
 
 			//! draws the element and its children
 			virtual void draw();
+
+			virtual void setButtonTextAlign(e_button_text_align align);
+
+			virtual void setOverrideTextColor(video::SColor color);
 
 			//! sets another skin independent font. if this is set to zero, the button uses the font of the skin.
 			virtual void setOverrideFont(IGUIFont* font = 0);
@@ -144,6 +154,9 @@ namespace irr
 			bool ScaleImage;
 			bool IsAutoSize;
 			bool AutoSizeExpandLeft;
+
+			e_button_text_align AlignText;
+			video::SColor TextColor;
 		};
 
 	} // end namespace gui

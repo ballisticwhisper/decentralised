@@ -47,9 +47,10 @@ namespace decentralised
 
 			posy += 22;
 
-			IGUIButton* linkBtn = new CGUIDecentralisedButton(env_, window_, e_gui_elements::AboutLink, rect<s32>(20, posy, 198, posy + 22));
+			CGUIDecentralisedButton* linkBtn = new CGUIDecentralisedButton(env_, window_, e_gui_elements::AboutLink, rect<s32>(20, posy, 198, posy + 22));
 			linkBtn->setText(L"http://decentralised-project.org");
-			//linkBtn->setOverrideTextColor(SColor(255, 101, 174, 235));
+			linkBtn->setButtonTextAlign(e_button_text_align::Left);
+			linkBtn->setOverrideTextColor(SColor(255, 101, 174, 235));
 			linkBtn->drop();
 
 			posy += 34;

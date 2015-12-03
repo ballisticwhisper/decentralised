@@ -3,9 +3,9 @@ cmake_minimum_required (VERSION 3.4)
 project (Decentralised)
 
 # The version number.
-set (Decentralised_APP_NAME "Decentralised Alpha")
-set (Decentralised_VERSION_MAJOR 1)
-set (Decentralised_VERSION_MINOR 0)
+set (Decentralised_APP_NAME "Decentralised")
+set (Decentralised_VERSION_MAJOR 0)
+set (Decentralised_VERSION_MINOR 1)
 
 configure_file (
   "${PROJECT_SOURCE_DIR}/dc-config.h.in"

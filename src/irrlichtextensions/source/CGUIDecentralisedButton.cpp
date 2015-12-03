@@ -39,6 +39,9 @@ namespace irr
 			PressedLeft = NULL;
 			PressedMiddle = NULL;
 			PressedRight = NULL;
+
+			AlignText = e_button_text_align::Center;
+			TextColor = video::SColor(255, 255, 255, 255);
 		}
 
 
@@ -58,6 +61,15 @@ namespace irr
 				SpriteBank->drop();
 		}
 
+		void CGUIDecentralisedButton::setButtonTextAlign(e_button_text_align align)
+		{
+			AlignText = align;
+		}
+
+		void CGUIDecentralisedButton::setOverrideTextColor(video::SColor color)
+		{
+			TextColor = color;
+		}
 
 		//! Sets if the images should be scaled to fit the button
 		void CGUIDecentralisedButton::setScaleImage(bool scaleImage)
@@ -422,8 +434,8 @@ namespace irr
 
 				if (font)
 					font->draw(Text.c_str(), rect,
-					skin->getColor(isEnabled() ? EGDC_BUTTON_TEXT : EGDC_GRAY_TEXT),
-					true, true, &rect);
+					TextColor,
+					(AlignText == e_button_text_align::Center ? true : false), true, &rect);
 			}
 
 			IGUIElement::draw();
