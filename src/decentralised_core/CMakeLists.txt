@@ -8,6 +8,7 @@ set  (HEADERS
       "${CMAKE_SOURCE_DIR}/src/decentralised_core/src/decentralised_client.h")
 
 SET( LIBBITCOIN_INC_DIR "${CMAKE_SOURCE_DIR}/dependencies/libbitcoin/include" )
+SET( BLOCKCHAIN_INC_DIR "${CMAKE_SOURCE_DIR}/dependencies/libbitcoin-blockchain/include" )
 SET( BOOST_INC_DIR "${CMAKE_SOURCE_DIR}/dependencies/boost" )
 SET( BOOST_LIB_DIR "${CMAKE_SOURCE_DIR}/dependencies/boost/stage/lib" )
 SET( SECP256K1_INC_DIR "${CMAKE_SOURCE_DIR}/dependencies/secp256k1/include" )
@@ -15,7 +16,7 @@ SET( SECP256K1_INC_DIR "${CMAKE_SOURCE_DIR}/dependencies/secp256k1/include" )
 source_group( src FILES ${SOURCES} ${HEADERS} )
 source_group( src\\blockchain FILES ${BLOCKCHAIN_FILES} )
 
-include_directories (src ${LIBBITCOIN_INC_DIR} ${BOOST_INC_DIR} ${SECP256K1_INC_DIR} )
+include_directories (src ${LIBBITCOIN_INC_DIR} ${BOOST_INC_DIR} ${SECP256K1_INC_DIR} ${BLOCKCHAIN_INC_DIR} )
 
 ADD_LIBRARY( decentralised_core STATIC ${SOURCES} ${HEADERS} )
 
@@ -28,5 +29,5 @@ if ( MSVC )
 endif ( MSVC )
 
 IF( WIN32 )
-	ADD_DEFINITIONS( -DBC_STATIC -D_SCL_SECURE_NO_WARNINGS -D_WIN32_WINNT=0x0501 -D_WINSOCK_DEPRECATED_NO_WARNINGS )
+	ADD_DEFINITIONS( -DBC_STATIC -DBCB_STATIC -D_SCL_SECURE_NO_WARNINGS -D_WIN32_WINNT=0x0501 -D_WINSOCK_DEPRECATED_NO_WARNINGS )
 ENDIF(  )

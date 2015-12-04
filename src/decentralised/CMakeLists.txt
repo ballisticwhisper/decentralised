@@ -52,6 +52,7 @@ SET( BOOST_INC_DIR "${CMAKE_SOURCE_DIR}/dependencies/boost" )
 SET( BOOST_LIB_DIR "${CMAKE_SOURCE_DIR}/dependencies/boost/stage/lib" )
 SET( SECP256K1_INC_DIR "${CMAKE_SOURCE_DIR}/dependencies/secp256k1/include" )
 SET( CORE_INC_DIR "${CMAKE_SOURCE_DIR}/src/decentralised_core/src" )
+SET( BLOCKCHAIN_INC_DIR "${CMAKE_SOURCE_DIR}/dependencies/libbitcoin-blockchain/include" )
 
 source_group( "" FILES ${ADVANCED_FUNCTION_SOURCES} )
 source_group( managers FILES ${MANAGER_FILES} )
@@ -59,7 +60,7 @@ source_group( dialogs FILES ${DIALOG_FILES} )
 source_group( context FILES ${CONTEXT_HEADERS} )
 source_group( event_handlers FILES ${EH_FILES} )
 
-include_directories (managers dialogs context event_handlers ${IRRLICHTEXT_INC_DIR} ${IRRLICHT_INC_DIR} ${IRRLICHT_SRC_DIR} ${IRRLICHTEXT_INC_DIR} ${IRRLICHTEXT_SRC_DIR} ${LIBBITCOIN_INC_DIR} ${BOOST_INC_DIR} ${SECP256K1_INC_DIR} ${CORE_INC_DIR} )
+include_directories (managers dialogs context event_handlers ${IRRLICHTEXT_INC_DIR} ${IRRLICHT_INC_DIR} ${IRRLICHT_SRC_DIR} ${IRRLICHTEXT_INC_DIR} ${IRRLICHTEXT_SRC_DIR} ${LIBBITCOIN_INC_DIR} ${BOOST_INC_DIR} ${SECP256K1_INC_DIR} ${CORE_INC_DIR} ${BLOCKCHAIN_INC_DIR} )
 link_directories("/libs" ${BOOST_LIB_DIR} )
 
 add_executable (decentralised ${ADVANCED_FUNCTION_SOURCES} ${MANAGER_FILES} ${DIALOG_FILES} ${CONTEXT_HEADERS} ${EH_FILES} )
@@ -70,5 +71,5 @@ add_custom_command(TARGET decentralised POST_BUILD
                        ${CMAKE_SOURCE_DIR}/data $<TARGET_FILE_DIR:decentralised>/data)
 
 IF( WIN32 )
-	ADD_DEFINITIONS( -DBC_STATIC -D_SCL_SECURE_NO_WARNINGS -D_WIN32_WINNT=0x0501 -D_WINSOCK_DEPRECATED_NO_WARNINGS )
+	ADD_DEFINITIONS( -DBC_STATIC -DBCB_STATIC -D_SCL_SECURE_NO_WARNINGS -D_WIN32_WINNT=0x0501 -D_WINSOCK_DEPRECATED_NO_WARNINGS )
 ENDIF(  )
