@@ -24,3 +24,7 @@
 	path = dependencies/libbitcoin-node
 	url = https://ballisticwhisper@github.com/ballisticwhisper/libbitcoin-node
 	branch = version2
+[submodule "dependencies/leveldb"]
+	path = dependencies/leveldb
+	url = https://ballisticwhisper@github.com/ballisticwhisper/leveldb
+	branch = windows
