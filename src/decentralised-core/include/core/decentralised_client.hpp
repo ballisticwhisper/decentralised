@@ -3,10 +3,15 @@
 
 #include "dc-config.h"
 #include <bitcoin/bitcoin.hpp>
+#include <bitcoin/blockchain.hpp>
+#include <bitcoin/node.hpp>
 #include <vector>
 #include <map>
 
-using namespace libbitcoin;
+using namespace bc;
+using namespace bc::chain;
+using namespace bc::network;
+using namespace bc::node;
 
 namespace decentralised
 {
@@ -19,6 +24,8 @@ namespace decentralised
 			~decentralised_client();
 
 			std::string decentralised_client::get_genesis_message();
+
+			void start(const char prefix[]);
 
 		private:
 			threadpool disk_pool;

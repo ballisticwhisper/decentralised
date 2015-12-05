@@ -1,4 +1,4 @@
-#include "decentralised_client.h"
+#include "core/decentralised_client.hpp"
 
 namespace decentralised
 {
@@ -31,6 +31,22 @@ namespace decentralised
 				message.begin());
 
 			return message;
+		}
+
+		void decentralised_client::start(const char prefix[])
+		{
+			const size_t history_height = 0;
+			const auto genesis = genesis_block();
+
+			boost::filesystem::remove_all(prefix);
+			boost::filesystem::create_directories(prefix);
+			initialize_blockchain(prefix);
+
+			db_paths paths(prefix);
+			db_interface interface(paths, { history_height });
+
+			interface.start();
+			interface.push(genesis);
 		}
 	}
 }

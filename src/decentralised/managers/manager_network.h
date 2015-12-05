@@ -3,7 +3,7 @@
 
 #include <irrlicht.h>
 #include "dc-config.h"
-#include "decentralised_client.h"
+#include "decentralised_core.hpp"
 #include <bitcoin/bitcoin.hpp>
 #include <vector>
 #include <map>

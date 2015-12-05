@@ -45,14 +45,15 @@ set  (EH_FILES
 
 SET( IRRLICHT_INC_DIR "${CMAKE_SOURCE_DIR}/dependencies/irrlicht/include" )
 SET( IRRLICHT_SRC_DIR "${CMAKE_SOURCE_DIR}/dependencies/irrlicht/source/Irrlicht" )
-SET( IRRLICHTEXT_INC_DIR "${CMAKE_SOURCE_DIR}/src/irrlichtextensions/include" )
-SET( IRRLICHTEXT_SRC_DIR "${CMAKE_SOURCE_DIR}/src/irrlichtextensions/source" )
+SET( IRRLICHTEXT_INC_DIR "${CMAKE_SOURCE_DIR}/src/irrlicht-extensions/include" )
+SET( IRRLICHTEXT_SRC_DIR "${CMAKE_SOURCE_DIR}/src/irrlicht-extensions/source" )
 SET( LIBBITCOIN_INC_DIR "${CMAKE_SOURCE_DIR}/dependencies/libbitcoin/include" )
 SET( BOOST_INC_DIR "${CMAKE_SOURCE_DIR}/dependencies/boost" )
 SET( BOOST_LIB_DIR "${CMAKE_SOURCE_DIR}/dependencies/boost/stage/lib" )
 SET( SECP256K1_INC_DIR "${CMAKE_SOURCE_DIR}/dependencies/secp256k1/include" )
-SET( CORE_INC_DIR "${CMAKE_SOURCE_DIR}/src/decentralised_core/src" )
+SET( CORE_INC_DIR "${CMAKE_SOURCE_DIR}/src/decentralised-core/include" )
 SET( BLOCKCHAIN_INC_DIR "${CMAKE_SOURCE_DIR}/dependencies/libbitcoin-blockchain/include" )
+SET( NODE_INC_DIR "${CMAKE_SOURCE_DIR}/dependencies/libbitcoin-node/include" )
 
 source_group( "" FILES ${ADVANCED_FUNCTION_SOURCES} )
 source_group( managers FILES ${MANAGER_FILES} )
@@ -60,16 +61,16 @@ source_group( dialogs FILES ${DIALOG_FILES} )
 source_group( context FILES ${CONTEXT_HEADERS} )
 source_group( event_handlers FILES ${EH_FILES} )
 
-include_directories (managers dialogs context event_handlers ${IRRLICHTEXT_INC_DIR} ${IRRLICHT_INC_DIR} ${IRRLICHT_SRC_DIR} ${IRRLICHTEXT_INC_DIR} ${IRRLICHTEXT_SRC_DIR} ${LIBBITCOIN_INC_DIR} ${BOOST_INC_DIR} ${SECP256K1_INC_DIR} ${CORE_INC_DIR} ${BLOCKCHAIN_INC_DIR} )
+include_directories (managers dialogs context event_handlers ${IRRLICHTEXT_INC_DIR} ${IRRLICHT_INC_DIR} ${IRRLICHT_SRC_DIR} ${IRRLICHTEXT_INC_DIR} ${IRRLICHTEXT_SRC_DIR} ${LIBBITCOIN_INC_DIR} ${BOOST_INC_DIR} ${SECP256K1_INC_DIR} ${CORE_INC_DIR} ${BLOCKCHAIN_INC_DIR} ${NODE_INC_DIR} )
 link_directories("/libs" ${BOOST_LIB_DIR} )
 
 add_executable (decentralised ${ADVANCED_FUNCTION_SOURCES} ${MANAGER_FILES} ${DIALOG_FILES} ${CONTEXT_HEADERS} ${EH_FILES} )
-target_link_libraries ( decentralised irrlicht_static irrlichtextensions secp256k1 libbitcoin decentralised_core )
+target_link_libraries ( decentralised irrlicht_static irrlicht-extensions secp256k1 libbitcoin libbitcoin-blockchain libbitcoin-node decentralised-core )
 
 add_custom_command(TARGET decentralised POST_BUILD
                    COMMAND ${CMAKE_COMMAND} -E copy_directory
                        ${CMAKE_SOURCE_DIR}/data $<TARGET_FILE_DIR:decentralised>/data)
 
 IF( WIN32 )
-	ADD_DEFINITIONS( -DBC_STATIC -DBCB_STATIC -D_SCL_SECURE_NO_WARNINGS -D_WIN32_WINNT=0x0501 -D_WINSOCK_DEPRECATED_NO_WARNINGS )
+	ADD_DEFINITIONS( -DBC_STATIC -DBCB_STATIC -DBCN_STATIC -D_SCL_SECURE_NO_WARNINGS -D_WIN32_WINNT=0x0501 -D_WINSOCK_DEPRECATED_NO_WARNINGS )
 ENDIF(  )

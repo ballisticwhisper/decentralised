@@ -18,6 +18,8 @@ namespace decentralised
 		{
 			std::string message = client->get_genesis_message();
 			printf(message.c_str());
+
+			client->start("data\\blockchain");
 		}
 	}
 }

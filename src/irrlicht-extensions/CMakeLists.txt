@@ -1,5 +1,5 @@
 CMAKE_MINIMUM_REQUIRED( VERSION 2.6 )
-PROJECT( irrlichtextensions )
+PROJECT( irrlicht-extensions )
 
 SET( CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}/../lib" )
 
@@ -20,12 +20,12 @@ SOURCE_GROUP( Include FILES ${IRRLICHTEXT_INC_FILES} )
 
 # SET( IRRLICHTEXT_LIB_FILES "" )
 
-ADD_LIBRARY( irrlichtextensions STATIC ${IRRLICHTEXT_SRC_FILES} ${IRRLICHTEXT_LIB_FILES} ${IRRLICHTEXT_INC_FILES} )
+ADD_LIBRARY( irrlicht-extensions STATIC ${IRRLICHTEXT_SRC_FILES} ${IRRLICHTEXT_LIB_FILES} ${IRRLICHTEXT_INC_FILES} )
 
-SET_TARGET_PROPERTIES( irrlichtextensions PROPERTIES LIBRARY_OUTPUT_NAME irrlichtextensions ARCHIVE_OUTPUT_NAME irrlichtextensions )
+SET_TARGET_PROPERTIES( irrlicht-extensions PROPERTIES LIBRARY_OUTPUT_NAME irrlicht-extensions ARCHIVE_OUTPUT_NAME irrlicht-extensions )
 
 if ( MSVC )
-    set_target_properties( irrlichtextensions PROPERTIES ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/../../../libs)
-    set_target_properties( irrlichtextensions PROPERTIES ARCHIVE_OUTPUT_DIRECTORY_DEBUG ${PROJECT_BINARY_DIR}/../../../libs)
-    set_target_properties( irrlichtextensions PROPERTIES ARCHIVE_OUTPUT_DIRECTORY_RELEASE ${PROJECT_BINARY_DIR}/../../../libs)
+    set_target_properties( irrlicht-extensions PROPERTIES ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/../../../libs)
+    set_target_properties( irrlicht-extensions PROPERTIES ARCHIVE_OUTPUT_DIRECTORY_DEBUG ${PROJECT_BINARY_DIR}/../../../libs)
+    set_target_properties( irrlicht-extensions PROPERTIES ARCHIVE_OUTPUT_DIRECTORY_RELEASE ${PROJECT_BINARY_DIR}/../../../libs)
 endif ( MSVC )

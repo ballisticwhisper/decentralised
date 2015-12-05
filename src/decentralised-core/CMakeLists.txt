@@ -1,0 +1,49 @@
+CMAKE_MINIMUM_REQUIRED( VERSION 3.0 )
+PROJECT( decentralised-core )
+
+IF(NOT CMAKE_LIBRARY_OUTPUT_DIRECTORY )
+	SET( CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/lib" )
+ENDIF(  )
+IF(NOT CMAKE_ARCHIVE_OUTPUT_DIRECTORY )
+	SET( CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/lib" )
+ENDIF(  )
+
+SET( LIBBITCOIN_INC_DIR "${CMAKE_SOURCE_DIR}/dependencies/libbitcoin/include" )
+SET( BLOCKCHAIN_INC_DIR "${CMAKE_SOURCE_DIR}/dependencies/libbitcoin-blockchain/include" )
+SET( NODE_INC_DIR "${CMAKE_SOURCE_DIR}/dependencies/libbitcoin-node/include" )
+SET( BOOST_INC_DIR "${CMAKE_SOURCE_DIR}/dependencies/boost" )
+SET( SECP256K1_INC_DIR "${CMAKE_SOURCE_DIR}/dependencies/secp256k1/include" )
+SET( DCCORE_INC_DIR "${CMAKE_SOURCE_DIR}/src/decentralised-core/include" )
+SET( DCCORE_SRC_DIR "${CMAKE_SOURCE_DIR}/src/decentralised-core/src" )
+
+SET( BOOST_LIB_DIR "${CMAKE_SOURCE_DIR}/dependencies/boost/stage/lib" )
+
+INCLUDE_DIRECTORIES( ${SECP256K1_INC_DIR} 
+		     ${BLOCKCHAIN_INC_DIR} 
+		     ${BOOST_INC_DIR} 
+		     ${LIBBITCOIN_INC_DIR} 
+	  	     ${NODE_INC_DIR}
+		     ${DCCORE_INC_DIR} )
+
+FILE( GLOB DCCORE_INC_ROOT_FILES "${DCCORE_INC_DIR}/*.hpp" )
+FILE( GLOB DCCORE_CORE_INC_FILES "${DCCORE_INC_DIR}/core/*.hpp" )
+FILE( GLOB DCCORE_SRC_ROOT_FILES "${DCCORE_SRC_DIR}/*.cpp" )
+
+source_group( include FILES ${DCCORE_INC_ROOT_FILES} )
+source_group( include\\core FILES ${DCCORE_CORE_INC_FILES} )
+
+source_group( src FILES ${DCCORE_SRC_ROOT_FILES} )
+
+ADD_LIBRARY( decentralised-core STATIC ${DCCORE_INC_ROOT_FILES} ${DCCORE_CORE_INC_FILES} ${DCCORE_SRC_ROOT_FILES} )
+
+SET_TARGET_PROPERTIES( decentralised-core PROPERTIES LIBRARY_OUTPUT_NAME decentralised-core ARCHIVE_OUTPUT_NAME decentralised-core )
+
+if ( MSVC )
+    set_target_properties( decentralised-core PROPERTIES ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/libs)
+    set_target_properties( decentralised-core PROPERTIES ARCHIVE_OUTPUT_DIRECTORY_DEBUG ${CMAKE_SOURCE_DIR}/libs)
+    set_target_properties( decentralised-core PROPERTIES ARCHIVE_OUTPUT_DIRECTORY_RELEASE ${CMAKE_SOURCE_DIR}/libs)
+endif ( MSVC )
+
+IF( WIN32 )
+	ADD_DEFINITIONS( -DBC_STATIC -DBCB_STATIC -DBCN_STATIC -D_SCL_SECURE_NO_WARNINGS -D_WIN32_WINNT=0x0501 -D_WINSOCK_DEPRECATED_NO_WARNINGS )
+ENDIF(  )
