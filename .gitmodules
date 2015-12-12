@@ -19,8 +19,7 @@
 [submodule "dependencies/libbitcoin-blockchain"]
 	path = dependencies/libbitcoin-blockchain
 	url = https://ballisticwhisper@github.com/ballisticwhisper/libbitcoin-blockchain
-	branch = version2
-[submodule "dependencies/libbitcoin-node"]
+	branch = leveldb[submodule "dependencies/libbitcoin-node"]
 	path = dependencies/libbitcoin-node
 	url = https://ballisticwhisper@github.com/ballisticwhisper/libbitcoin-node
 	branch = version2

@@ -18,6 +18,21 @@ namespace decentralised
 			net_pool.join();
 		}
 
+		leveldb::Options decentralised_client::create_open_options()
+		{
+			leveldb::Options options;
+			// Open LevelDB databases
+			const size_t cache_size = 1 << 20;
+			// block_cache, filter_policy and comparator must be deleted after use!
+			//options.block_cache = leveldb::NewLRUCache(cache_size / 2);
+			options.write_buffer_size = cache_size / 4;
+			//options.filter_policy = leveldb::NewBloomFilterPolicy(10);
+			options.compression = leveldb::kNoCompression;
+			options.max_open_files = 256;
+			options.create_if_missing = true;
+			return options;
+		}
+
 		std::string decentralised_client::get_genesis_message()
 		{
 			block_type blk = genesis_block();
@@ -38,15 +53,25 @@ namespace decentralised
 			const size_t history_height = 0;
 			const auto genesis = genesis_block();
 
-			boost::filesystem::remove_all(prefix);
-			boost::filesystem::create_directories(prefix);
-			initialize_blockchain(prefix);
+			// TODO: for debugging - remove
+			//boost::filesystem::remove_all(prefix);
 
-			db_paths paths(prefix);
-			db_interface interface(paths, { history_height });
+			//leveldb::Options options = create_open_options();
+			//leveldb::DB* db = nullptr;
+			//leveldb::Status status = leveldb::DB::Open(options, prefix, &db);
 
-			interface.start();
-			interface.push(genesis);
+			//leveldb::Slice value_slice(reinterpret_cast<const char*>(&genesis));
+			//db->Put(leveldb::WriteOptions(), "0", value_slice);
+
+			//std::string fromDb;
+			//db->Get(leveldb::ReadOptions(), "0", &fromDb);
+
+			//libbitcoin::block_type* fromDbBlock = reinterpret_cast<libbitcoin::block_type*>(fromDb.c_str(), fromDb.size());
+
+
+
+			//delete fromDbBlock;
+			//delete db;
 		}
 	}
 }

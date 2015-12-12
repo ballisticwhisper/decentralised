@@ -5,6 +5,7 @@
 #include <bitcoin/bitcoin.hpp>
 #include <bitcoin/blockchain.hpp>
 #include <bitcoin/node.hpp>
+#include <leveldb/db.h>
 #include <vector>
 #include <map>
 
@@ -28,6 +29,8 @@ namespace decentralised
 			void start(const char prefix[]);
 
 		private:
+			leveldb::Options create_open_options();
+
 			threadpool disk_pool;
 			threadpool net_pool;
 		};
