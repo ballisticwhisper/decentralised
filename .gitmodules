@@ -16,3 +16,7 @@
 	path = dependencies/leveldb
 	url = https://ballisticwhisper@github.com/ballisticwhisper/leveldb
 	branch = windows
+[submodule "dependencies/openssl"]
+	path = dependencies/openssl
+	url = https://ballisticwhisper@github.com/ballisticwhisper/openssl
+	branch = OpenSSL_1_0_2-stable
