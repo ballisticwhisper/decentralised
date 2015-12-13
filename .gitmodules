@@ -11,18 +11,7 @@
 [submodule "dependencies/libbitcoin"]
 	path = dependencies/libbitcoin
 	url = https://ballisticwhisper@github.com/ballisticwhisper/libbitcoin
-	branch = version2
-[submodule "dependencies/secp256k1"]
-	path = dependencies/secp256k1
-	url = https://github.com/ballisticwhisper/secp256k1
-	branch = master
-[submodule "dependencies/libbitcoin-blockchain"]
-	path = dependencies/libbitcoin-blockchain
-	url = https://ballisticwhisper@github.com/ballisticwhisper/libbitcoin-blockchain
-	branch = leveldb[submodule "dependencies/libbitcoin-node"]
-	path = dependencies/libbitcoin-node
-	url = https://ballisticwhisper@github.com/ballisticwhisper/libbitcoin-node
-	branch = version2
+	branch = version1
 [submodule "dependencies/leveldb"]
 	path = dependencies/leveldb
 	url = https://ballisticwhisper@github.com/ballisticwhisper/leveldb
