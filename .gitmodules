@@ -12,10 +12,6 @@
 	path = dependencies/libbitcoin
 	url = https://ballisticwhisper@github.com/ballisticwhisper/libbitcoin
 	branch = version1
-[submodule "dependencies/leveldb"]
-	path = dependencies/leveldb
-	url = https://ballisticwhisper@github.com/ballisticwhisper/leveldb
-	branch = windows
 [submodule "dependencies/openssl"]
 	path = dependencies/openssl
 	url = https://ballisticwhisper@github.com/ballisticwhisper/openssl
