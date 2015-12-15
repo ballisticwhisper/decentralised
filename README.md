@@ -9,24 +9,28 @@ http://decentralised-project.org
 
 ### Build on Windows
 
-##### Install Visual Studio 2013 and Nov CTP Compiler Update
+##### Prerequisites
 
-http://go.microsoft.com/fwlink/?LinkId=517284
+* [Visual Studio 2013](http://go.microsoft.com/fwlink/?LinkId=517284)
+* [Visual C++ Compiler November 2013 CTP](http://www.microsoft.com/en-us/download/details.aspx?id=41151)
+* [Netwide Assembler](http://nasm.sourceforge.net/)
+* [CMake 3.4+](https://cmake.org/download/)
+* [Python](https://www.python.org/)
+* [ActivePerl](http://www.activestate.com/activeperl/downloads)
 
-http://www.microsoft.com/en-us/download/details.aspx?id=41151
+Make sure CMake, Python and Perl are in your PATH, and reboot after installation.
 
-##### Install SourceTree and clone repository
+Make sure submodules are downloaded in /dependencies
 
-https://www.sourcetreeapp.com/
-Also make sure submodules are downloaded in /dependencies
+##### Create Visual Studio solution
 
-##### Install CMake 3.4+ and Python
+Open a console and cd to the root folder ...
 
-https://cmake.org/download/
-
-https://www.python.org/
-
-Make sure cmake is in your PATH, and reboot after installation.
+```
+mkdir build
+cd build
+python ../configure-windows.py
+```
 
 ##### Build boost
 
@@ -37,15 +41,19 @@ bootstrap
 .\b2
 ```
 
-##### Create Visual Studio solution
+##### Build openssl
 
-Open a console and cd to the root folder ...
+Open a Visual Studio console and cd to the dependencies/openssl folder
 
 ```
-mkdir build
-cd build
-python ../configure.py
+mkdir [path-to-root-folder]\build\openssl
+perl Configure VC-WIN32 enable-static-engine --prefix=[path-to-root-folder]\\build\\openssl
+ms\do_nasm
+nmake -f ms\nt.mak
+nmake -f ms\nt.mak install
 ```
+
+##### Build decentralised
 
 Open Decentralised.sln in /build folder.
 
@@ -56,37 +64,3 @@ Set the debug working directory on 'decentralised' to ../../Debug
 Build & Execute
 
 ----
-
-### Build on Linux (to be updated)
-
-##### Install Git
-
-```
-sudo apt-get install git
-```
-
-##### Clone repository and submodules
-
-```
-git clone https://github.com/ballisticwhisper/decentralised.git dc
-git submodule init
-git submodule update
-```
-
-##### Install CMake and OpenGL
-
-```
-sudo apt-get install cmake
-sudo apt-get install freeglut3 freeglut3-dev freeglut3-dbg
-```
-
-##### Setup the build folder, and build
-
-Open a terminal and cd to the root folder ...
-
-```
-mkdir build
-cd build
-cmake .. -G "CodeBlocks - Unix Makefiles"
-make
-```
