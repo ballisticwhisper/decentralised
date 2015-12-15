@@ -3,16 +3,12 @@
 
 #include "dc-config.h"
 #include <bitcoin/bitcoin.hpp>
-#include <bitcoin/blockchain.hpp>
-#include <bitcoin/node.hpp>
 #include <leveldb/db.h>
 #include <vector>
 #include <map>
 
 using namespace bc;
-using namespace bc::chain;
-using namespace bc::network;
-using namespace bc::node;
+
 
 namespace decentralised
 {

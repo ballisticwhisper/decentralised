@@ -28,29 +28,6 @@ f = open('dependencies/libbitcoin/libbitcoin.vcxproj','w')
 f.write(newdata)
 f.close()
 
-print "Setting libbitcoin-blockchain platform toolset to 'CTP_Nov2013' ..."
-
-f = open('dependencies/libbitcoin-blockchain/libbitcoin-blockchain.vcxproj','r')
-filedata = f.read()
-f.close()
-
-newdata = filedata.replace("<PlatformToolset>v120</PlatformToolset>","<PlatformToolset>CTP_Nov2013</PlatformToolset>")
-
-f = open('dependencies/libbitcoin-blockchain/libbitcoin-blockchain.vcxproj','w')
-f.write(newdata)
-f.close()
-
-print "Setting libbitcoin-node platform toolset to 'CTP_Nov2013' ..."
-
-f = open('dependencies/libbitcoin-node/libbitcoin-node.vcxproj','r')
-filedata = f.read()
-f.close()
-
-newdata = filedata.replace("<PlatformToolset>v120</PlatformToolset>","<PlatformToolset>CTP_Nov2013</PlatformToolset>")
-
-f = open('dependencies/libbitcoin-node/libbitcoin-node.vcxproj','w')
-f.write(newdata)
-f.close()
 
 print "Setting decentralised platform toolset to 'CTP_Nov2013' ..."
 
@@ -64,26 +41,14 @@ f = open('src/decentralised/decentralised.vcxproj','w')
 f.write(newdata)
 f.close()
 
-print "Setting decentralised_core platform toolset to 'CTP_Nov2013' ..."
+print "Setting decentralised-core platform toolset to 'CTP_Nov2013' ..."
 
-f = open('src/decentralised_core/decentralised_core.vcxproj','r')
+f = open('src/decentralised-core/decentralised-core.vcxproj','r')
 filedata = f.read()
 f.close()
 
 newdata = filedata.replace("<PlatformToolset>v120</PlatformToolset>","<PlatformToolset>CTP_Nov2013</PlatformToolset>")
 
-f = open('src/decentralised_core/decentralised_core.vcxproj','w')
-f.write(newdata)
-f.close()
-
-print "Setting secp256k1 platform toolset to 'CTP_Nov2013' ..."
-
-f = open('dependencies/secp256k1/secp256k1.vcxproj','r')
-filedata = f.read()
-f.close()
-
-newdata = filedata.replace("<PlatformToolset>v120</PlatformToolset>","<PlatformToolset>CTP_Nov2013</PlatformToolset>")
-
-f = open('dependencies/secp256k1/secp256k1.vcxproj','w')
+f = open('src/decentralised-core/decentralised-core.vcxproj','w')
 f.write(newdata)
 f.close()

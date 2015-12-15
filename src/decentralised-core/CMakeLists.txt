@@ -8,6 +8,7 @@ IF(NOT CMAKE_ARCHIVE_OUTPUT_DIRECTORY )
 	SET( CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/lib" )
 ENDIF(  )
 
+SET( OPENSSL_INC_DIR "${CMAKE_SOURCE_DIR}/build/openssl/include" )
 SET( LEVELDB_INC_DIR "${CMAKE_SOURCE_DIR}/dependencies/leveldb/include" )
 SET( LIBBITCOIN_INC_DIR "${CMAKE_SOURCE_DIR}/dependencies/libbitcoin/include" )
 SET( BLOCKCHAIN_INC_DIR "${CMAKE_SOURCE_DIR}/dependencies/libbitcoin-blockchain/include" )
@@ -25,7 +26,8 @@ INCLUDE_DIRECTORIES( ${SECP256K1_INC_DIR}
 		     ${LIBBITCOIN_INC_DIR} 
 	  	     ${NODE_INC_DIR}
 		     ${DCCORE_INC_DIR}
-		     ${LEVELDB_INC_DIR} )
+		     ${LEVELDB_INC_DIR}
+		     ${OPENSSL_INC_DIR} )
 
 FILE( GLOB DCCORE_INC_ROOT_FILES "${DCCORE_INC_DIR}/*.hpp" )
 FILE( GLOB DCCORE_CORE_INC_FILES "${DCCORE_INC_DIR}/core/*.hpp" )
