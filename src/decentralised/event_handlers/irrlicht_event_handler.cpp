@@ -7,7 +7,15 @@ bool irrlicht_event_handler::OnEvent(const SEvent& event)
 		if (event.GUIEvent.Caller->getID() == e_gui_elements::LoginToolbarCreateAvatarButton
 			&& event.GUIEvent.EventType == EGUI_EVENT_TYPE::EGET_BUTTON_CLICKED)
 		{
-			this->Context.gui_manager->ToggleWindowCreateAvatar();
+			elliptic_curve_key key;
+			key.new_keypair();
+			data_chunk publicKeyChunk = key.public_key();
+			payment_address address;
+			set_public_key(address, key.public_key());
+
+			std::string encoded = address.encoded();
+			std::wstring publicKey(encoded.begin(), encoded.end());
+			this->Context.gui_manager->ToggleWindowCreateAvatar(publicKey);
 		}
 		else if (event.GUIEvent.Caller->getID() == e_gui_elements::CreateAvCreateButton
 			&& event.GUIEvent.EventType == EGUI_EVENT_TYPE::EGET_BUTTON_CLICKED)

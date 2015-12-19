@@ -36,11 +36,8 @@ namespace decentralised
 			CGUIDecentralisedTextbox* CreateAvFirstNameTextBox;
 			IGUIStaticText* CreateAvLastNameLabel;
 			CGUIDecentralisedTextbox* CreateAvLastNameTextBox;
-			IGUIStaticText* CreateAvPasswordLabel;
-			CGUIDecentralisedTextbox* CreateAvPasswordBox;
-			IGUIStaticText* CreateAvConfirmLabel;
-			CGUIDecentralisedTextbox* CreateAvConfirmPasswordBox;
-			IGUIStaticText* CreateAvWarningLabel;
+			IGUIStaticText* CreateAvPublicKeyLabel;
+			CGUIDecentralisedTextbox* CreateAvPublicKeyBox;
 			CGUIDecentralisedButton* CreateAvCreateButton;
 
 			CGUIDecentralisedContextMenu* MenuBarMain;

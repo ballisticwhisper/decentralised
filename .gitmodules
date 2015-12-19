@@ -8,10 +8,6 @@
 	path = dependencies/boost
 	url = https://ballisticwhisper@github.com/ballisticwhisper/boost
 	branch = release
-[submodule "dependencies/libbitcoin"]
-	path = dependencies/libbitcoin
-	url = https://ballisticwhisper@github.com/ballisticwhisper/libbitcoin
-	branch = version1
 [submodule "dependencies/openssl"]
 	path = dependencies/openssl
 	url = https://ballisticwhisper@github.com/ballisticwhisper/openssl
@@ -19,3 +15,7 @@
 [submodule "dependencies/leveldb"]
 	path = dependencies/leveldb
 	url = https://ballisticwhisper@github.com/ballisticwhisper/leveldb
+[submodule "dependencies/secp256k1"]
+	path = dependencies/secp256k1
+	url = https://ballisticwhisper@github.com/ballisticwhisper/secp256k1
+	branch = version1

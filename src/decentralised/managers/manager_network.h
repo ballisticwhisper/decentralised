@@ -4,7 +4,6 @@
 #include <irrlicht.h>
 #include "dc-config.h"
 #include "decentralised_core.hpp"
-#include <bitcoin/bitcoin.hpp>
 #include <vector>
 #include <map>
 
@@ -16,7 +15,6 @@ using namespace video;
 using namespace io;
 using namespace gui;
 
-using namespace libbitcoin;
 using namespace decentralised::core;
 
 namespace decentralised

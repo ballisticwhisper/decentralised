@@ -16,18 +16,6 @@ f = open('dependencies/leveldb/leveldb.vcxproj','w')
 f.write(newdata)
 f.close()
 
-print "Setting libbitcoin platform toolset to 'CTP_Nov2013' ..."
-
-f = open('dependencies/libbitcoin/libbitcoin.vcxproj','r')
-filedata = f.read()
-f.close()
-
-newdata = filedata.replace("<PlatformToolset>v120</PlatformToolset>","<PlatformToolset>CTP_Nov2013</PlatformToolset>")
-
-f = open('dependencies/libbitcoin/libbitcoin.vcxproj','w')
-f.write(newdata)
-f.close()
-
 
 print "Setting decentralised platform toolset to 'CTP_Nov2013' ..."
 

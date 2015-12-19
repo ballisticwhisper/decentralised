@@ -4,33 +4,18 @@ namespace decentralised
 {
 	namespace core
 	{
-		decentralised_client::decentralised_client() : disk_pool(4), net_pool(2)
+		decentralised_client::decentralised_client()
 		{
 
 		}
 
 		decentralised_client::~decentralised_client()
 		{
-			disk_pool.stop();
-			net_pool.stop();
+			if (chain)
+				delete chain;
 
-			disk_pool.join();
-			net_pool.join();
-		}
-
-		leveldb::Options decentralised_client::create_open_options()
-		{
-			leveldb::Options options;
-			//// Open LevelDB databases
-			//const size_t cache_size = 1 << 20;
-			//// block_cache, filter_policy and comparator must be deleted after use!
-			////options.block_cache = leveldb::NewLRUCache(cache_size / 2);
-			//options.write_buffer_size = cache_size / 4;
-			////options.filter_policy = leveldb::NewBloomFilterPolicy(10);
-			//options.compression = leveldb::kNoCompression;
-			//options.max_open_files = 256;
-			//options.create_if_missing = true;
-			return options;
+			if (pool)
+				delete pool;
 		}
 
 		std::string decentralised_client::get_genesis_message()
@@ -45,33 +30,73 @@ namespace decentralised
 			std::copy(raw_block_message.begin() + 8, raw_block_message.end(),
 				message.begin());
 
-			return message;
+			return message.append("\n");
 		}
 
 		void decentralised_client::start(const char prefix[])
 		{
-			//const size_t history_height = 0;
-			//const auto genesis = genesis_block();
+			std::string dbPath = std::string(prefix);
 
-			// TODO: for debugging - remove
-			//boost::filesystem::remove_all(prefix);
+			//create_stealth_db(dbPath + "\\stealth.db");
 
-			//leveldb::Options options = create_open_options();
-			//leveldb::DB* db = nullptr;
-			//leveldb::Status status = leveldb::DB::Open(options, prefix, &db);
+			pool = new threadpool(1);
+			chain = new leveldb_blockchain(*pool);
+			auto blockchain_start = [](const std::error_code& ec) {};
 
-			//leveldb::Slice value_slice(reinterpret_cast<const char*>(&genesis));
-			//db->Put(leveldb::WriteOptions(), "0", value_slice);
+			chain->start(dbPath, blockchain_start);
 
-			//std::string fromDb;
-			//db->Get(leveldb::ReadOptions(), "0", &fromDb);
+			block_type first_block = genesis_block();
 
-			//libbitcoin::block_type* fromDbBlock = reinterpret_cast<libbitcoin::block_type*>(fromDb.c_str(), fromDb.size());
+			std::promise<std::error_code> ec_promise;
+			auto import_finished =
+				[&ec_promise](const std::error_code& ec)
+			{
+				ec_promise.set_value(ec);
+			};
+			chain->import(first_block, 0, import_finished);
 
+			std::error_code ec = ec_promise.get_future().get();
+			if (ec)
+			{
+				printf("Error importing genesis block");
+				//log_error() << "Importing genesis block failed: " << ec.message();
+				//return -1;
+			}
+			else
+			{
+				printf("\nImported genesis block");
+				//			log_info() << "Imported genesis block "
+				//<< hash_block_header(first_block.header);
+				// All threadpools stopping in parallel...
+				pool->stop();
+				// ... Make them all join main thread and wait until they finish.
+				pool->join();
+				// Now safely close leveldb_blockchain.
+				chain->stop();
+			}
+		}
 
+		void decentralised_client::create_file(const std::string& filename, size_t filesize)
+		{
+			std::ofstream file(filename, std::ios::binary | std::ios::trunc);
+			constexpr size_t chunk_size = 100000;
+			std::vector<char> random_buffer(chunk_size);
+			for (size_t i = 0; i < filesize; i += chunk_size)
+				file.write(random_buffer.data(), chunk_size);
+		}
 
-			//delete fromDbBlock;
-			//delete db;
+		void decentralised_client::create_stealth_db(const std::string &filename)
+		{
+			create_file(filename, 100000000);
+			mmfile file(filename);
+			auto serial = make_serializer(file.data());
+			serial.write_4_bytes(1);
+			// should last us a decade
+			size_t max_header_rows = 10000;
+			serial.write_4_bytes(max_header_rows);
+			serial.write_4_bytes(0);
+			for (size_t i = 0; i < max_header_rows; ++i)
+				serial.write_4_bytes(0);
 		}
 	}
 }

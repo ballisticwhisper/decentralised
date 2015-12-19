@@ -2,13 +2,17 @@
 #define __DECENTRALISED_CLIENT_H_INCLUDED__
 
 #include "dc-config.h"
-#include <bitcoin/bitcoin.hpp>
 #include <leveldb/db.h>
+#include <core/block.hpp>
+#include <core/utility/mmfile.hpp>
+#include <core/utility/serializer.hpp>
+#include <core/threadpool.hpp>
+#include <core/blockchain/leveldb_blockchain.hpp>
 #include <vector>
 #include <map>
-
-using namespace bc;
-
+#include <iostream>
+#include <fstream>
+#include <future>
 
 namespace decentralised
 {
@@ -25,10 +29,10 @@ namespace decentralised
 			void start(const char prefix[]);
 
 		private:
-			leveldb::Options create_open_options();
-
-			threadpool disk_pool;
-			threadpool net_pool;
+			void create_stealth_db(const std::string &filename);
+			void create_file(const std::string& filename, size_t filesize);
+			threadpool* pool;
+			leveldb_blockchain* chain;
 		};
 	}
 }

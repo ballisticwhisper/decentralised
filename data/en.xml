@@ -13,7 +13,7 @@
   <setting name="CreateAvatar_WindowTitle" value="Create a new avatar" />
   <setting name="CreateAvatar_FirstnameLabel" value="First name" />
   <setting name="CreateAvatar_LastnameLabel" value="Last name" />
-  <setting name="CreateAvatar_PasswordLabel" value="Password" />
+  <setting name="CreateAvatar_PublicKeyLabel" value="Public Key" />
   <setting name="CreateAvatar_ConfirmLabel" value="Confirm password" />
   <setting name="CreateAvatar_Warning" value="WARNING: It is not possible to recover forgotten passwords." />
   <setting name="CreateAvatar_CreateButtonText" value="Create" />

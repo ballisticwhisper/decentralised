@@ -202,7 +202,7 @@ namespace decentralised
 			elems.CreateAvButton->drop();
 		}
 
-		void manager_gui::ToggleWindowCreateAvatar()
+		void manager_gui::ToggleWindowCreateAvatar(std::wstring publicKey)
 		{
 			if (dialogs.CreateAvatar)
 			{
@@ -212,8 +212,10 @@ namespace decentralised
 			}
 			else
 			{
+			
+
 				// add dialog
-				dialogs.CreateAvatar = dialog_createavatar::AddDialog(elems, env, lang_);
+				dialogs.CreateAvatar = dialog_createavatar::AddDialog(elems, env, lang_, publicKey);
 			}
 		}
 

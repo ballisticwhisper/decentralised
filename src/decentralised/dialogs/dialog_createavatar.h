@@ -21,9 +21,9 @@ namespace decentralised
 		public:
 			~dialog_createavatar();
 
-			static dialog_createavatar* AddDialog(context::context_gui &elems, IGUIEnvironment* env, std::map<std::wstring, std::wstring> &lang)
+			static dialog_createavatar* AddDialog(context::context_gui &elems, IGUIEnvironment* env, std::map<std::wstring, std::wstring> &lang, std::wstring publicKey)
 			{
-				return new dialog_createavatar(elems, env, lang);
+				return new dialog_createavatar(elems, env, lang, publicKey);
 			}
 
 			void RemoveDialog();
@@ -36,9 +36,9 @@ namespace decentralised
 			}
 
 		private:
-			dialog_createavatar(context::context_gui &elems, IGUIEnvironment* env, std::map<std::wstring, std::wstring> &lang);
+			dialog_createavatar(context::context_gui &elems, IGUIEnvironment* env, std::map<std::wstring, std::wstring> &lang, std::wstring publicKey);
 
-			void initElements();
+			void initElements(std::wstring publicKey);
 
 			IGUIEnvironment* env_;
 			IGUIDecentralisedWindow* window_;

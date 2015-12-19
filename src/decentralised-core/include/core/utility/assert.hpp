@@ -1,0 +1,14 @@
+#ifndef DC_CORE_ASSERT_HPP
+#define DC_CORE_ASSERT_HPP
+
+#include <boost/assert.hpp>
+
+#ifdef BITCOIN_DISABLE_ASSERTS
+    #define BOOST_DISABLE_ASSERTS
+#endif
+
+#define BITCOIN_ASSERT BOOST_ASSERT
+#define BITCOIN_ASSERT_MSG BOOST_ASSERT_MSG
+
+#endif
+

@@ -88,7 +88,7 @@ namespace decentralised
 			virtual void AddConsoleLine(video::SColor textColor, std::wstring text);
 			virtual void SetCurrentTime(time_t currentTime);
 
-			virtual void ToggleWindowCreateAvatar();
+			virtual void ToggleWindowCreateAvatar(std::wstring publicKey);
 			virtual void CleanupWindowCreateAvatar();
 
 			virtual void ShowWindowAbout();

@@ -1,11 +1,11 @@
 #define _IRR_STATIC_LIB_
 
+#include <irrlicht.h>
 #include <stdio.h>
 #include <string>
 #include <sstream>
 #include <iostream>
 #include "dc-config.h"
-#include <irrlicht.h>
 #include "manager_gui.h"
 #include "manager_filesystem.h"
 #include "manager_network.h"
@@ -21,7 +21,7 @@ using namespace gui;
 using namespace decentralised::managers;
 using namespace decentralised::context;
 
-#ifdef _IRR_WINDOWS_
+#ifdef _WINDOWS
 #ifndef _DEBUG
 #pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup")
 #endif
