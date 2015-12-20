@@ -4,18 +4,28 @@ namespace decentralised
 {
 	namespace core
 	{
-		decentralised_client::decentralised_client()
+		decentralised_client::decentralised_client(signal_handler eventHandler) : 
+			disk_pool(4),
+			net_pool(1),
+			mem_pool(1),
+			chain(disk_pool),
+			net(net_pool),
+			eventHandler_(eventHandler)
 		{
-
 		}
 
 		decentralised_client::~decentralised_client()
 		{
-			if (chain)
-				delete chain;
+			disk_pool.stop();
+			disk_pool.join();
 
-			if (pool)
-				delete pool;
+			net_pool.stop();
+			net_pool.join();
+
+			mem_pool.stop();
+			mem_pool.join();
+
+			chain.stop();
 		}
 
 		std::string decentralised_client::get_genesis_message()
@@ -25,78 +35,97 @@ namespace decentralised
 			const transaction_input_type& coinbase_input = coinbase_tx.inputs[0];
 			const script_type& input_script = coinbase_input.script;
 			const data_chunk& raw_block_message = save_script(input_script);
-			std::string message;
-			message.resize(raw_block_message.size());
-			std::copy(raw_block_message.begin() + 8, raw_block_message.end(),
-				message.begin());
 
-			return message.append("\n");
+			return std::string(raw_block_message.begin() + 8, raw_block_message.end()).append("\n");
 		}
 
 		void decentralised_client::start(const char prefix[])
 		{
 			std::string dbPath = std::string(prefix);
 
-			//create_stealth_db(dbPath + "\\stealth.db");
+			auto handle_blockchain_started =
+				std::bind(&decentralised_client::blockchain_started, this, _1);
 
-			pool = new threadpool(1);
-			chain = new leveldb_blockchain(*pool);
-			auto blockchain_start = [](const std::error_code& ec) {};
+			chain.start(dbPath, handle_blockchain_started);
+		}
 
-			chain->start(dbPath, blockchain_start);
 
-			block_type first_block = genesis_block();
-
-			std::promise<std::error_code> ec_promise;
-			auto import_finished =
-				[&ec_promise](const std::error_code& ec)
-			{
-				ec_promise.set_value(ec);
-			};
-			chain->import(first_block, 0, import_finished);
-
-			std::error_code ec = ec_promise.get_future().get();
+		void decentralised_client::blockchain_started(const std::error_code& ec)
+		{
 			if (ec)
 			{
-				printf("Error importing genesis block");
-				//log_error() << "Importing genesis block failed: " << ec.message();
-				//return -1;
+				eventHandler_(-500, std::string("Error: ").append(ec.message()));
+				return;
 			}
-			else
+			eventHandler_(1, "Blockchain started.");
+
+			auto handle_height_fetched =
+				std::bind(&decentralised_client::height_fetched, this, _1, _2);
+
+			chain.fetch_last_height(handle_height_fetched);
+		}
+
+		void decentralised_client::height_fetched(const std::error_code& ec, size_t last_height)
+		{
+			if (ec)
 			{
-				printf("\nImported genesis block");
-				//			log_info() << "Imported genesis block "
-				//<< hash_block_header(first_block.header);
-				// All threadpools stopping in parallel...
-				pool->stop();
-				// ... Make them all join main thread and wait until they finish.
-				pool->join();
-				// Now safely close leveldb_blockchain.
-				chain->stop();
+				if (ec == error::not_found)
+				{
+					eventHandler_(2, "No existing blocks in the blockchain database.");
+
+					block_type first_block = genesis_block();
+
+					auto handle_imported_genesis =
+						std::bind(&decentralised_client::imported_genesis, this, _1);
+
+					chain.import(first_block, 0, handle_imported_genesis);
+				}
+				else
+				{
+					eventHandler_(-501, std::string("Error fetching blockhain height: ").append(ec.message()));
+				}
+				return;
 			}
+
+			eventHandler_(3, std::string("Blockchain database height: ").append(std::to_string(last_height)));
+
+			auto handle_display_block_header =
+				std::bind(&decentralised_client::display_block_header, this, _1, _2);
+
+			chain.fetch_block_header(last_height, handle_display_block_header);
 		}
 
-		void decentralised_client::create_file(const std::string& filename, size_t filesize)
+		void decentralised_client::imported_genesis(const std::error_code& ec)
 		{
-			std::ofstream file(filename, std::ios::binary | std::ios::trunc);
-			constexpr size_t chunk_size = 100000;
-			std::vector<char> random_buffer(chunk_size);
-			for (size_t i = 0; i < filesize; i += chunk_size)
-				file.write(random_buffer.data(), chunk_size);
+			if (ec)
+			{
+				eventHandler_(-502, std::string("Importing genesis block failed: ").append(ec.message()));
+				return;
+			}
+			eventHandler_(4, "Imported genesis block.");
+
+			auto handle_height_fetched =
+				std::bind(&decentralised_client::height_fetched, this, _1, _2);
+
+			chain.fetch_last_height(handle_height_fetched);
 		}
 
-		void decentralised_client::create_stealth_db(const std::string &filename)
+		void decentralised_client::display_block_header(const std::error_code& ec, const block_header_type& header)
 		{
-			create_file(filename, 100000000);
-			mmfile file(filename);
-			auto serial = make_serializer(file.data());
-			serial.write_4_bytes(1);
-			// should last us a decade
-			size_t max_header_rows = 10000;
-			serial.write_4_bytes(max_header_rows);
-			serial.write_4_bytes(0);
-			for (size_t i = 0; i < max_header_rows; ++i)
-				serial.write_4_bytes(0);
+			if (ec)
+			{
+				eventHandler_(-503, std::string("Loading last block header failed: ").append(ec.message()));
+				return;
+			}
+
+			const hash_digest& blk_hash = hash_block_header(header);
+			printf(std::string("Hash: ").append(encode_hex(blk_hash)).append("\n").c_str());
+			printf(std::string("Version: ").append(std::to_string(header.version)).append("\n").c_str());
+			printf(std::string("Prev Block Hash: ").append(encode_hex(header.previous_block_hash)).append("\n").c_str());
+			printf(std::string("Merkle: ").append(encode_hex(header.merkle)).append("\n").c_str());
+			printf(std::string("Timestamp: ").append(std::to_string(header.timestamp)).append("\n").c_str());
+			printf(std::string("Bits: ").append(std::to_string(header.bits)).append("\n").c_str());
+			printf(std::string("Nonce: ").append(std::to_string(header.nonce)).append("\n").c_str());
 		}
 	}
 }

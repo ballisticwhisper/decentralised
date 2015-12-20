@@ -30,6 +30,8 @@ namespace decentralised
 			void initialize();
 
 		private:
+			void event_received(int code, std::string msg);
+
 			decentralised_client* client;
 		};
 	}

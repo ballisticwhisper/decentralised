@@ -9,8 +9,8 @@
 #include "manager_gui.h"
 #include "manager_filesystem.h"
 #include "manager_network.h"
-#include "context_application.h"
 #include "irrlicht_event_handler.h"
+#include "context_application.h"
 
 using namespace irr;
 using namespace irr::core;

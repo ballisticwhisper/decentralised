@@ -33,11 +33,9 @@ set  (CONTEXT_HEADERS
       "context/context_application.h" )
 
 set  (EH_HEADERS      
-      "event_handlers/core_event_handler.h"
       "event_handlers/irrlicht_event_handler.h" )
 
 set  (EH_SOURCES      
-      "event_handlers/core_event_handler.cpp"
       "event_handlers/irrlicht_event_handler.cpp" )
 
 set  (EH_FILES      

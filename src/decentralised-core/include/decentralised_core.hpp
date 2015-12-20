@@ -5,5 +5,6 @@
 #include "core/utility/elliptic_curve_key.hpp"
 #include "core/address.hpp"
 #include "core/blockchain/leveldb_blockchain.hpp"
+#include "core/network/network.hpp"
 
 #endif

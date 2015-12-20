@@ -8,6 +8,7 @@
 #include <core/utility/serializer.hpp>
 #include <core/threadpool.hpp>
 #include <core/blockchain/leveldb_blockchain.hpp>
+#include <core/network/network.hpp>
 #include <vector>
 #include <map>
 #include <iostream>
@@ -18,10 +19,15 @@ namespace decentralised
 {
 	namespace core
 	{
+		using std::placeholders::_1;
+		using std::placeholders::_2;
+
 		class decentralised_client
 		{
 		public:
-			decentralised_client();
+			typedef std::function<void(const int, const std::string)> signal_handler;
+
+			decentralised_client(signal_handler eventHandler);
 			~decentralised_client();
 
 			std::string decentralised_client::get_genesis_message();
@@ -29,10 +35,17 @@ namespace decentralised
 			void start(const char prefix[]);
 
 		private:
-			void create_stealth_db(const std::string &filename);
-			void create_file(const std::string& filename, size_t filesize);
-			threadpool* pool;
-			leveldb_blockchain* chain;
+			void blockchain_started(const std::error_code& ec);
+			void height_fetched(const std::error_code& ec, size_t last_height);
+			void imported_genesis(const std::error_code& ec);
+			void display_block_header(const std::error_code& ec, const block_header_type& header);
+
+			threadpool disk_pool;
+			threadpool net_pool;
+			threadpool mem_pool;
+			leveldb_blockchain chain;
+			network net;
+			signal_handler eventHandler_;
 		};
 	}
 }

@@ -19,3 +19,6 @@
 	path = dependencies/secp256k1
 	url = https://ballisticwhisper@github.com/ballisticwhisper/secp256k1
 	branch = version1
+[submodule "dependencies/curl"]
+	path = dependencies/curl
+	url = https://ballisticwhisper@github.com/ballisticwhisper/curl

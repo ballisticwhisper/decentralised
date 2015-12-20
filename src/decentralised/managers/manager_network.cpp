@@ -6,7 +6,9 @@ namespace decentralised
 	{
 		manager_network::manager_network()
 		{
-			client = new decentralised_client();
+			auto handle_event_received =
+				std::bind(&manager_network::event_received, this, _1, _2);
+			client = new decentralised_client(handle_event_received);
 		}
 
 		manager_network::~manager_network()
@@ -20,6 +22,11 @@ namespace decentralised
 			printf(message.c_str());
 
 			client->start("data\\blockchain_data");
+		}
+
+		void manager_network::event_received(int code, std::string msg)
+		{
+			printf(msg.append("\n").c_str());
 		}
 	}
 }
