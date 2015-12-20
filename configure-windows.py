@@ -40,3 +40,15 @@ newdata = filedata.replace("<PlatformToolset>v120</PlatformToolset>","<PlatformT
 f = open('src/decentralised-core/decentralised-core.vcxproj','w')
 f.write(newdata)
 f.close()
+
+print "Setting decentralised-console platform toolset to 'CTP_Nov2013' ..."
+
+f = open('src/decentralised-console/decentralised-console.vcxproj','r')
+filedata = f.read()
+f.close()
+
+newdata = filedata.replace("<PlatformToolset>v120</PlatformToolset>","<PlatformToolset>CTP_Nov2013</PlatformToolset>")
+
+f = open('src/decentralised-console/decentralised-console.vcxproj','w')
+f.write(newdata)
+f.close()
