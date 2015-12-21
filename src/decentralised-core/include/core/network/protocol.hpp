@@ -6,6 +6,7 @@
 #include <core/types.hpp>
 #include <core/primitives.hpp>
 #include <core/network/channel.hpp>
+#include <core/network/p2p_network.hpp>
 #include <core/threadpool.hpp>
 #include <core/utility/subscriber.hpp>
 #include <core/utility/async_parallel.hpp>
@@ -31,7 +32,7 @@ namespace decentralised
 				broadcast_handler;
 
 			protocol(threadpool& pool, hosts& hsts,
-				handshake& shake, network& net);
+				handshake& shake, network& net, p2p_network &p2p);
 
 			protocol(const protocol&) = delete;
 			void operator=(const protocol&) = delete;
@@ -223,6 +224,7 @@ namespace decentralised
 				hosts& hosts_;
 				handshake& handshake_;
 				network& network_;
+				p2p_network& p2p_;
 			};
 			std::shared_ptr<seeds> load_seeds_;
 			friend class seeds;
@@ -326,6 +328,8 @@ namespace decentralised
 			channel_ptr_list accepted_channels_;
 
 			channel_subscriber_type::ptr channel_subscribe_;
+
+			p2p_network& p2p_;
 		};
 
 	}

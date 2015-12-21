@@ -4,6 +4,7 @@
 #include <atomic>
 #include <core/primitives.hpp>
 #include <core/network/network.hpp>
+#include <core/network/p2p_network.hpp>
 #include <core/threadpool.hpp>
 #include <core/utility/async_parallel.hpp>
 
@@ -28,7 +29,7 @@ namespace decentralised
 
 			typedef std::function<void(const std::error_code&)> setter_handler;
 
-			handshake(threadpool& pool);
+			handshake(threadpool& pool, p2p_network p2p);
 
 			handshake(const handshake&) = delete;
 			void operator=(const handshake&) = delete;
@@ -73,6 +74,7 @@ namespace decentralised
 
 			io_service::strand strand_;
 			version_type template_version_;
+			p2p_network& p2p_;
 		};
 
 		void connect(handshake& shake, network& net,

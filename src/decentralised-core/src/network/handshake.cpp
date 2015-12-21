@@ -16,8 +16,8 @@ namespace decentralised
 		using std::placeholders::_1;
 		using std::placeholders::_2;
 
-		handshake::handshake(threadpool& pool)
-			: strand_(pool.service())
+		handshake::handshake(threadpool& pool, p2p_network p2p)
+			: strand_(pool.service()), p2p_(p2p)
 		{
 			// Setup template version packet with defaults
 			template_version_.version = protocol_version;
@@ -26,13 +26,13 @@ namespace decentralised
 			//template_version_.timestamp = time(NULL);
 			template_version_.address_me.services = template_version_.services;
 			template_version_.address_me.ip = localhost_ip();
-			template_version_.address_me.port = protocol_port;
+			template_version_.address_me.port = p2p_.get_port();
 			template_version_.address_you.services = template_version_.services;
 			template_version_.address_you.ip =
 				ip_address_type{ { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
 				0x00, 0x00, 0xff, 0xff, 0x0a, 0x00, 0x00, 0x01 } };
-			template_version_.address_you.port = protocol_port;
-			template_version_.user_agent = "/libbitcoin:" LIBBITCOIN_LIB_VERSION "/";
+			template_version_.address_you.port = p2p_.get_port();
+			template_version_.user_agent = "/decentralised:" DC_CORE_LIB_VERSION "/";
 			template_version_.start_height = 0;
 			template_version_.nonce = rand();
 		}

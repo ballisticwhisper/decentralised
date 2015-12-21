@@ -16,12 +16,6 @@ namespace decentralised
 
 		constexpr size_t coinbase_maturity = 100;
 
-#ifdef ENABLE_TESTNET
-		constexpr uint32_t protocol_port = 18333;
-#else
-		constexpr uint32_t protocol_port = 8333;
-#endif
-
 		// Threshold for nLockTime: below this value it is
 		// interpreted as block number, otherwise as UNIX timestamp.
 		// Tue Nov 5 00:53:20 1985 UTC

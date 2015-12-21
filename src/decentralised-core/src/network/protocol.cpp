@@ -25,9 +25,9 @@ namespace decentralised
 		}
 
 		protocol::protocol(threadpool& pool, hosts& hsts,
-			handshake& shake, network& net)
+			handshake& shake, network& net, p2p_network &p2p)
 			: strand_(pool), hosts_(hsts), handshake_(shake), network_(net),
-			watermark_timer_(pool.service())
+			watermark_timer_(pool.service()), p2p_(p2p)
 		{
 			channel_subscribe_ = std::make_shared<channel_subscriber_type>(pool);
 		}
@@ -130,30 +130,9 @@ namespace decentralised
 				handle_complete(std::error_code());
 		}
 
-#ifdef ENABLE_TESTNET
-		const std::vector<std::string> dns_seeds
-		{
-			"testnet-seed.bitcoin.petertodd.org",
-			"testnet-seed.bluematt.me"
-		};
-#else
-		const std::vector<std::string> dns_seeds
-		{
-			"bitseed.xf2.org",
-			"dnsseed.bluematt.me",
-			"seed.bitcoin.sipa.be",
-			"dnsseed.bitcoin.dashjr.org",
-			"archivum.info",
-			"progressbar.sk",
-			"faucet.bitcoin.st",
-			"bitcoin.securepayment.cc",
-			"seed.bitnodes.io"
-		};
-#endif
-
 		protocol::seeds::seeds(protocol* parent)
 			: strand_(parent->strand_), hosts_(parent->hosts_),
-			handshake_(parent->handshake_), network_(parent->network_)
+			handshake_(parent->handshake_), network_(parent->network_), p2p_(parent->p2p_)
 		{
 		}
 		void protocol::seeds::start(completion_handler handle_complete)
@@ -161,6 +140,7 @@ namespace decentralised
 			handle_complete_ = handle_complete;
 			ended_paths_ = 0;
 			finished_ = false;
+			std::vector<std::string> dns_seeds = p2p_.get_dns_seeds();
 			for (const std::string& hostname : dns_seeds)
 				connect_dns_seed(hostname);
 		}
@@ -170,6 +150,7 @@ namespace decentralised
 			if (finished_)
 				return;
 			++ended_paths_;
+			std::vector<std::string> dns_seeds = p2p_.get_dns_seeds();
 			if (ended_paths_ == dns_seeds.size())
 			{
 				finished_ = true;
@@ -179,7 +160,7 @@ namespace decentralised
 
 		void protocol::seeds::connect_dns_seed(const std::string& hostname)
 		{
-			connect(handshake_, network_, hostname, protocol_port, strand_.wrap(
+			connect(handshake_, network_, hostname, p2p_.get_port(), strand_.wrap(
 				&protocol::seeds::request_addresses, shared_from_this(), _1, _2));
 		}
 		void protocol::seeds::request_addresses(
@@ -273,7 +254,7 @@ namespace decentralised
 		{
 			strand_.queue(&protocol::start_connecting, this);
 			if (listen_is_enabled_)
-				network_.listen(protocol_port,
+				network_.listen(p2p_.get_port(),
 				strand_.wrap(&protocol::handle_listen, this, _1, _2));
 		}
 		void protocol::start_connecting()
