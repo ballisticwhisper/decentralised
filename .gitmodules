@@ -22,3 +22,6 @@
 [submodule "dependencies/curl"]
 	path = dependencies/curl
 	url = https://ballisticwhisper@github.com/ballisticwhisper/curl
+[submodule "dependencies/wxWidgets"]
+	path = dependencies/wxWidgets
+	url = https://ballisticwhisper@github.com/ballisticwhisper/wxWidgets

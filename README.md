@@ -17,6 +17,7 @@ http://decentralised-project.org
 * [CMake 3.4+](https://cmake.org/download/)
 * [Python](https://www.python.org/)
 * [ActivePerl](http://www.activestate.com/activeperl/downloads)
+* [wxWidgets](https://www.wxwidgets.org/downloads/)
 
 Make sure CMake, Python and Perl are in your PATH, and reboot after installation.
 
