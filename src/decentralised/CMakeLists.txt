@@ -1,7 +1,9 @@
 set(EXECUTABLE_OUTPUT_PATH "${CMAKE_SOURCE_DIR}/build")
 
 set  (ADVANCED_FUNCTION_SOURCES      
-      "main.cpp")
+      "main.cpp"
+      "resource.h"
+      "decentralised.rc")
 
 set  (MANAGER_SOURCES      
       "managers/manager_gui.cpp"
