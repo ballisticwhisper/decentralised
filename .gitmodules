@@ -25,3 +25,6 @@
 [submodule "dependencies/wxWidgets"]
 	path = dependencies/wxWidgets
 	url = https://ballisticwhisper@github.com/ballisticwhisper/wxWidgets
+[submodule "tools/bin2c"]
+	path = tools/bin2c
+	url = https://ballisticwhisper@github.com/ballisticwhisper/bin2c
