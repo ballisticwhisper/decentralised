@@ -22,6 +22,3 @@
 [submodule "dependencies/wxWidgets"]
 	path = dependencies/wxWidgets
 	url = https://ballisticwhisper@github.com/ballisticwhisper/wxWidgets
-[submodule "dependencies/ogre"]
-	path = dependencies/ogre
-	url = https://ballisticwhisper@github.com/ballisticwhisper/ogre.git
