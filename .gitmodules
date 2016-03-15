@@ -1,9 +1,6 @@
 [submodule "dependencies/snappy"]
 	path = dependencies/snappy
 	url = https://github.com/ballisticwhisper/snappy
-[submodule "dependencies/irrlicht"]
-	path = dependencies/irrlicht
-	url = https://ballisticwhisper@github.com/ballisticwhisper/irrlicht.git
 [submodule "dependencies/boost"]
 	path = dependencies/boost
 	url = https://ballisticwhisper@github.com/ballisticwhisper/boost
@@ -25,6 +22,6 @@
 [submodule "dependencies/wxWidgets"]
 	path = dependencies/wxWidgets
 	url = https://ballisticwhisper@github.com/ballisticwhisper/wxWidgets
-[submodule "tools/bin2c"]
-	path = tools/bin2c
-	url = https://ballisticwhisper@github.com/ballisticwhisper/bin2c
+[submodule "dependencies/ogre"]
+	path = dependencies/ogre
+	url = https://ballisticwhisper@github.com/ballisticwhisper/ogre.git
