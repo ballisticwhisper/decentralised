@@ -9,6 +9,7 @@ namespace decentralised
 {
 	namespace core
 	{
+		typedef data_chunk private_data;
 		typedef hash_digest secret_parameter;
 
 		class elliptic_curve_key

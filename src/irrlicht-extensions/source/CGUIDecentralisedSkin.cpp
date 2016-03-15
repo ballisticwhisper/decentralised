@@ -54,6 +54,7 @@ SColor CGUIDecentralisedSkin::getColor(EGUI_DEFAULT_COLOR color) const
 		return toColor(skin_[L"MenuBar_BackgroundColor"]);
 		//case EGUI_DEFAULT_COLOR::EGDC_3D_SHADOW:
 		//	return SColor(255, 255, 0, 0);
+	case EGUI_DEFAULT_COLOR::EGDC_WINDOW_SYMBOL:
 	case EGUI_DEFAULT_COLOR::EGDC_BUTTON_TEXT:
 	case EGUI_DEFAULT_COLOR::EGDC_HIGH_LIGHT_TEXT:
 	case EGUI_DEFAULT_COLOR::EGDC_GRAY_TEXT:

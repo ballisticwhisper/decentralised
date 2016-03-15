@@ -4,7 +4,6 @@
 #include <irrlicht.h>
 #include "context_application.h"
 #include "context_gui.h"
-#include <decentralised_core.hpp>
 
 #ifdef _IRR_WINDOWS_
 #include <windows.h>
@@ -13,8 +12,6 @@
 #endif
 
 using namespace irr;
-using namespace decentralised::context;
-using namespace decentralised::core;
 
 class irrlicht_event_handler : public IEventReceiver
 {

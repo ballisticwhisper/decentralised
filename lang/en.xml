@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<lang>
+  <setting name="General_ErrorDialogTitle" value="Error" />
+  <setting name="General_DialogOkButton" value="OK" />
+
+  <setting name="LoginBar_LogInLabel" value="LOG IN" />
+  <setting name="LoginBar_AvatarNameLabel" value="Avatar Name:" />
+  <setting name="LoginBar_PasswordLabel" value="Password:" />
+  <setting name="LoginBar_NoAvatarsText" value="Create an avatar to start" />
+  <setting name="LoginBar_LoginButtonText" value="Login" />
+  <setting name="LoginBar_CreateAvatarButtonText" value="Create Avatar" />
+
+  <setting name="CreateAvatar_WindowTitle" value="Create a new avatar" />
+  <setting name="CreateAvatar_FirstnameLabel" value="First name" />
+  <setting name="CreateAvatar_LastnameLabel" value="Last name" />
+  <setting name="CreateAvatar_PublicKeyLabel" value="Public Key" />
+  <setting name="CreateAvatar_ConfirmLabel" value="Confirm password" />
+  <setting name="CreateAvatar_Warning" value="WARNING: It is not possible to recover forgotten passwords." />
+  <setting name="CreateAvatar_CreateButtonText" value="Create" />
+  <setting name="CreateAvatar_ErrorCompleteAll" value="All fields must be completed." />
+  <setting name="CreateAvatar_ErrorPasswordMismatch" value="The passwords do not match." />
+  <setting name="CreateAvatar_ErrorNameExists" value="The avatar name already exists." />
+
+  <setting name="About_WindowTitle" value="About {0}" />
+  <setting name="About_LeadIntro" value="{0} is open source and developed by the community." />
+  <setting name="About_Credit1" value="Irrlicht 3D engine by Nikolaus Gebhardt" />
+  <setting name="About_Credit2" value="libbitcoin by Amir Taaki, Eric Voskuil and others" />
+  <setting name="About_Credit3" value="" />
+
+  <setting name="NetworkMessages_ListeningOn" value="Listening for incoming connections on port {0}" />
+  <setting name="NetworkMessages_Discovering" value="Connecting to the network ..." />
+  <setting name="NetworkMessages_ErrorCannotConnect" value="Unable to connect. Can't find any peers." />
+  <setting name="NetworkMessages_Connected" value="Connected" />
+  <setting name="NetworkMessages_VerifyBlockchain" value="Verifying blockchain ..." />
+
+  <setting name="Menus_AvatarMenu" value="Avatar" />
+  <setting name="Menus_PreferencesItem" value="Preferences" />
+  <setting name="Menus_ExitItem" value="Exit {0}" />
+
+  <setting name="Menus_WorldMenu" value="World" />
+  <setting name="Menus_MineItem" value="Mine Land" />
+
+  <setting name="Menus_HelpMenu" value="Help" />
+  <setting name="Menus_WikiItem" value="{0} Wiki" />
+  <setting name="Menus_ReportBugItem" value="Report a Bug" />
+  <setting name="Menus_AboutItem" value="About {0}" />
+</lang>

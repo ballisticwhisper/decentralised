@@ -64,7 +64,7 @@ namespace decentralised
 			 *  );
 			 * @endcode
 			 */
-			void start(completion_handler handle_complete);
+			void start(completion_handler handle_complete, bool isSeedOnly);
 
 			/**
 			 * Gracefully close down.

@@ -8,7 +8,7 @@
 #include "dc-config.h"
 #include "manager_gui.h"
 #include "manager_filesystem.h"
-#include "manager_network.h"
+#include "manager_core.h"
 #include "irrlicht_event_handler.h"
 #include "context_application.h"
 
@@ -68,26 +68,37 @@ int main()
 	context.gui_manager = new manager_gui(context.device, context.language, context.skin, context.config);
 	context.gui_manager->Initialize();
 
+	context.world_manager = new manager_world(context.device);
+
 	IVideoDriver* driver = context.device->getVideoDriver();
 
 	context.gui_manager->AddConsoleLine(SColor(255,255,255,255), APP_TITLE);
 
-	context.network_manager = new manager_network();
-	context.network_manager->initialize();
-
 	irrlicht_event_handler receiver(context);
+
+	context.network_manager = new manager_core();
+
+	context.network_manager->setEventReceiver(&receiver);
 	context.device->setEventReceiver(&receiver);
+
+	context.network_manager->start();
+
+	ISceneManager *scene = context.device->getSceneManager();
 
 	while (context.device->run() && driver)
 		if (!context.device->isWindowMinimized() || context.device->isWindowActive())
 		{
 			driver->beginScene(true, true, SColor(0, 0, 0, 0));
 
+			scene->drawAll();
 			context.gui_manager->DrawAll();
 
 			driver->endScene();
 		}
 
+	context.network_manager->stop();
+
+	delete context.world_manager;
 	delete context.gui_manager;
 	delete context.network_manager;
 	delete fileManager;

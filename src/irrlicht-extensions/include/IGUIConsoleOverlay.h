@@ -1,5 +1,5 @@
-#ifndef __I_GUI_VOO_CONSOLE_OVERLAY_H_INCLUDED__
-#define __I_GUI_VOO_CONSOLE_OVERLAY_H_INCLUDED__
+#ifndef __I_GUI_CONSOLE_OVERLAY_H_INCLUDED__
+#define __I_GUI_CONSOLE_OVERLAY_H_INCLUDED__
 
 #include "IGUIElement.h"
 #include "IGUIFont.h"

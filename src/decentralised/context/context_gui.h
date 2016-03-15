@@ -31,6 +31,7 @@ namespace decentralised
 			IGUIEditBox* PasswordBox;
 			CGUIDecentralisedButton* LoginButton;
 			CGUIDecentralisedButton* CreateAvButton;
+			CGUIDecentralisedButton* MineButton;
 
 			IGUIStaticText* CreateAvFirstNameLabel;
 			CGUIDecentralisedTextbox* CreateAvFirstNameTextBox;
@@ -51,16 +52,15 @@ namespace decentralised
 			ITexture* TxButtonPressedMiddle;
 			ITexture* TxButtonPressedRight;
 
-			ITexture* TxWindowTitleLeft;
-			ITexture* TxWindowTitleMiddle;
-			ITexture* TxWindowTitleRight;
+			ITexture* TxDialogFore;
+			ITexture* TxDialogBack;
+			ITexture* TxDialogForeNoTitle;
+			ITexture* TxDialogBackNoTitle;
 
-			ITexture* TxWindowLeft;
-			ITexture* TxWindowRight;
-
-			ITexture* TxWindowBottomLeft;
-			ITexture* TxWindowBottomMiddle;
-			ITexture* TxWindowBottomRight;
+			ITexture* TxCamRotate;
+			ITexture* TxCamRotateArrow;
+			ITexture* TxCamTracking;
+			ITexture* TxCamTrackingArrow;
 
 			ITexture* TxConsoleTopLeft;
 			ITexture* TxConsoleTopRight;

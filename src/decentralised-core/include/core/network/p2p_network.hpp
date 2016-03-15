@@ -35,6 +35,7 @@ namespace decentralised
 		const std::vector<std::string> dc_main_dns_seeds
 		{
 			"dnsseed.decentralised-project.org"
+			//"debug.voodoo-sl.com"
 		};
 
 		enum p2p_network_type {

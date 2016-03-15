@@ -6,7 +6,8 @@
 #ifdef _IRR_COMPILE_WITH_GUI_
 
 #include "IGUIConsoleOverlay.h"
-#include "CGUIStaticText.h"
+#include "IGUIConsoleRow.h"
+#include "CGUIConsoleRow.h"
 
 namespace irr
 {
@@ -56,6 +57,9 @@ namespace irr
 			irr::video::ITexture* ConsoleBottomLeft;
 			irr::video::ITexture* ConsoleBottomRight;
 			std::mutex m;
+
+			std::mutex disposedLock;
+			list<IGUIElement*> disposedChildren;
 
 			virtual core::rect<s32> getBackingRect();
 		};

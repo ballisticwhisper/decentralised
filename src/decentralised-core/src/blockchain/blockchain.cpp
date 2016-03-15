@@ -137,6 +137,7 @@ namespace decentralised
 			{
 				if (ec)
 				{
+					std::string msg = ec.message();
 					handle_(ec, block_locator_type());
 					return true;
 				}

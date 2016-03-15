@@ -4,9 +4,13 @@
 #include <map>
 #include "irrlicht.h"
 #include "context_gui.h"
-#include "IGUIDecentralisedWindow.h"
+#include "IGUIDecentralisedDialog.h"
+#include "CGUIDecentralisedDialog.h"
 #include "CGUIDecentralisedTextbox.h"
+#include <decentralised_core.hpp>
 
+using namespace decentralised::context;
+using namespace decentralised::core;
 using namespace irr;
 using namespace irr::core;
 using namespace video;
@@ -21,12 +25,15 @@ namespace decentralised
 		public:
 			~dialog_createavatar();
 
-			static dialog_createavatar* AddDialog(context::context_gui &elems, IGUIEnvironment* env, std::map<std::wstring, std::wstring> &lang, std::wstring publicKey)
+			static dialog_createavatar* AddDialog(context::context_gui &elems, IGUIEnvironment* env, std::map<std::wstring, std::wstring> &lang, elliptic_curve_key &keyPair)
 			{
-				return new dialog_createavatar(elems, env, lang, publicKey);
+				dialog_createavatar* d = new dialog_createavatar(elems, env, lang, keyPair);
+				d->InitElements();
+				return d;
 			}
 
 			void RemoveDialog();
+			void InitElements();
 
 			bool IsOpen() {
 				if (window_)
@@ -36,14 +43,13 @@ namespace decentralised
 			}
 
 		private:
-			dialog_createavatar(context::context_gui &elems, IGUIEnvironment* env, std::map<std::wstring, std::wstring> &lang, std::wstring publicKey);
-
-			void initElements(std::wstring publicKey);
+			dialog_createavatar(context::context_gui &elems, IGUIEnvironment* env, std::map<std::wstring, std::wstring> &lang, elliptic_curve_key &keyPair);
 
 			IGUIEnvironment* env_;
-			IGUIDecentralisedWindow* window_;
+			IGUIDecentralisedDialog* window_;
 			std::map<std::wstring, std::wstring> &lang_;
 			context::context_gui &elems_;
+			elliptic_curve_key &keyPair_;
 		};
 	}
 }

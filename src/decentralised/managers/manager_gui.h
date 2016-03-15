@@ -14,10 +14,12 @@
 #include "CGUIDecentralisedToolbar.h"
 #include "context_gui.h"
 #include "context_dialogs.h"
+#include "world_avatar.h"
 #include "dc-config.h"
 #include <ctime>
 #include <vector>
 #include <map>
+#include "core/utility/elliptic_curve_key.hpp"
 
 using namespace irr;
 
@@ -28,11 +30,18 @@ using namespace io;
 using namespace gui;
 
 using namespace decentralised;
+using namespace decentralised::world;
 
 namespace decentralised
 {
 	namespace managers
 	{
+		enum e_state
+		{
+			Login = 0,
+			NavigateWorld
+		};
+
 		enum e_modals
 		{
 			Created = 0,
@@ -81,22 +90,26 @@ namespace decentralised
 						std::map<std::wstring, std::wstring> &config);
 			~manager_gui();
 
-			virtual void Initialize();
-			virtual void DrawAll();
-			virtual stringw GetElementValue(s32 id);
-			virtual void ShowModal(s32 id);
-			virtual void AddConsoleLine(video::SColor textColor, std::wstring text);
-			virtual void SetCurrentTime(time_t currentTime);
+			void Initialize();
+			void DrawAll();
+			stringw GetElementValue(s32 id);
+			void ShowModal(s32 id);
+			void AddConsoleLine(video::SColor textColor, std::wstring text);
+			void SetCurrentTime(time_t currentTime);
+			void SetOwnAvatars(std::vector<avatar_file>* avatars);
+			void SetState(e_state state);
+			void SetAvatar(world_avatar* avatar);
 
-			virtual void ToggleWindowCreateAvatar(std::wstring publicKey);
-			virtual void CleanupWindowCreateAvatar();
+			void ToggleWindowCreateAvatar(elliptic_curve_key &keyPair);
+			void CleanupWindowCreateAvatar();
 
-			virtual void ShowWindowAbout();
-			virtual void CleanupWindowAbout();
+			void ShowWindowAbout();
+			void CleanupWindowAbout();
 
 			IGUIImage* Background;
 
 		private:
+			e_state state_;
 			IGUIEnvironment* env;
 			IrrlichtDevice* dev;
 			std::map<std::wstring, std::wstring> &lang_;
@@ -105,8 +118,11 @@ namespace decentralised
 
 			context::context_gui elems;
 			context::context_dialogs dialogs;
+			world_avatar *avatar_;
 
-			virtual video::ITexture* loadTexture(IVideoDriver* driver, stringw skinPath, stringw filename);
+			void initializeMenuBar();
+			void initializeConsole();
+			video::ITexture* loadTexture(IVideoDriver* driver, stringw skinPath, stringw filename);
 		};
 	}
 }

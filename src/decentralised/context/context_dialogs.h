@@ -3,6 +3,7 @@
 
 #include "dialog_createavatar.h"
 #include "dialog_about.h"
+#include "dialog_cam.h"
 
 using namespace decentralised::dialogs;
 
@@ -17,6 +18,7 @@ namespace decentralised
 			~context_dialogs() {}
 
 			dialog_about* About;
+			dialog_cam* Cam;
 			dialog_createavatar* CreateAvatar;
 		};
 	}

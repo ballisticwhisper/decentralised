@@ -22,23 +22,17 @@ namespace decentralised
 		{
 			stringw title = stringw(lang_[L"About_WindowTitle"].c_str()).replace("{0}", APP_TITLE);
 
-			window_ = new CGUIDecentralisedWindow(env_,
+			window_ = new CGUIDecentralisedDialog(env_,
 				env_->getRootGUIElement(),
 				e_gui_elements::WindowAbout,
-				rect<s32>(80, 40, 420, 290),
-				elems_.TxWindowTitleLeft,
-				elems_.TxWindowTitleMiddle,
-				elems_.TxWindowTitleRight,
-				elems_.TxWindowLeft,
-				elems_.TxWindowRight,
-				elems_.TxWindowBottomLeft,
-				elems_.TxWindowBottomMiddle,
-				elems_.TxWindowBottomRight);
+				rect<s32>(80, 40, 420, 250),
+				true);
+			window_->setDialogSkin(elems_.TxDialogBack, elems_.TxDialogFore);
 			window_->setText(title.c_str());
 			env_->setFocus(window_);
 			window_->drop();
 
-			s32 posy = 60;
+			s32 posy = 40;
 
 			env_->addStaticText(APP_TITLE,
 				rect<s32>(20, posy, 320, posy + 22),

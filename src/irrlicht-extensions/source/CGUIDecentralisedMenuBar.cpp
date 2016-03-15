@@ -71,7 +71,74 @@ void CGUIDecentralisedMenuBar::draw()
 		}
 	}
 
+	for (s32 i = 0; i<(s32)ItemsRight.size(); ++i)
+	{
+		if (!ItemsRight[i].IsSeparator)
+		{
+			rect = getRect(ItemsRight[i], AbsoluteRect);
+
+			// draw highlighted
+			if (i == HighLightedRight && ItemsRight[i].Enabled)
+			{
+				skin->draw2DRectangle(this, skin->getColorFromSkin(L"MenuBar_HighlightColor"), rect, &AbsoluteClippingRect);
+			}
+			// draw text
+
+			EGUI_DEFAULT_COLOR c = EGDC_BUTTON_TEXT;
+
+			if (i == HighLightedRight)
+				c = EGDC_HIGH_LIGHT_TEXT;
+
+			if (!ItemsRight[i].Enabled)
+				c = EGDC_GRAY_TEXT;
+
+			if (font)
+				font->draw(ItemsRight[i].Text.c_str(), rect,
+				skin->getColor(c), true, true, &AbsoluteClippingRect);
+		}
+	}
+
+
 	IGUIElement::draw();
+}
+
+u32 CGUIDecentralisedMenuBar::addRightItem(const wchar_t* text, s32 commandid, bool enabled, bool hasSubMenu, bool checked, bool autoChecking)
+{
+	return insertRightItem(ItemsRight.size(), text, commandid, enabled, hasSubMenu, checked, autoChecking);
+}
+
+u32 CGUIDecentralisedMenuBar::insertRightItem(u32 idx, const wchar_t* text, s32 commandId, bool enabled,
+	bool hasSubMenu, bool checked, bool autoChecking)
+{
+	SItem s;
+	s.Enabled = enabled;
+	s.Checked = checked;
+	s.AutoChecking = autoChecking;
+	s.Text = text;
+	s.IsSeparator = (text == 0);
+	s.SubMenu = 0;
+	s.CommandId = commandId;
+
+	if (hasSubMenu)
+	{
+		s.SubMenu = new CGUIDecentralisedContextMenu(Environment, this, commandId,
+			core::rect<s32>(0, 0, 100, 100), false, false);
+		s.SubMenu->setVisible(false);
+	}
+
+	u32 result = idx;
+	if (idx < ItemsRight.size())
+	{
+		ItemsRight.insert(s, idx);
+	}
+	else
+	{
+		ItemsRight.push_back(s);
+		result = ItemsRight.size() - 1;
+	}
+
+	recalculateSize();
+	return result;
 }
 
 //! called if an event happened.
@@ -214,6 +281,29 @@ void CGUIDecentralisedMenuBar::recalculateSize()
 
 		Items[i].PosY = width;
 		width += Items[i].Dim.Width;
+	}
+
+	// right items
+	rect.UpperLeftCorner = clientRect.UpperLeftCorner;
+
+	width = clientRect.getWidth();
+	//s32 i;
+
+	for (i = 0; i<(s32)ItemsRight.size(); ++i)
+	{
+		if (ItemsRight[i].IsSeparator)
+		{
+			ItemsRight[i].Dim.Width = 0;
+			ItemsRight[i].Dim.Height = height;
+		}
+		else
+		{
+			ItemsRight[i].Dim = font->getDimension(ItemsRight[i].Text.c_str());
+			ItemsRight[i].Dim.Width += 20;
+		}
+
+		ItemsRight[i].PosY = width - ItemsRight[i].Dim.Width;
+		width -= ItemsRight[i].Dim.Width;
 	}
 
 	width = clientRect.getWidth();

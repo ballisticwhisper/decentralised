@@ -18,8 +18,8 @@ include_directories (managers dialogs context event_handlers ${CORE_INC_CORE_DIR
 link_directories("/libs" ${BOOST_LIB_DIR} "${CMAKE_SOURCE_DIR}/build/openssl/lib" )
 
 add_executable (decentralised-console ${MAIN_SOURCES} )
-target_link_libraries ( decentralised-console snappy leveldb secp256k1 decentralised-core libeay32.lib )
+target_link_libraries ( decentralised-console libcurl snappy leveldb secp256k1 decentralised-core libeay32.lib )
 
 IF( WIN32 )
-	ADD_DEFINITIONS( -DBC_STATIC -DBCB_STATIC -DBCN_STATIC -D_SCL_SECURE_NO_WARNINGS -D_WIN32_WINNT=0x0501 -D_WINSOCK_DEPRECATED_NO_WARNINGS )
+	ADD_DEFINITIONS( -DBC_STATIC -DBCB_STATIC -DBCN_STATIC -D_SCL_SECURE_NO_WARNINGS -D_WIN32_WINNT=0x0501 -D_WINSOCK_DEPRECATED_NO_WARNINGS -DBUILDING_LIBCURL -DCURL_DISABLE_LDAP )
 ENDIF(  )

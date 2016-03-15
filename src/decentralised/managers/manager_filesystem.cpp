@@ -39,6 +39,7 @@ namespace decentralised
 		std::map<std::wstring, std::wstring> manager_filesystem::loadLanguage(std::wstring langCode)
 		{
 			stringw langPath = APP_DATA_DIR;
+			langPath.append("Lang/");
 			langPath.append(langCode.c_str());
 			langPath.append(".xml");
 

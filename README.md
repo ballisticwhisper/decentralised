@@ -54,6 +54,14 @@ nmake -f ms\nt.mak
 nmake -f ms\nt.mak install
 ```
 
+##### Build curl
+
+Open a Visual Studio console and cd to the dependencies/curl/winbuild folder
+
+```
+nmake /f Makefile.vc mode=static VC=12 
+```
+
 ##### Build decentralised
 
 Open Decentralised.sln in /build folder.

@@ -57,6 +57,17 @@ namespace irr
 				break;
 			case EET_MOUSE_INPUT_EVENT:
 				break;
+			case EET_USER_EVENT:
+				if (event.GUIEvent.EventType == EGET_ELEMENT_CLOSED)
+				{
+					disposedLock.lock();
+
+					IGUIElement* elem = event.GUIEvent.Element;
+					disposedChildren.push_back(elem);
+
+					disposedLock.unlock();
+				}
+				break;
 			default:
 				break;
 			}
@@ -69,6 +80,18 @@ namespace irr
 		void CGUIConsoleOverlay::draw()
 		{
 			if (!IsVisible)
+				return;
+
+			disposedLock.lock();
+
+			for (list<IGUIElement*>::ConstIterator i = disposedChildren.begin(); i != disposedChildren.end(); ++i)
+				removeChild(*i);
+
+			disposedChildren.clear();
+
+			disposedLock.unlock();
+
+			if (Children.size() == 0)
 				return;
 
 			IGUISkin* skin = Environment->getSkin();
@@ -159,12 +182,6 @@ namespace irr
 
 			driver->draw2DRectangle(col[0], leftSideRect);
 
-
-			//if (font)
-			//	font->draw("Test!", rect,
-			//	video::SColor(255,255,255,255),
-			//	true, true, &AbsoluteClippingRect);
-
 			IGUIElement::draw();
 		}
 
@@ -207,23 +224,25 @@ namespace irr
 
 			IGUIFont* font = getActiveFont();
 
-			core::rect<s32> bottomLineRect = AbsoluteRect;
+			core::rect<s32> bottomLineRect(AbsoluteRect);
 			s32 width = AbsoluteRect.LowerRightCorner.X - AbsoluteRect.UpperLeftCorner.X;
 
 			core::dimension2d<u32> textSize = font->getDimension(text.c_str());
 			bottomLineRect.UpperLeftCorner.X = 0;
-			bottomLineRect.UpperLeftCorner.Y = bottomLineRect.LowerRightCorner.Y - textSize.Height - 10; // 10 padding
+			bottomLineRect.UpperLeftCorner.Y = bottomLineRect.LowerRightCorner.Y - textSize.Height - 7; // 5 padding
 			if (textSize.Width < (u32)width)
 				bottomLineRect.LowerRightCorner.X = textSize.Width + 20;
+			else
+				bottomLineRect.LowerRightCorner.X = width - 10;
 
 			core::list<IGUIElement*>::Iterator it = Children.begin();
 			for (; it != Children.end(); ++it)
 			{
 				core::rect<s32> absoluteRect = (*it)->getAbsoluteClippingRect();
-				(*it)->setRelativePosition(core::position2di(0, absoluteRect.UpperLeftCorner.Y - textSize.Height - 10));
+				(*it)->setRelativePosition(core::position2di(0, absoluteRect.UpperLeftCorner.Y - textSize.Height - 7));
 			}
 
-			IGUIStaticText* elem = new CGUIStaticText(text.c_str(), false, this->Environment, this, -1, bottomLineRect);
+			IGUIConsoleRow* elem = new CGUIConsoleRow(text.c_str(), color, font, this->Environment, this, -1, bottomLineRect, 900, 10000, 1500);
 			addChild(elem);
 			elem->drop();
 

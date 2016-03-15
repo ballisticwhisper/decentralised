@@ -13,8 +13,7 @@ bool dc_setup_app::OnInit()
 								100, 100,
 								520, 380);
 	frame->CenterOnScreen();
-	frame->SetBackgroundColour(wxColour(255, 255, 255, 255));
-	frame->SetIcon(wxICON(IDI_ICON1));
+	frame->SetBackgroundColour(wxColour(255, 255, 255, 255));	
 
 	frame->Show(true);
 	SetTopWindow(frame);

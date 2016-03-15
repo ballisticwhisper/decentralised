@@ -17,15 +17,15 @@
   <setting name="Button_PressedImageMiddle" value="btn-middle-pressed.png" />
   <setting name="Button_PressedImageRight" value="btn-right-pressed.png" />
 
-  <setting name="Window_TitleBarImageLeft" value="win-title-left.png" />
-  <setting name="Window_TitleBarImageMiddle" value="win-title-middle.png" />
-  <setting name="Window_TitleBarImageRight" value="win-title-right.png" />
-  <setting name="Window_ImageLeft" value="win-left.png" />
-  <setting name="Window_ImageRight" value="win-right.png" />
-  <setting name="Window_BottomImageLeft" value="win-bottom-left.png" />
-  <setting name="Window_BottomImageMiddle" value="win-bottom-middle.png" />
-  <setting name="Window_BottomImageRight" value="win-bottom-right.png" />
-  <setting name="Window_BackgroundColor" value="32,32,32" />
+  <setting name="Dialog_Background" value="Window_Background.png" />
+  <setting name="Dialog_Foreground" value="Window_Foreground.png" />
+  <setting name="Dialog_Background_NoTitle" value="Window_NoTitle_Background.png" />
+  <setting name="Dialog_Foreground_NoTitle" value="Window_NoTitle_Foreground.png" />
+
+  <setting name="Cam_Rotate" value="Cam_Rotate_Out.png" />
+  <setting name="Cam_Rotate_Arrow" value="Cam_Rotate_In.png" />
+  <setting name="Cam_Tracking" value="Cam_Tracking_Out.png" />
+  <setting name="Cam_Tracking_Arrow" value="Cam_Tracking_In.png" />
 
   <setting name="Console_SystemTextColor" value="255,255,255" />
   <setting name="Console_CornerTopLeft" value="console-left-top.png" />

@@ -17,19 +17,28 @@ namespace decentralised
 
 			dialogs.CreateAvatar = NULL;
 			dialogs.About = NULL;
+			dialogs.Cam = NULL;
 		}
 
 		manager_gui::~manager_gui()
 		{
+			if (elems.AvatarCombo)
+				elems.AvatarCombo->drop();
+
 			if (dialogs.CreateAvatar)
 				delete dialogs.CreateAvatar;
 
 			if (dialogs.About)
 				delete dialogs.About;
+
+			if (dialogs.Cam)
+				delete dialogs.Cam;
 		}
 
 		void manager_gui::Initialize()
 		{
+			state_ = e_state::Login;
+
 			stringw skinPath = "data/Skins/";
 			skinPath.append(config_[L"Skin"].c_str());
 			skinPath.append("/");
@@ -77,14 +86,15 @@ namespace decentralised
 			elems.TxButtonPressedMiddle = loadTexture(driver, skinPath, skin_[L"Button_PressedImageMiddle"].c_str());
 			elems.TxButtonPressedRight = loadTexture(driver, skinPath, skin_[L"Button_PressedImageRight"].c_str());
 
-			elems.TxWindowTitleLeft = loadTexture(driver, skinPath, skin_[L"Window_TitleBarImageLeft"].c_str());
-			elems.TxWindowTitleMiddle = loadTexture(driver, skinPath, skin_[L"Window_TitleBarImageMiddle"].c_str());
-			elems.TxWindowTitleRight = loadTexture(driver, skinPath, skin_[L"Window_TitleBarImageRight"].c_str());
-			elems.TxWindowLeft = loadTexture(driver, skinPath, skin_[L"Window_ImageLeft"].c_str());
-			elems.TxWindowRight = loadTexture(driver, skinPath, skin_[L"Window_ImageRight"].c_str());
-			elems.TxWindowBottomLeft = loadTexture(driver, skinPath, skin_[L"Window_BottomImageLeft"].c_str());
-			elems.TxWindowBottomMiddle = loadTexture(driver, skinPath, skin_[L"Window_BottomImageMiddle"].c_str());
-			elems.TxWindowBottomRight = loadTexture(driver, skinPath, skin_[L"Window_BottomImageRight"].c_str());
+			elems.TxDialogFore = loadTexture(driver, skinPath, skin_[L"Dialog_Foreground"].c_str());
+			elems.TxDialogBack = loadTexture(driver, skinPath, skin_[L"Dialog_Background"].c_str());
+			elems.TxDialogForeNoTitle = loadTexture(driver, skinPath, skin_[L"Dialog_Foreground_NoTitle"].c_str());
+			elems.TxDialogBackNoTitle = loadTexture(driver, skinPath, skin_[L"Dialog_Background_NoTitle"].c_str());
+
+			elems.TxCamRotate = loadTexture(driver, skinPath, skin_[L"Cam_Rotate"].c_str());
+			elems.TxCamRotateArrow = loadTexture(driver, skinPath, skin_[L"Cam_Rotate_Arrow"].c_str());
+			elems.TxCamTracking = loadTexture(driver, skinPath, skin_[L"Cam_Tracking"].c_str());
+			elems.TxCamTrackingArrow = loadTexture(driver, skinPath, skin_[L"Cam_Tracking_Arrow"].c_str());
 
 			elems.TxConsoleTopLeft = loadTexture(driver, skinPath, skin_[L"Console_CornerTopLeft"].c_str());
 			elems.TxConsoleTopRight = loadTexture(driver, skinPath, skin_[L"Console_CornerTopRight"].c_str());
@@ -104,41 +114,15 @@ namespace decentralised
 			
 			IGUIElement* root = env->getRootGUIElement();
 
-			elems.Console = new CGUIConsoleOverlay(env, root, -1, rect<s32>(20, 0, 500, 490),
-				elems.TxConsoleTopLeft,
-				elems.TxConsoleTopRight,
-				elems.TxConsoleBottomLeft,
-				elems.TxConsoleBottomRight);
-			elems.Console->drop();
-
-			elems.MenuBarMain = new CGUIDecentralisedMenuBar(env, root, -1, rect<s32>(0, 0, root->getAbsolutePosition().getWidth(), root->getAbsolutePosition().getHeight()));
-
-			elems.MenuBarMain->addItem(lang_[L"Menus_AvatarMenu"].c_str(), -1, true, true, false, true);
-			gui::IGUIContextMenu* submenu;
-			submenu = elems.MenuBarMain->getSubMenu(0);
-			submenu->addItem(lang_[L"Menus_PreferencesItem"].c_str(), e_menu_items::Preferences);
-			submenu->addSeparator();
-			submenu->addItem(stringw(lang_[L"Menus_ExitItem"].c_str()).replace(stringw("{0}"), APP_TITLE).c_str(), e_menu_items::ExitApplication);
-
-			//elems.MenuBarMain->addItem(lang_[L"Menus_WorldMenu"].c_str(), -1, true, true, false, false);
-			//submenu = elems.MenuBarMain->getSubMenu(1);
-			//submenu->addItem(stringw(lang_[L"Menus_MineItem"].c_str()).replace(stringw("{0}"), APP_TITLE).c_str(), e_menu_items::Wiki);
-
-			elems.MenuBarMain->addItem(lang_[L"Menus_HelpMenu"].c_str(), -1, true, true, false, false);
-			submenu = elems.MenuBarMain->getSubMenu(1);
-			submenu->addItem(stringw(lang_[L"Menus_WikiItem"].c_str()).replace(stringw("{0}"), APP_TITLE).c_str(), e_menu_items::Wiki);
-			submenu->addItem(lang_[L"Menus_ReportBugItem"].c_str(), e_menu_items::ReportBug);
-			submenu->addSeparator();
-			submenu->addItem(stringw(lang_[L"Menus_AboutItem"].c_str()).replace(stringw("{0}"), APP_TITLE).c_str(), e_menu_items::AboutApplication);
-
-			elems.MenuBarMain->drop();
+			initializeConsole();
+			initializeMenuBar();
 
 			video::ITexture* toolbarBorder = NULL;
 
 
 			dimension2d<u32> screenSize = dev->getVideoDriver()->getScreenSize();
 
-			elems.BottomBar = new CGUIDecentralisedToolBar(env, root, e_gui_elements::LoginToolbar, core::rect<s32>(0, 0, 10, 10));
+			elems.BottomBar = new CGUIDecentralisedToolBar(env, root, e_gui_elements::LoginToolbar, irr::core::rect<s32>(0, 0, 10, 10));
 			elems.BottomBar->setAlignment(EGUI_ALIGNMENT::EGUIA_UPPERLEFT, EGUI_ALIGNMENT::EGUIA_SCALE, EGUI_ALIGNMENT::EGUIA_LOWERRIGHT, EGUI_ALIGNMENT::EGUIA_LOWERRIGHT);
 			elems.BottomBar->setRelativePosition(rect<s32>(0, screenSize.Height - 79, screenSize.Width, screenSize.Height));
 			elems.BottomBar->drop();
@@ -164,28 +148,27 @@ namespace decentralised
 				0);
 			elems.AvatarNameLabel->setOverrideColor(SColor(255, 255, 255, 255));
 
-			elems.PasswordLabel = env->addStaticText(lang_[L"LoginBar_PasswordLabel"].c_str(),
-				rect< s32 >(190, y, 390, y + 18),
-				false,
-				true,
-				elems.BottomBar,
-				0);
-			elems.PasswordLabel->setOverrideColor(SColor(255, 255, 255, 255));
+			//elems.PasswordLabel = env->addStaticText(lang_[L"LoginBar_PasswordLabel"].c_str(),
+			//	rect< s32 >(190, y, 390, y + 18),
+			//	false,
+			//	true,
+			//	elems.BottomBar,
+			//	0);
+			//elems.PasswordLabel->setOverrideColor(SColor(255, 255, 255, 255));
 
-			y += 18;
+			y += 18;			
 
-			elems.AvatarCombo = new CGUIDecentralisedDropdown(env, elems.BottomBar, e_gui_elements::LoginToolbarAvatarCombo, rect<s32>(10, y, 185, y + 25));
+			elems.AvatarCombo = new CGUIDecentralisedDropdown(env, elems.BottomBar, e_gui_elements::LoginToolbarAvatarCombo, rect<s32>(10, y, 240, y + 25));
 			elems.AvatarCombo->setEnabled(false);
 			((CGUIDecentralisedDropdown*)elems.AvatarCombo)->setText(lang_[L"LoginBar_NoAvatarsText"].c_str());
-			elems.AvatarCombo->drop();
 
-			elems.PasswordBox = new CGUIDecentralisedTextbox(L"", true, env, elems.BottomBar, e_gui_elements::LoginToolbarPasswordBox, rect<s32>(190, y, 318, y + 25));			
-			elems.PasswordBox->drop();
+			//elems.PasswordBox = new CGUIDecentralisedTextbox(L"", true, env, elems.BottomBar, e_gui_elements::LoginToolbarPasswordBox, rect<s32>(190, y, 318, y + 25));			
+			//elems.PasswordBox->drop();
 
-			elems.PasswordBox->setEnabled(false);
-			elems.PasswordBox->setPasswordBox(true, L'\x25cf');
+			//elems.PasswordBox->setEnabled(false);
+			//elems.PasswordBox->setPasswordBox(true, L'\x25cf');
 
-			elems.LoginButton = new CGUIDecentralisedButton(env, elems.BottomBar, e_gui_elements::LoginToolbarLoginButton, rect<s32>(325, y, 380, y + 25));
+			elems.LoginButton = new CGUIDecentralisedButton(env, elems.BottomBar, e_gui_elements::LoginToolbarLoginButton, rect<s32>(245, y, 300, y + 25));
 			elems.LoginButton->setImages(elems.TxButtonLeft, elems.TxButtonMiddle, elems.TxButtonRight, elems.TxButtonPressedLeft, elems.TxButtonPressedMiddle, elems.TxButtonPressedRight);
 			elems.LoginButton->setText(lang_[L"LoginBar_LoginButtonText"].c_str());
 			elems.LoginButton->setEnabled(false);
@@ -200,9 +183,82 @@ namespace decentralised
 			elems.CreateAvButton->setAlignment(EGUI_ALIGNMENT::EGUIA_LOWERRIGHT, EGUI_ALIGNMENT::EGUIA_LOWERRIGHT,
 				EGUI_ALIGNMENT::EGUIA_LOWERRIGHT, EGUI_ALIGNMENT::EGUIA_LOWERRIGHT);
 			elems.CreateAvButton->drop();
+
+			elems.MineButton = new CGUIDecentralisedButton(env, elems.BottomBar, e_gui_elements::LoginToolbarCreateAvatarButton, rect<s32>(winSize.LowerRightCorner.X - 210, y, winSize.LowerRightCorner.X - 110, y + 25));
+			elems.MineButton->setImages(elems.TxButtonLeft, elems.TxButtonMiddle, elems.TxButtonRight, elems.TxButtonPressedLeft, elems.TxButtonPressedMiddle, elems.TxButtonPressedRight);
+			elems.MineButton->setText(L"Mine Land");
+			elems.MineButton->setEnabled(true);
+			elems.MineButton->setIsPushButton(true);
+			elems.MineButton->setAutoExpand(false);
+			elems.MineButton->setAlignment(EGUI_ALIGNMENT::EGUIA_LOWERRIGHT, EGUI_ALIGNMENT::EGUIA_LOWERRIGHT,
+				EGUI_ALIGNMENT::EGUIA_LOWERRIGHT, EGUI_ALIGNMENT::EGUIA_LOWERRIGHT);
+			elems.MineButton->drop();
 		}
 
-		void manager_gui::ToggleWindowCreateAvatar(std::wstring publicKey)
+		void manager_gui::initializeMenuBar()
+		{
+			IGUIElement* root = env->getRootGUIElement();
+
+			elems.MenuBarMain = new CGUIDecentralisedMenuBar(env, root, -1, rect<s32>(0, 0, root->getAbsolutePosition().getWidth(), root->getAbsolutePosition().getHeight()));
+			CGUIDecentralisedMenuBar* menuBar = (CGUIDecentralisedMenuBar*)elems.MenuBarMain;
+
+			elems.MenuBarMain->addItem(lang_[L"Menus_AvatarMenu"].c_str(), -1, true, true, false, true);
+			gui::IGUIContextMenu* submenu;
+			submenu = elems.MenuBarMain->getSubMenu(0);
+			submenu->addItem(lang_[L"Menus_PreferencesItem"].c_str(), e_menu_items::Preferences);
+			submenu->addSeparator();
+			submenu->addItem(stringw(lang_[L"Menus_ExitItem"].c_str()).replace(stringw("{0}"), APP_TITLE).c_str(), e_menu_items::ExitApplication);
+
+			elems.MenuBarMain->addItem(lang_[L"Menus_WorldMenu"].c_str(), -1, true, true, false, false);
+			submenu = elems.MenuBarMain->getSubMenu(1);
+			submenu->addItem(stringw(lang_[L"Menus_MineItem"].c_str()).replace(stringw("{0}"), APP_TITLE).c_str(), e_menu_items::Wiki);
+
+			elems.MenuBarMain->addItem(lang_[L"Menus_HelpMenu"].c_str(), -1, true, true, false, false);
+			submenu = elems.MenuBarMain->getSubMenu(2);
+			submenu->addItem(stringw(lang_[L"Menus_WikiItem"].c_str()).replace(stringw("{0}"), APP_TITLE).c_str(), e_menu_items::Wiki);
+			submenu->addItem(lang_[L"Menus_ReportBugItem"].c_str(), e_menu_items::ReportBug);
+			submenu->addSeparator();
+			submenu->addItem(stringw(lang_[L"Menus_AboutItem"].c_str()).replace(stringw("{0}"), APP_TITLE).c_str(), e_menu_items::AboutApplication);
+
+			menuBar->addRightItem(L"00:00 PST", -1, true, false, false, false);
+			menuBar->addRightItem(L"0.0000000 BTC", -1, true, false, false, false);
+			menuBar->addRightItem(L"Land: 0m²", -1, true, false, false, false);
+			menuBar->addRightItem(L"No Location", -1, true, false, false, false);
+
+			elems.MenuBarMain->drop();
+		}
+
+		void manager_gui::initializeConsole()
+		{
+			IGUIElement* root = env->getRootGUIElement();
+
+			s32 height = 490;
+			if (state_ != e_state::Login)
+				height = 570;
+
+			elems.Console = new CGUIConsoleOverlay(env, root, -1, rect<s32>(20, 0, 500, height),
+				elems.TxConsoleTopLeft,
+				elems.TxConsoleTopRight,
+				elems.TxConsoleBottomLeft,
+				elems.TxConsoleBottomRight);
+			elems.Console->drop();
+		}
+
+		void manager_gui::SetState(e_state state)
+		{
+			if (state_ != state && state == e_state::NavigateWorld)
+			{
+				env->clear();
+				state_ = state;
+				initializeConsole();
+				initializeMenuBar();
+				dialogs.Cam = dialog_cam::AddDialog(elems, dev, lang_);				
+			}
+			else
+				state_ = state;
+		}
+
+		void manager_gui::ToggleWindowCreateAvatar(elliptic_curve_key &keyPair)
 		{
 			if (dialogs.CreateAvatar)
 			{
@@ -211,11 +267,8 @@ namespace decentralised
 				dialogs.CreateAvatar = NULL;
 			}
 			else
-			{
-			
-
-				// add dialog
-				dialogs.CreateAvatar = dialog_createavatar::AddDialog(elems, env, lang_, publicKey);
+			{			
+				dialogs.CreateAvatar = dialog_createavatar::AddDialog(elems, env, lang_, keyPair);
 			}
 		}
 
@@ -337,6 +390,26 @@ namespace decentralised
 
 				//elems.MenuBarMain->setTimeText(ss.str().c_str());
 			}
+		}
+
+		void manager_gui::SetOwnAvatars(std::vector<avatar_file>* avatars)
+		{
+			elems.AvatarCombo->clear();
+
+			for (auto i = avatars->rbegin(); i != avatars->rend(); ++i)
+				elems.AvatarCombo->addItem(i->getFirstName().append(L" ").append(i->getLastName()).c_str());
+
+			if (elems.AvatarCombo->getItemCount() > 0)
+			{
+				elems.AvatarCombo->setEnabled(true);
+				elems.LoginButton->setEnabled(true);
+			}
+		}
+
+		void manager_gui::SetAvatar(world_avatar *avatar)
+		{
+			avatar_ = avatar;
+			dialogs.Cam->SetAvatar(avatar);
 		}
 	}
 }

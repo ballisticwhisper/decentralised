@@ -28,7 +28,16 @@ public:
 	//! Updates the absolute position.
 	virtual void updateAbsolutePosition();
 
+	virtual u32 addRightItem(const wchar_t* text, s32 commandid,
+		bool enabled, bool hasSubMenu, bool checked, bool autoChecking);
+
+	virtual u32 insertRightItem(u32 idx, const wchar_t* text, s32 commandId, bool enabled,
+		bool hasSubMenu, bool checked, bool autoChecking);
+
 protected:
+
+	core::array<SItem> ItemsRight;
+	s32 HighLightedRight;
 
 	virtual void recalculateSize();
 

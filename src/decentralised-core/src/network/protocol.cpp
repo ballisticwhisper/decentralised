@@ -45,11 +45,19 @@ namespace decentralised
 			listen_is_enabled_ = false;
 		}
 
-		void protocol::start(completion_handler handle_complete)
+		void protocol::start(completion_handler handle_complete, bool isSeedOnly)
 		{
-			// Bootstrap from seeds if neccessary.
-			bootstrap(strand_.wrap(
-				&protocol::handle_bootstrap, this, _1, handle_complete));
+			if (!isSeedOnly)
+			{
+				// Bootstrap from seeds if neccessary.
+				bootstrap(strand_.wrap(
+					&protocol::handle_bootstrap, this, _1, handle_complete));
+			}
+			else
+				if (listen_is_enabled_)
+					network_.listen(p2p_.get_port(),
+					strand_.wrap(&protocol::handle_listen, this, _1, _2));
+
 			// Start handshake service, but if it fails to start
 			// then it's not a critical error.
 			auto handshake_service_started = [](const std::error_code& ec)
@@ -60,17 +68,23 @@ namespace decentralised
 			};
 			handshake_.start(handshake_service_started);
 		}
-		void protocol::handle_bootstrap(
-			const std::error_code& ec, completion_handler handle_complete)
+
+		void protocol::handle_bootstrap(const std::error_code& ec, completion_handler handle_complete)
 		{
+			if (listen_is_enabled_)
+				network_.listen(p2p_.get_port(),
+				strand_.wrap(&protocol::handle_listen, this, _1, _2));
+
+			handle_complete(std::error_code());
+
 			if (ec)
 			{
 				log_error(LOG_PROTOCOL) << "Failed to bootstrap: " << ec.message();
-				handle_complete(ec);
-				return;
+				//handle_complete(ec);
+				//return;
 			}
-			handle_complete(std::error_code());
-			run();
+			else
+				run();
 		}
 
 		void protocol::stop(completion_handler handle_complete)
@@ -252,10 +266,9 @@ namespace decentralised
 
 		void protocol::run()
 		{
+			log_info(LOG_PROTOCOL) << "Connected to network.";
+
 			strand_.queue(&protocol::start_connecting, this);
-			if (listen_is_enabled_)
-				network_.listen(p2p_.get_port(),
-				strand_.wrap(&protocol::handle_listen, this, _1, _2));
 		}
 		void protocol::start_connecting()
 		{
