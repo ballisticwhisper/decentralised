@@ -28,3 +28,7 @@
 [submodule "dependencies/ogre"]
 	path = dependencies/ogre
 	url = https://ballisticwhisper@github.com/ballisticwhisper/ogre.git
+[submodule "dependencies/cegui"]
+	path = dependencies/cegui
+	url = https://github.com/ballisticwhisper/cegui.git
+	branch = v0-8
