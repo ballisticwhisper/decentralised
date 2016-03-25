@@ -1,17 +1,17 @@
 #ifndef __MANAGER_GUI_H_INCLUDED__
 #define __MANAGER_GUI_H_INCLUDED__
 
-#include <irrlicht.h>
-#include "CGUIDecentralisedButton.h"
-#include "IGUIDecentralisedWindow.h"
-#include "IGUIConsoleOverlay.h"
-#include "CGUIConsoleOverlay.h"
-#include "CGUIDecentralisedSkin.h"
-#include "CGUIDecentralisedMenuBar.h"
-#include "CGUIDecentralisedContextMenu.h"
-#include "CGUIDecentralisedTextbox.h"
-#include "CGUIDecentralisedDropdown.h"
-#include "CGUIDecentralisedToolbar.h"
+//#include <irrlicht.h>
+//#include "CGUIDecentralisedButton.h"
+//#include "IGUIDecentralisedWindow.h"
+//#include "IGUIConsoleOverlay.h"
+//#include "CGUIConsoleOverlay.h"
+//#include "CGUIDecentralisedSkin.h"
+//#include "CGUIDecentralisedMenuBar.h"
+//#include "CGUIDecentralisedContextMenu.h"
+//#include "CGUIDecentralisedTextbox.h"
+//#include "CGUIDecentralisedDropdown.h"
+//#include "CGUIDecentralisedToolbar.h"
 #include "context_gui.h"
 #include "context_dialogs.h"
 #include "world_avatar.h"
@@ -20,17 +20,10 @@
 #include <vector>
 #include <map>
 #include "core/utility/elliptic_curve_key.hpp"
-
-using namespace irr;
-
-using namespace irr::core;
-using namespace scene;
-using namespace video;
-using namespace io;
-using namespace gui;
+#include "Ogre.h" 
 
 using namespace decentralised;
-using namespace decentralised::world;
+//using namespace decentralised::world;
 
 namespace decentralised
 {
@@ -84,45 +77,44 @@ namespace decentralised
 		class manager_gui
 		{
 		public:
-			manager_gui(IrrlichtDevice* device,
+			manager_gui(Ogre::Root* root,
 						std::map<std::wstring, std::wstring> &language, 
 						std::map<std::wstring, std::wstring> &skin,
 						std::map<std::wstring, std::wstring> &config);
 			~manager_gui();
 
-			void Initialize();
-			void DrawAll();
-			stringw GetElementValue(s32 id);
-			void ShowModal(s32 id);
-			void AddConsoleLine(video::SColor textColor, std::wstring text);
-			void SetCurrentTime(time_t currentTime);
-			void SetOwnAvatars(std::vector<avatar_file>* avatars);
-			void SetState(e_state state);
-			void SetAvatar(world_avatar* avatar);
+			//void Initialize();
+			//void DrawAll();
+			//std::wstring GetElementValue(INT32 id);
+			//void ShowModal(INT32 id);
+			//void AddConsoleLine(video::SColor textColor, std::wstring text);
+			//void SetCurrentTime(time_t currentTime);
+			//void SetOwnAvatars(std::vector<avatar_file>* avatars);
+			//void SetState(e_state state);
+			//void SetAvatar(world_avatar* avatar);
 
-			void ToggleWindowCreateAvatar(elliptic_curve_key &keyPair);
-			void CleanupWindowCreateAvatar();
+			//void ToggleWindowCreateAvatar(elliptic_curve_key &keyPair);
+			//void CleanupWindowCreateAvatar();
 
-			void ShowWindowAbout();
-			void CleanupWindowAbout();
+			//void ShowWindowAbout();
+			//void CleanupWindowAbout();
 
-			IGUIImage* Background;
+			//IGUIImage* Background;
 
 		private:
 			e_state state_;
-			IGUIEnvironment* env;
-			IrrlichtDevice* dev;
+			Ogre::Root* root_;
 			std::map<std::wstring, std::wstring> &lang_;
 			std::map<std::wstring, std::wstring> &skin_;
 			std::map<std::wstring, std::wstring> &config_;
 
-			context::context_gui elems;
-			context::context_dialogs dialogs;
-			world_avatar *avatar_;
+			//context::context_gui elems;
+			//context::context_dialogs dialogs;
+			//world_avatar *avatar_;
 
-			void initializeMenuBar();
-			void initializeConsole();
-			video::ITexture* loadTexture(IVideoDriver* driver, stringw skinPath, stringw filename);
+			//void initializeMenuBar();
+			//void initializeConsole();
+			//video::ITexture* loadTexture(IVideoDriver* driver, stringw skinPath, stringw filename);
 		};
 	}
 }

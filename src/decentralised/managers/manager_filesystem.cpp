@@ -6,74 +6,65 @@ namespace decentralised
 	{
 		manager_filesystem::manager_filesystem(void)
 		{
-			dev_ = irr::createDevice(irr::video::EDT_NULL);
 		}
 
 		manager_filesystem::~manager_filesystem()
 		{
-			if (dev_)
-			{
-				dev_->closeDevice();
-				dev_->drop();
-			}
 		}
 
 		std::map<std::wstring, std::wstring> manager_filesystem::loadConfig()
 		{
-			stringw configPath = APP_DATA_DIR;
-			configPath.append("configuration.xml");
+			std::wstring configPath = APP_DATA_DIR;
+			configPath.append(L"configuration.xml");
 
 			return toMap(configPath);
 		}
 
 		std::map<std::wstring, std::wstring> manager_filesystem::loadSkin(std::wstring skinName)
 		{
-			stringw skinPath = APP_DATA_DIR;
-			skinPath.append("Skins/");
+			std::wstring skinPath = APP_DATA_DIR;
+			skinPath.append(L"Skins/");
 			skinPath.append(skinName.c_str());
-			skinPath.append("/skin.xml");
+			skinPath.append(L"/skin.xml");
 
 			return toMap(skinPath);
 		}
 
 		std::map<std::wstring, std::wstring> manager_filesystem::loadLanguage(std::wstring langCode)
 		{
-			stringw langPath = APP_DATA_DIR;
-			langPath.append("Lang/");
+			std::wstring langPath = APP_DATA_DIR;
+			langPath.append(L"Lang/");
 			langPath.append(langCode.c_str());
-			langPath.append(".xml");
+			langPath.append(L".xml");
 
 			return toMap(langPath);
 		}
 
-		std::map<std::wstring, std::wstring> manager_filesystem::toMap(stringw path)
+		std::map<std::wstring, std::wstring> manager_filesystem::toMap(std::wstring path)
 		{
 			std::map<std::wstring, std::wstring> results;
 
-			if (!dev_)
+			tinyxml2::XMLDocument doc;
+			if (doc.LoadFile(std::string(path.begin(), path.end()).c_str()) != 0)
 				return results;
 
-			irr::io::IXMLReader* xml = dev_->getFileSystem()->createXMLReader(path);
-			if (!xml)
-				return results;
+			tinyxml2::XMLNode* elem = doc.FirstChild()->NextSibling()->FirstChildElement("setting");
+			auto test = elem->Value();
 
-			while (xml->read())
+			while (elem != NULL)
 			{
-				switch (xml->getNodeType())
-				{
-				case irr::io::EXN_ELEMENT:
-				{
-					stringw nodeName = stringw(xml->getNodeName());
+				tinyxml2::XMLElement* settingElem = elem->ToElement();
 
-					if (nodeName == L"setting")
-						results[xml->getAttributeValueSafe(L"name")] = xml->getAttributeValueSafe(L"value");
+				std::string name(settingElem->Attribute("name"));
+				std::wstring namew(name.begin(), name.end());
 
-					break;
-				}
-				}
+				std::string val(settingElem->Attribute("value"));
+				std::wstring valw(val.begin(), val.end());
+
+				results[namew] = valw;
+
+				elem = elem->NextSibling();
 			}
-			xml->drop();
-
 			return results;
 		}
 	}

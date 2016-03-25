@@ -1,7 +1,7 @@
 #include "wx/wxprec.h"
 #include "dc_setup_app.h"
 #include "dc_setup_frame.h"
-#include "resource.h"
+#include "../resource.h"
 
 IMPLEMENT_APP(dc_setup_app)
  

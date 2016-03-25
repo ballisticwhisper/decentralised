@@ -1,3 +1,4 @@
+#include "boost/asio.hpp"
 #include <stdio.h>
 #include <string>
 #include <sstream>
@@ -9,14 +10,6 @@
 #define WIN32_LEAN_AND_MEAN
 #include <windows.h>
 #endif
-
-template <typename T>
-std::wstring to_wstring(T val)
-{
-	std::wstringstream stream;
-	stream << val;
-	return stream.str();
-}
 
 void event_received(int code, std::string msg)
 {

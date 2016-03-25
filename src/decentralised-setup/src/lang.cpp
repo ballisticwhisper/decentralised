@@ -2,12 +2,10 @@
 
 lang::lang()
 {
-	dev_ = irr::createDevice(irr::video::EDT_NULL);
 }
 
 lang::~lang()
 {
-	dev_->drop();
 }
 
 char* lang::getLangFile(unsigned long *dwSize)
@@ -39,31 +37,27 @@ std::map<std::wstring, std::wstring> lang::loadLanguageNames()
 	unsigned long dwSize = 0;
 
 	char *bytes = getLangFile(&dwSize);
-	irr::io::IReadFile* file = dev_->getFileSystem()->createMemoryReadFile(bytes, dwSize, "setup-lang.xml");
-	irr::io::IXMLReader* xml = dev_->getFileSystem()->createXMLReader(file);
-
-	if (!xml)
+	tinyxml2::XMLDocument doc;
+	if(doc.Parse(bytes) != tinyxml2::XMLError::XML_SUCCESS)
 		return results;
 
-	while (xml->read())
+	tinyxml2::XMLNode* language = doc.FirstChildElement("languages")->FirstChild();
+	while (language != NULL)
 	{
-		switch (xml->getNodeType())
-		{
-		case irr::io::EXN_ELEMENT:
-		{
-			stringw nodeName = stringw(xml->getNodeName());
+		tinyxml2::XMLElement* elem = language->ToElement();
 
-			if (nodeName == L"lang")
-				results[xml->getAttributeValueSafe(L"code")] = xml->getAttributeValueSafe(L"name");
+		std::string name(elem->Attribute("code"));
+		std::wstring namew(name.begin(), name.end());
 
-			break;
-		}
-		}
+		std::string val(elem->Attribute("name"));
+		std::wstring valw(val.begin(), val.end());
+
+		results[namew] = valw;
+
+		language = language->NextSibling();
 	}
-	xml->drop();
-	file->drop();
-	delete bytes;
 
+	delete bytes;
 	return results;
 }
 
@@ -74,36 +68,41 @@ std::map<std::wstring, std::wstring> lang::loadLanguage(std::string langCode)
 	unsigned long dwSize = 0;
 
 	char *bytes = getLangFile(&dwSize);
-	irr::io::IReadFile* file = dev_->getFileSystem()->createMemoryReadFile(bytes, dwSize, "setup-lang.xml");
-	irr::io::IXMLReader* xml = dev_->getFileSystem()->createXMLReader(file);
-
-	if (!xml)
+	tinyxml2::XMLDocument doc;
+	if (doc.Parse(bytes) != tinyxml2::XMLError::XML_SUCCESS)
 		return results;
 
-	stringw currentCode = L"";
+	tinyxml2::XMLNode* language = doc.FirstChildElement("languages")->FirstChild();
 
-	while (xml->read())
+	while (language != NULL)
 	{
-		switch (xml->getNodeType())
+		tinyxml2::XMLElement* elem = language->ToElement();
+
+		std::string name(elem->Attribute("code"));
+		if (name == langCode)
 		{
-		case irr::io::EXN_ELEMENT:
-		{
-			stringw nodeName = stringw(xml->getNodeName());
+			tinyxml2::XMLNode* setting = language->FirstChildElement("setting");
+			while (setting != NULL)
+			{
+				tinyxml2::XMLElement* settingElem = setting->ToElement();
 
-			if (nodeName == L"lang")
-				currentCode = xml->getAttributeValueSafe(L"code");
+				std::string name(settingElem->Attribute("name"));
+				std::wstring namew(name.begin(), name.end());
 
-			if (nodeName == L"setting" && currentCode.equals_ignore_case(langCode.c_str()))
-				results[xml->getAttributeValueSafe(L"name")] = xml->getAttributeValueSafe(L"value");
+				std::string val(settingElem->Attribute("value"));
+				std::wstring valw(val.begin(), val.end());
 
+				results[namew] = valw;
+
+				setting = setting->NextSibling();
+			}
 			break;
 		}
-		}
-	}
-	xml->drop();
-	file->drop();
-	delete bytes;
 
+		language = language->NextSibling();
+	}
+
+	delete bytes;
 	return results;
 }
 

@@ -4,17 +4,9 @@
 #include <vector>
 #include <map>
 #include "dc-config.h"
-#include <irrlicht.h>
 #include <windows.h>
 #include "../resource.h"
-
-using namespace irr;
-
-using namespace irr::core;
-using namespace scene;
-using namespace video;
-using namespace io;
-using namespace gui;
+#include <tinyxml2.h>
 
 class lang
 {
@@ -28,8 +20,6 @@ public:
 private:
 
 	char* getLangFile(unsigned long *dwSize);
-
-	IrrlichtDevice* dev_;
 };
 
 

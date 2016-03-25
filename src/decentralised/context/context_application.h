@@ -1,15 +1,13 @@
 #ifndef __CONTEXT_APPLICATION_H_INCLUDED__
 #define __CONTEXT_APPLICATION_H_INCLUDED__
 
-#include <irrlicht.h>
+#include <OgreRoot.h>
 #include "manager_gui.h"
-#include "CSceneManager.h"
 #include "manager_core.h"
 #include "manager_world.h"
 #include "core/utility/elliptic_curve_key.hpp"
 
-using namespace irr;
-using namespace decentralised::managers;
+//using namespace decentralised::managers;
 using namespace decentralised::core;
 
 namespace decentralised
@@ -18,11 +16,11 @@ namespace decentralised
 	{
 		struct context_application
 		{
-			IrrlichtDevice *						device;
-			manager_gui*							gui_manager;
-			manager_core*							network_manager;
-			manager_world*							world_manager;
-			CSceneManager*							scene;
+			Ogre::Root*								ogre_root;
+			//manager_gui*							gui_manager;
+			//manager_core*							network_manager;
+			//manager_world*							world_manager;
+			//CSceneManager*							scene;
 			std::map<std::wstring, std::wstring>	skin;
 			std::map<std::wstring, std::wstring>	language;
 			std::map<std::wstring, std::wstring>	config;

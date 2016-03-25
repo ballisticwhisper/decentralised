@@ -22,3 +22,6 @@
 [submodule "dependencies/wxWidgets"]
 	path = dependencies/wxWidgets
 	url = https://ballisticwhisper@github.com/ballisticwhisper/wxWidgets
+[submodule "dependencies/tinyxml2"]
+	path = dependencies/tinyxml2
+	url = https://ballisticwhisper@github.com/ballisticwhisper/tinyxml2.git

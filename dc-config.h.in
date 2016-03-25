@@ -1,3 +1,8 @@
+#ifndef __DC_CONFIG_H_INCLUDED__
+#define __DC_CONFIG_H_INCLUDED__
+
+#include <string>
+
 #define APP_TITLE L"@Decentralised_APP_NAME@"
 #define APP_DATA_DIR L"data/"
 
@@ -5,3 +10,13 @@
 #define Decentralised_VERSION_MINOR @Decentralised_VERSION_MINOR@
 
 #pragma warning( disable: 4244 )
+
+template <typename T>
+std::wstring to_wstring(T val)
+{
+	std::wstringstream stream;
+	stream << val;
+	return stream.str();
+}
+
+#endif
