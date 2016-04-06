@@ -1,8 +1,6 @@
 # Decentralised 
 A 3D environment in a decentralised P2P blockchain.
 
-[![Build Status](https://travis-ci.org/ballisticwhisper/decentralised.svg)](https://travis-ci.org/ballisticwhisper/decentralised)
-
 http://decentralised-project.org
 
 ----
@@ -61,6 +59,41 @@ Open a Visual Studio console and cd to the dependencies/curl/winbuild folder
 ```
 nmake /f Makefile.vc mode=static VC=12 
 ```
+
+##### Build ogredeps
+
+Open cmake-gui (if cmake is in your path type cmake-gui in console)
+
+In "Where is the source code" box, enter:
+```
+[path-to-root-folder]/dependencies/ogredeps
+```
+In "Where to build the binaries" box, enter:
+```
+[path-to-root-folder]/build/ogredeps
+```
+Hit "Configure" button, select Visual Studio 2013, and "Finish".
+
+Hit "Generate" button
+
+Open [path-to-root-folder]/build/ogredeps/OGREDEPS.sln with Visual Studio, and build (In Release AND Debug).
+
+
+##### Build ogre
+
+Open cmake-gui (if cmake is in your path type cmake-gui in console)
+
+In "Where is the source code" box, enter:
+```
+[path-to-root-folder]/dependencies/ogre
+```
+In "Where to build the binaries" box, enter:
+```
+[path-to-root-folder]/build/ogre
+```
+Hit "Configure" button, select Visual Studio 2013, and "Finish".
+
+
 
 ##### Build decentralised
 
